@@ -63,7 +63,7 @@ class PlayerClass: # has all of the stats for the player
                 raise ValueError
             statUp = stats[navigate]        
         except(ValueError,IndexError): # catches unexpected values
-            print("Enter a number between 1-6")
+            print("Enter a number between 1-8")
             clear("d")
             self.statAssign()
             return
@@ -176,10 +176,10 @@ Blunt""")
         elif confirm == "n":
             clear("i")
             self.assignRace(davacis,racesDict)
-            return
         else:
             print("Invalid input")
             clear("d")
+            self.raceDavacisLoad()
     def makeSaveSlot(self,savePath):
         saveSlot = input("What would you like to name the save slot? >").strip().replace(' ', '_')
         if "\\" in saveSlot or "/" in saveSlot:
@@ -245,20 +245,23 @@ Blunt""")
                 print(f"{i + 1}.{slots[i]}")
             print(f"{len(slots) + 1}.Exit")
             try:
-                saveSlot = slots[1 - int(input(">"))]
-                slotPath = f"{savePath}/{saveSlot}"
-                if len(os.listdir(f"{slotPath}")) == 0:
-                    logging.warning(f"{saveSlot} appears empty, this indicates a broken save.")
-                    delete = input("Would you like to delete the file? (y/n)\n>").lower()
-                    if delete == "y":
-                        os.rmdir(slotPath)
-                        logging.debug(f"{saveSlot} deleted")
-                    else:
-                        clear("d")
-                        self.loadGame(savePath)
-                        return
+                while True:
+                    slot = int(input(">")) - 1
+                    saveSlot = slots[slot]
+            except(IndexError):
+                return
+            slotPath = f"{savePath}/{saveSlot}"
+            if len(os.listdir(f"{slotPath}")) == 0:
+                logging.warning(f"{saveSlot} appears empty, this indicates a broken save.")
+                delete = input("Would you like to delete the file? (y/n)\n>").lower()
+                if delete == "y":
+                    os.rmdir(slotPath)
+                    logging.debug(f"{saveSlot} deleted")
+                else:
+                    clear("d")
+                    self.loadGame(savePath)
+                    return
             except(ValueError,IndexError):
-                logging.debug("User entered non-integer")
                 print("Please enter an integer listed on the left.")
                 clear("d")   
                 self.loadGame(savePath)
