@@ -57,8 +57,7 @@ class enemyClass:
                 setattr(self, key, entityLoading[key])
 enemy = enemyClass()
 spawnList = {
-    "common":["goblin","goblin"]
-}
+    "common":["goblin","goblin"]}
 enemy.chooseSelf(spawnList,filePath)
 print(enemy)
     

@@ -5,25 +5,38 @@ from loggingConfig import initLogger
 from ast import literal_eval
 initLogger(filePath)
 class PlayerClass: # has all of the stats for the player
-    def __init__(self):
-        self.name = ""
-        self.race = {}
-        self.health = 20
-        self.level = 0
-        self.xp = 0
-        self.sparePoints = 0
-        self.gold = 0
-        self.dexterity = 1
-        self.agility = 1
-        self.vitality = 1
-        self.awareness = 1
-        self.charisma = 1
-        self.intelligence = 1
-        self.strength = 1
-        self.traits = [""]
-        self.profs = [""]
-        self.storyLocation = [""]
-        self.inventory = [""]
+    def __init__(self, 
+                 name="", 
+                 race={},
+                 health=20,
+                 level=0,
+                 xp=0,
+                 sparePoints=0,
+                 gold=0,
+                 stats={"dexterity":1,
+                        "agility":1,
+                        "vitality":1,
+                        "awareness":1,
+                        "charisma":1,
+                        "intelligence":1,
+                        "strength":1},
+                 traits = [],
+                 profs = [],
+                 storyLocation = [],
+                 inventory = []
+                 ):
+        self.name = name
+        self.race = race
+        self.health = health
+        self.level = level
+        self.xp = xp
+        self.sparePoints = sparePoints
+        self.gold = gold
+        self.stats = stats
+        self.traits = traits
+        self.profs = profs
+        self.storyLocation = storyLocation
+        self.inventory = inventory
     def __str__(self): # allows printing of a data sheet
         return f"""
         Name: {self.name}
@@ -33,24 +46,24 @@ class PlayerClass: # has all of the stats for the player
         XP: {self.xp}
         Gold: {self.gold}
         SP: {self.sparePoints}
-        Dexterity: {self.dexterity}
-        Agility: {self.agility}
-        Vitality: {self.vitality}
-        Awareness: {self.awareness}
-        Charisma: {self.charisma}
-        Intelligence: {self.intelligence}
-        Strength: {self.strength}"""
+        Dexterity: {self.stats["dexterity"]}
+        Agility: {self.stats["agility"]}
+        Vitality: {self.stats["vitality"]}
+        Awareness: {self.stats["awareness"]}
+        Charisma: {self.stats["charisma"]}
+        Intelligence: {self.stats["intelligence"]}
+        Strength: {self.stats["strength"]}"""
     def statAssign(self):
         stats = ["dexterity","agility","vitality","awareness","charisma","intelligence","strength"] # list of stats
         try:
             navigate = int(input(f"""
-            1.Dexterity - {self.dexterity}
-            2.Agility - {self.agility}
-            3.Vitality - {self.vitality}
-            4.Awareness - {self.awareness}
-            5.Charisma - {self.charisma}
-            6.Intelligence - {self.intelligence}
-            7.Strength - {self.strength}
+            1.Dexterity - {self.stats["strength"]}
+            2.Agility - {self.stats["agility"]}
+            3.Vitality - {self.stats["vitality"]}
+            4.Awareness - {self.stats["awareness"]}
+            5.Charisma - {self.stats["charisma"]}
+            6.Intelligence - {self.stats["intelligence"]}
+            7.Strength - {self.stats["strength"]}
             8.Exit
             You have {self.sparePoints} to spend.
             """)) - 1
@@ -241,15 +254,11 @@ Blunt""")
     def loadGame(self,savePath):
             print("What slot would you like to load")
             slots = os.listdir(savePath)
-            for i in range(len(slots)):
-                print(f"{i + 1}.{slots[i]}")
+            for i in range(len(slots)): print(f"{i + 1}.{slots[i]}")
             print(f"{len(slots) + 1}.Exit")
-            try:
-                while True:
-                    slot = int(input(">")) - 1
-                    saveSlot = slots[slot]
-            except(IndexError):
-                return
+                saveSlot = slots[sanInput(">",int,1,len(slots) + 1)] # type: ignore
+                if saveSlot == len(slots) + 1:
+                    return None
             slotPath = f"{savePath}/{saveSlot}"
             if len(os.listdir(f"{slotPath}")) == 0:
                 logging.warning(f"{saveSlot} appears empty, this indicates a broken save.")
