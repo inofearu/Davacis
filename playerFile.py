@@ -5,25 +5,38 @@ from loggingConfig import initLogger
 from ast import literal_eval
 initLogger(filePath)
 class PlayerClass: # has all of the stats for the player
-    def __init__(self):
-        self.name = ""
-        self.race = {}
-        self.health = 20
-        self.level = 0
-        self.xp = 0
-        self.sparePoints = 0
-        self.gold = 0
-        self.dexterity = 1
-        self.agility = 1
-        self.vitality = 1
-        self.awareness = 1
-        self.charisma = 1
-        self.intelligence = 1
-        self.strength = 1
-        self.traits = [""]
-        self.profs = [""]
-        self.storyLocation = [""]
-        self.inventory = [""]
+    def __init__(self, 
+                 name="", 
+                 race={},
+                 health=20,
+                 level=0,
+                 xp=0,
+                 sparePoints=0,
+                 gold=0,
+                 stats={"dexterity":1,
+                        "agility":1,
+                        "vitality":1,
+                        "awareness":1,
+                        "charisma":1,
+                        "intelligence":1,
+                        "strength":1},
+                 traits = [],
+                 profs = [],
+                 storyLocation = [],
+                 inventory = []
+                 ):
+        self.name = name
+        self.race = race
+        self.health = health
+        self.level = level
+        self.xp = xp
+        self.sparePoints = sparePoints
+        self.gold = gold
+        self.stats = stats
+        self.traits = traits
+        self.profs = profs
+        self.storyLocation = storyLocation
+        self.inventory = inventory
     def __str__(self): # allows printing of a data sheet
         return f"""
         Name: {self.name}
@@ -33,24 +46,24 @@ class PlayerClass: # has all of the stats for the player
         XP: {self.xp}
         Gold: {self.gold}
         SP: {self.sparePoints}
-        Dexterity: {self.dexterity}
-        Agility: {self.agility}
-        Vitality: {self.vitality}
-        Awareness: {self.awareness}
-        Charisma: {self.charisma}
-        Intelligence: {self.intelligence}
-        Strength: {self.strength}"""
+        Dexterity: {self.stats["dexterity"]}
+        Agility: {self.stats["agility"]}
+        Vitality: {self.stats["vitality"]}
+        Awareness: {self.stats["awareness"]}
+        Charisma: {self.stats["charisma"]}
+        Intelligence: {self.stats["intelligence"]}
+        Strength: {self.stats["strength"]}"""
     def statAssign(self):
         stats = ["dexterity","agility","vitality","awareness","charisma","intelligence","strength"] # list of stats
         try:
             navigate = int(input(f"""
-            1.Dexterity - {self.dexterity}
-            2.Agility - {self.agility}
-            3.Vitality - {self.vitality}
-            4.Awareness - {self.awareness}
-            5.Charisma - {self.charisma}
-            6.Intelligence - {self.intelligence}
-            7.Strength - {self.strength}
+            1.Dexterity - {self.stats["strength"]}
+            2.Agility - {self.stats["agility"]}
+            3.Vitality - {self.stats["vitality"]}
+            4.Awareness - {self.stats["awareness"]}
+            5.Charisma - {self.stats["charisma"]}
+            6.Intelligence - {self.stats["intelligence"]}
+            7.Strength - {self.stats["strength"]}
             8.Exit
             You have {self.sparePoints} to spend.
             """)) - 1
@@ -63,7 +76,7 @@ class PlayerClass: # has all of the stats for the player
                 raise ValueError
             statUp = stats[navigate]        
         except(ValueError,IndexError): # catches unexpected values
-            print("Enter a number between 1-6")
+            print("Enter a number between 1-8")
             clear("d")
             self.statAssign()
             return
@@ -176,10 +189,10 @@ Blunt""")
         elif confirm == "n":
             clear("i")
             self.assignRace(davacis,racesDict)
-            return
         else:
             print("Invalid input")
             clear("d")
+            self.raceDavacisLoad()
     def makeSaveSlot(self,savePath):
         saveSlot = input("What would you like to name the save slot? >").strip().replace(' ', '_')
         if "\\" in saveSlot or "/" in saveSlot:
@@ -241,24 +254,23 @@ Blunt""")
     def loadGame(self,savePath):
             print("What slot would you like to load")
             slots = os.listdir(savePath)
-            for i in range(len(slots)):
-                print(f"{i + 1}.{slots[i]}")
+            for i in range(len(slots)): print(f"{i + 1}.{slots[i]}")
             print(f"{len(slots) + 1}.Exit")
-            try:
-                saveSlot = slots[1 - int(input(">"))]
-                slotPath = f"{savePath}/{saveSlot}"
-                if len(os.listdir(f"{slotPath}")) == 0:
-                    logging.warning(f"{saveSlot} appears empty, this indicates a broken save.")
-                    delete = input("Would you like to delete the file? (y/n)\n>").lower()
-                    if delete == "y":
-                        os.rmdir(slotPath)
-                        logging.debug(f"{saveSlot} deleted")
-                    else:
-                        clear("d")
-                        self.loadGame(savePath)
-                        return
+                saveSlot = slots[sanInput(">",int,1,len(slots) + 1)] # type: ignore
+                if saveSlot == len(slots) + 1:
+                    return None
+            slotPath = f"{savePath}/{saveSlot}"
+            if len(os.listdir(f"{slotPath}")) == 0:
+                logging.warning(f"{saveSlot} appears empty, this indicates a broken save.")
+                delete = input("Would you like to delete the file? (y/n)\n>").lower()
+                if delete == "y":
+                    os.rmdir(slotPath)
+                    logging.debug(f"{saveSlot} deleted")
+                else:
+                    clear("d")
+                    self.loadGame(savePath)
+                    return
             except(ValueError,IndexError):
-                logging.debug("User entered non-integer")
                 print("Please enter an integer listed on the left.")
                 clear("d")   
                 self.loadGame(savePath)
@@ -275,7 +287,7 @@ Blunt""")
                 self.race = dict(literal_eval(f"{self.race}"))
                 while True:
                     print(self)
-                    navigate = str(input(f"{self}\nIs this the correct file?(y/n)\n>")).lower()
+                    navigate = input(f"{self}\nIs this the correct file?(y/n)\n>").lower()
                     if navigate == "n":
                         print("Returning to slot selection...")
                         clear("d")
@@ -286,4 +298,4 @@ Blunt""")
                     else:
                         print("Invalid input, input either 'Y' or 'N'")
     def nameSelf(self):
-        self.name = str(input("What is your name?\n>"))
+        self.name = input("What is your name?\n>")

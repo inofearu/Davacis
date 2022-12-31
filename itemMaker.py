@@ -6,7 +6,7 @@ initLogger(filePath)
 def openItemDesigner(filePath):
     weapon = {}
     itemPath = f"{filePath}\\entities\\items"
-    itemName = str(input("What do you want to call the item?\n>"))
+    itemName = input("What do you want to call the item?\n>")
     weapon.update(damage = chooseWeaponDamage(chooseItemType()))
     weapon.update(rarity = chooseItemRarity())
     weapon.update(statReqs = chooseStatReqs(davacis))
@@ -52,7 +52,7 @@ def chooseWeaponTypes():
         if weaponType == "7":
             Finished = True
             break
-        finish = str(input("Do you want to add more damage types?\n1. Yes\n 2. No\n>"))
+        finish = input("Do you want to add more damage types?\n1. Yes\n 2. No\n>")
         if finish == "2":
             Finished = True    
             break
