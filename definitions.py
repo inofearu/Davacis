@@ -3,7 +3,7 @@ from time import sleep
 from loggingConfig import initLogger
 filePath = os.path.dirname(os.path.realpath(__file__))
 logging = initLogger(filePath)
-def clear(mode):
+def clear(mode): # clear function
     if mode == "d":
         sleep(1.25)
     os.system('cls')
@@ -35,12 +35,12 @@ racesDict = {
 davacis = ["dexterity","agility","vitality","awareness","charisma","intelligence","strength"]
 def defineSavePath(filePath):
     try:
-        with open("saveslocation.txt","r") as f:
+        with open("saveslocation.txt","r") as f: # reads the text file to get user defined save location
             savePath = f.read()
-    except(FileNotFoundError):
+    except(FileNotFoundError): # fallback creates save folder in working directory
         savePath = f"{filePath}/saves"
         logging.warning(f"'saveslocation.txt' missing, creating at {savePath}.")
-        with open("saveslocation.txt","w") as f:
+        with open("saveslocation.txt","w") as f: # writes fallback to savelocation
             f.write(savePath)
         input("Enter any key to acknowledge >")
     if os.path.exists(savePath) == False:
@@ -48,8 +48,9 @@ def defineSavePath(filePath):
         os.mkdir(savePath)    
         input("Enter any key to acknowledge >")
     return savePath
-def sanInput(message,desiredType=None,valMin=None,valMax=None):
+def sanInput(message,desiredType=None,valMin=None,valMax=None,vals=[],clearOnLoop=False):
     while True:
+        if clearOnLoop:clear("d")
         userInput = input(message)
         if desiredType != None:
                 try:
@@ -86,4 +87,7 @@ def sanInput(message,desiredType=None,valMin=None,valMax=None):
                 if valMax < len(userInput):
                     print(f"Please enter a value shorter than {valMax} characters.")
                     continue
+        if vals != []:
+            if userInput not in vals:
+                print("Please enter one of the listed values: (\"{0}\")".format())
         return userInput

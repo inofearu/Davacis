@@ -4,7 +4,7 @@
 # Files
 # Modules
 import os
-from definitions import *
+from definitions import * # definitions will not cause naming conflcits
 from loggingConfig import initLogger
 logging = initLogger(filePath)
 ######################################
