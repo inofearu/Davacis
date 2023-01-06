@@ -252,13 +252,15 @@ Blunt""")
                 self.saveGame(slotPath)
         clear("d")    
     def loadGame(self,savePath):
+            chosen = False
             print("What slot would you like to load")
             slots = os.listdir(savePath)
-            for i in range(len(slots)): print(f"{i + 1}.{slots[i]}")
-            print(f"{len(slots) + 1}.Exit")
-                saveSlot = slots[sanInput(">",int,1,len(slots) + 1)] # type: ignore
-                if saveSlot == len(slots) + 1:
-                    return None
+            for i in range(len(list(slots))): print(f"{i + 1}.{slots[i]}")
+            exitNum = len(slots) + 1
+            print(f"{exitNum}.Exit")
+            while not chosen:
+                slotSelect = sanInput
+                saveSlot = slots[int(slotSelect)]
             slotPath = f"{savePath}/{saveSlot}"
             if len(os.listdir(f"{slotPath}")) == 0:
                 logging.warning(f"{saveSlot} appears empty, this indicates a broken save.")
@@ -270,11 +272,6 @@ Blunt""")
                     clear("d")
                     self.loadGame(savePath)
                     return
-            except(ValueError,IndexError):
-                print("Please enter an integer listed on the left.")
-                clear("d")   
-                self.loadGame(savePath)
-                return
             with open(f"{slotPath}/player.txt") as f:    
                 lines = f.readlines()
                 playerLoading = {}
