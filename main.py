@@ -5,6 +5,7 @@
 # Modules
 import os
 from definitions import * # definitions will not cause naming conflcits
+import logging
 from loggingConfig import initLogger
 logging = initLogger(filePath)
 ######################################
@@ -32,7 +33,12 @@ def mainMenu(PlayerClass):
                 player.newGame(savePath)
             case "2":
                 player = PlayerClass()
-                player.loadGame(savePath)
+                loaded = player.loadGame(savePath)
+                if not loaded:
+                    mainMenu(PlayerClass)
+                    return
+                else:
+                    pass #game call here
             case "3":
                 print("To Be Added")
                 mainMenu(PlayerClass)

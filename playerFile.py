@@ -1,8 +1,8 @@
 from definitions import *
 import os
+from ast import literal_eval
 import logging
 from loggingConfig import initLogger
-from ast import literal_eval
 initLogger(filePath)
 class PlayerClass: # has all of the stats for the player
     def __init__(self, 
@@ -252,15 +252,16 @@ Blunt""")
                 self.saveGame(slotPath)
         clear("d")    
     def loadGame(self,savePath):
-            chosen = False
+            loaded = False
             print("What slot would you like to load")
             slots = os.listdir(savePath)
             for i in range(len(list(slots))): print(f"{i + 1}.{slots[i]}")
             exitNum = len(slots) + 1
             print(f"{exitNum}.Exit")
-            while not chosen:
-                slotSelect = sanInput
-                saveSlot = slots[int(slotSelect)]
+            slotSelect = sanInput(">",int,1,len(slots) + 1)
+            if slotSelect == exitNum: return loaded
+            else: slotSelect -= 1 # type: ignore 
+            saveSlot = slots[int(slotSelect)]
             slotPath = f"{savePath}/{saveSlot}"
             if len(os.listdir(f"{slotPath}")) == 0:
                 logging.warning(f"{saveSlot} appears empty, this indicates a broken save.")
@@ -291,7 +292,8 @@ Blunt""")
                         self.loadGame(savePath)
                         return
                     elif navigate == "y":
-                        return
+                        loaded = True
+                        return loaded
                     else:
                         print("Invalid input, input either 'Y' or 'N'")
     def nameSelf(self):
