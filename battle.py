@@ -1,7 +1,15 @@
 import random
 import os
 import json
-from definitions import filePath
+from definitions import filePath,spawnList
+import logging
+from loggingConfig import initLogger
+initLogger(filePath)
+def spawnEnemies(genCount):
+    enemyList = []
+    for i in range(genCount - 1):
+        enemyList.append(enemyClass())
+    return enemyList
 class enemyClass:
     def __init__(self):
         self.name = ""
@@ -32,12 +40,13 @@ class enemyClass:
         Traits: {self.traits}
         Proficiencies: {self.profs}
         Drop List: {self.drops}"""
-    def chooseSelf(self,spawnList,filePath,secretCond = False,diffScale = False,forceEntity = False): # secretCond does not function in this implementation
-        self.rarity = random.randint(1,101)
+    def spawnSelf(self,spawnList,filePath,rareScale,secretCond = False,forceEntity = False):
+        self.rarity = random.randint(1,100)
         if forceEntity == False:
-            if diffScale == True:
-                self.rarity = self.rarity * diffScale
-            if self.rarity < 58: # 58%
+            self.rarity = self.rarity * rareScale
+            if secretCond == True:
+                self.rarity = "secret"
+            elif self.rarity < 58: # 58%
                 self.rarity = "common"
             elif self.rarity < 83: # 25%
                 self.rarity = "uncommon"
@@ -47,17 +56,16 @@ class enemyClass:
                 self.rarity = "legendary"
             elif self.rarity < 100: # 2%
                 self.rarity = "mythical"
-            if secretCond == True:
-                if self.rarity == 101 and secretCond == True: # 1% and a condition must be true
-                    self.rarity = "secret"
-        entityToLoad = f"{spawnList[self.rarity][random.randint(0,len(spawnList[self.rarity]))]}.json"
-        with open(f"{filePath}\\entities\\enemies\\{self.rarity}\\{entityToLoad}") as f: # choice needs finishing
-            entityLoading = json.loads(f.read())
-            for key in entityLoading:
-                setattr(self, key, entityLoading[key])
-enemy = enemyClass()
-spawnList = {
-    "common":["goblin","goblin"]}
-enemy.chooseSelf(spawnList,filePath)
-print(enemy)
-    
+        entityToLoad = f"{spawnList[self.rarity][random.randint(0,len(spawnList[self.rarity]) - 1)]}.json"
+        try:
+            with open(f"{filePath}\\entities\\enemies\\{self.rarity}\\{entityToLoad}") as f:
+                self.__dict__.update(json.loads(f.read()))
+        except(FileNotFoundError):
+            logging.error("Failed to find entity file.")
+            print("This indicates deleted or renamed entity files.")
+            input("Enter anything to acknowledge >")
+    def startBattle(self):
+        pass
+# --------------------------------- Temp Code -------------------------------- #
+enemyList = spawnEnemies(3)
+print(enemyList)
