@@ -260,7 +260,7 @@ Blunt""")
             print(f"{exitNum}.Exit")
             slotSelect = sanInput(">",int,1,len(slots) + 1)
             if slotSelect == exitNum: return loaded
-            else: slotSelect -= 1 # type: ignore 
+            else: slotSelect -= 1  
             saveSlot = slots[int(slotSelect)]
             slotPath = f"{savePath}/{saveSlot}"
             if len(os.listdir(f"{slotPath}")) == 0:
