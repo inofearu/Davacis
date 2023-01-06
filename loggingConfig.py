@@ -1,5 +1,5 @@
+import logging
 def initLogger(filePath):
-    import logging
     from datetime import datetime
     # ----------------------------------- Time ----------------------------------- #
     timeNow = str(datetime.now()).replace(" ","_").replace(":","-")
@@ -20,4 +20,3 @@ def initLogger(filePath):
     logger.addHandler(consoleLogger)
     logger.addHandler(fileLogger)
     logging.debug("Logging initalised!")
-    return logging

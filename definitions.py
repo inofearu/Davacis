@@ -1,8 +1,9 @@
 import os
 from time import sleep
+import logging
 from loggingConfig import initLogger
 filePath = os.path.dirname(os.path.realpath(__file__))
-logging = initLogger(filePath)
+initLogger(filePath)
 def clear(mode): # clear function
     if mode == "d":
         sleep(1.25)
@@ -33,6 +34,13 @@ racesDict = {
         "profs":("Heavy Armour","Blunt"),
         "biomeDrawback":("Water")}}
 davacis = ["dexterity","agility","vitality","awareness","charisma","intelligence","strength"]
+spawnList = {
+    "common":["goblin"],
+    "uncommon":[""],
+    "epic":[""],
+    "legendary":[""],
+    "mythical":[""],
+    "secret":[""]}
 def defineSavePath(filePath):
     try:
         with open("saveslocation.txt","r") as f: # reads the text file to get user defined save location
@@ -50,10 +58,10 @@ def defineSavePath(filePath):
     return savePath
 def sanInput(message,desiredType=None,valMin=None,valMax=None,vals=[],clearOnLoop=False):
     while True:
-        if clearOnLoop:clear("d")
+        if clearOnLoop: clear("d")
         userInput = input(message)
         if desiredType != None:
-                try:
+                try: 
                     userInput = desiredType(userInput)
                 except ValueError:
                     match desiredType.__name__:
