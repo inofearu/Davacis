@@ -1,7 +1,7 @@
 import random
 import os
 import json
-from definitions import filePath,spawnList
+from definitions import filePath, spawnList
 import logging
 from loggingConfig import initLogger
 initLogger(filePath)
@@ -64,8 +64,9 @@ class enemyClass:
             logging.error("Failed to find entity file.")
             print("This indicates deleted or renamed entity files.")
             input("Enter anything to acknowledge >")
-    def startBattle(self):
-        pass
+    def startBattle(self,enemyCount):
+        spawnEnemies(enemyCount) #  making this a function may not be needed
+        
 # --------------------------------- Temp Code -------------------------------- #
 enemyList = spawnEnemies(3)
 print(enemyList)
