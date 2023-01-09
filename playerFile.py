@@ -93,7 +93,7 @@ class PlayerClass: # has all of the stats for the player
                 self.statAssign()
                 return
             else:
-                newValue = increment + self.__dict__[statUp]  
+                newValue = increment + self.__dict__[statUp] # increments the stat  
                 break
         while True:
             confirm = input(f"Confirm you want to increase {statUp} from {self.__dict__[statUp]} to {newValue} (y/n)\n>").lower()
@@ -177,9 +177,9 @@ Blunt""")
                 clear("d")
                 self.assignRace(davacis,racesDict)
                 return 
-        raceRaw = int(raceRaw) - 1
-        self.race = racesDict[f"{races[int(raceRaw)]}"]
-        self.raceDavacisLoad()
+        raceRaw = int(raceRaw) - 1 # corrects the input and 0 list start difference
+        self.race = racesDict[f"{races[int(raceRaw)]}"] # sets player race to the actual statistics for the race from the dict
+        self.raceDavacisLoad() # takes the races stats and assigns them to the players
     def raceDavacisLoad(self):
         confirm = input("Are you sure you want to choose this race? (y/n)\n>").lower()
         if confirm == "y":
@@ -298,3 +298,36 @@ Blunt""")
                         print("Invalid input, input either 'Y' or 'N'")
     def nameSelf(self):
         self.name = input("What is your name?\n>")
+    def startBattle(self,enemyCount,enemyClass,spawnList,preGenEnemies = []):
+        enemyInstances = []
+        battleInProgress = True
+        if len(preGenEnemies) < enemyCount:
+            for i in range(enemyCount):
+                enemyInstances.append(enemyClass())
+                enemyInstances[i].spawnSelf(spawnList)
+        elif len(preGenEnemies) > enemyCount:
+            raise SyntaxError("Pregenerated enemy count cannot be greater than enemy count.")
+        while battleInProgress == True: # battle loop
+            for i in range(len(enemyInstances)):
+                print(f"""
+    TEMP UI:
+        ENEMY ID: {i}
+        NAME: {enemyInstances[i].name}
+        HEALTH: {enemyInstances[i].health}""")
+            action = sanInput("""
+        PLAYER:
+            HEALTH: {self.health}
+            MANA: {}
+            ACTIONS:
+                1. FIGHT
+                2. SKILL
+                3. ITEM
+                4. FLEE""",int,1,4) - 1
+            if action == 1:
+                pass # factor weapon, stats, rng
+            elif action == 2:
+                pass
+            elif action == 3:
+                pass
+            elif action == 4:
+                pass
