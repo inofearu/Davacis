@@ -1,0 +1,14 @@
+{"name":"Goblin",
+ "health":10,
+ "level":1,
+ "dexterity":1,
+ "agility":1,
+ "vitality":0,
+ "awareness":1,
+ "charisma":0,
+ "intelligence":1,
+ "strength":1,
+ "traits":[""],
+ "profs":[""],
+ "drops":["goblinSword","goblinHide"]
+}
