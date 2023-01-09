@@ -36,11 +36,10 @@ racesDict = {
 davacis = ["dexterity","agility","vitality","awareness","charisma","intelligence","strength"]
 spawnList = {
     "common":["goblin"],
-    "uncommon":[""],
-    "epic":[""],
-    "legendary":[""],
-    "mythical":[""],
-    "secret":[""]}
+    "uncommon":["goblin"],
+    "epic":["goblin"],
+    "legendary":["goblin"],
+    "mythical":["goblin"]}
 def defineSavePath(filePath):
     try:
         with open("saveslocation.txt","r") as f: # reads the text file to get user defined save location
@@ -56,7 +55,7 @@ def defineSavePath(filePath):
         os.mkdir(savePath)    
         input("Enter any key to acknowledge >")
     return savePath
-def sanInput(message,desiredType=None,valMin=None,valMax=None,vals=[],clearOnLoop=False):
+def sanInput(message,desiredType=None,valMin=None,valMax=None,clearOnLoop=False,vals=[]):
     while True:
         if clearOnLoop: clear("d")
         userInput = input(message)
