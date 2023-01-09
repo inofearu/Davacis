@@ -5,6 +5,7 @@
 # Modules
 import os
 from definitions import * # definitions will not cause naming conflcits
+from enemyFile import enemyClass
 import logging
 from loggingConfig import initLogger
 logging = initLogger(filePath)
@@ -38,7 +39,7 @@ def mainMenu(PlayerClass):
                     mainMenu(PlayerClass)
                     return
                 else:
-                    pass #game call here
+                    player.startBattle(1,enemyClass,spawnList)
             case "3":
                 print("To Be Added")
                 mainMenu(PlayerClass)
