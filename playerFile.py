@@ -5,38 +5,44 @@ import logging
 from loggingConfig import initLogger
 initLogger(filePath)
 class PlayerClass: # has all of the stats for the player
-    def __init__(self, 
-                 name="", 
-                 race={},
-                 health=20,
-                 level=0,
-                 xp=0,
-                 sparePoints=0,
-                 gold=0,
-                 stats={"dexterity":1,
-                        "agility":1,
-                        "vitality":1,
-                        "awareness":1,
-                        "charisma":1,
-                        "intelligence":1,
-                        "strength":1},
-                 traits = [],
-                 profs = [],
-                 storyLocation = [],
-                 inventory = []
-                 ):
-        self.name = name
-        self.race = race
-        self.health = health
-        self.level = level
-        self.xp = xp
-        self.sparePoints = sparePoints
-        self.gold = gold
-        self.stats = stats
-        self.traits = traits
-        self.profs = profs
-        self.storyLocation = storyLocation
-        self.inventory = inventory
+    def __init__(self):
+        self.name = ""
+        self.race = {}
+        self.health = 0
+        self.level = 0
+        self.xp = 0
+        self.sparePoints = 0
+        self.gold = 0
+        self.davacis = {"dexterity":0,
+                        "agility":0,
+                        "vitality":0,
+                        "awareness":0,
+                        "charisma":0,
+                        "intelligence":0,
+                        "strength":0}
+        self.traits = []
+        self.profs = []
+        self.storyLocation = []
+        self.inventory = []
+        self.equipped = {
+            "armour":{
+                "Head":"",
+                "Torso":"",
+                "Arms":"",
+                "Legs":"",
+                "Feet":"",
+                "Hands":""},
+            "weapons":{
+                "Left Hand":"",
+                "Right Hand":"",
+                "Back":""
+                },
+            "equipment":{
+                "Mana Reactor":"",
+                "Necklace":"",
+                "Rings":["",""],
+                "Trinket":["",""]    
+            }}
     def __str__(self): # allows printing of a data sheet
         return f"""
         Name: {self.name}
@@ -46,24 +52,24 @@ class PlayerClass: # has all of the stats for the player
         XP: {self.xp}
         Gold: {self.gold}
         SP: {self.sparePoints}
-        Dexterity: {self.stats["dexterity"]}
-        Agility: {self.stats["agility"]}
-        Vitality: {self.stats["vitality"]}
-        Awareness: {self.stats["awareness"]}
-        Charisma: {self.stats["charisma"]}
-        Intelligence: {self.stats["intelligence"]}
-        Strength: {self.stats["strength"]}"""
+        Dexterity: {self.davacis["dexterity"]}
+        Agility: {self.davacis["agility"]}
+        Vitality: {self.davacis["vitality"]}
+        Awareness: {self.davacis["awareness"]}
+        Charisma: {self.davacis["charisma"]}
+        Intelligence: {self.davacis["intelligence"]}
+        Strength: {self.davacis["strength"]}"""
     def statAssign(self):
-        stats = ["dexterity","agility","vitality","awareness","charisma","intelligence","strength"] # list of stats
+        stats = ["dexterity","agility","vitality","awareness","charisma","intelligence","strength"] # list of davacis
         try:
             navigate = int(input(f"""
-            1.Dexterity - {self.stats["strength"]}
-            2.Agility - {self.stats["agility"]}
-            3.Vitality - {self.stats["vitality"]}
-            4.Awareness - {self.stats["awareness"]}
-            5.Charisma - {self.stats["charisma"]}
-            6.Intelligence - {self.stats["intelligence"]}
-            7.Strength - {self.stats["strength"]}
+            1.Dexterity - {self.davacis["strength"]}
+            2.Agility - {self.davacis["agility"]}
+            3.Vitality - {self.davacis["vitality"]}
+            4.Awareness - {self.davacis["awareness"]}
+            5.Charisma - {self.davacis["charisma"]}
+            6.Intelligence - {self.davacis["intelligence"]}
+            7.Strength - {self.davacis["strength"]}
             8.Exit
             You have {self.sparePoints} to spend.
             """)) - 1
@@ -185,7 +191,7 @@ Blunt""")
         if confirm == "y":
             davacisList = self.race["davacis"]
             for i in range(len(davacisList)):
-                self.__dict__[davacis[i]] += davacisList[i]
+                self.davacis[davacis[i]] += davacisList[i]
         elif confirm == "n":
             clear("i")
             self.assignRace(davacis,racesDict)
@@ -235,7 +241,7 @@ Blunt""")
         return slotPath
     def newGame(self,savePath):
         clear("i")
-        self.nameSelf()
+        self.name = input("What is your name?\n>")
         self.assignRace(davacis,racesDict)
         self.statAssign()
         slotPath = self.makeSaveSlot(savePath)
@@ -244,7 +250,7 @@ Blunt""")
         slotContent = os.listdir(f"{slotPath}")
         if "player.txt" in slotContent:
             print("Saving...")
-            for attribute, value in self.__dict__.items():    
+            for attribute, value in self.__dict__.items():    # replace with jsons
                 with open(f"{slotPath}/player.txt","a") as f:
                     f.write(f"{attribute}={value}\n")
         else:
@@ -280,7 +286,7 @@ Blunt""")
                     content = lines[lineNum].split("=")
                     key = content[0];value = content[1]
                     playerLoading[key] = value
-                for key in playerLoading:
+                for key in playerLoading: # replace with jsons
                     setattr(self, key, playerLoading[key])
                 self.race = dict(literal_eval(f"{self.race}"))
                 while True:
@@ -295,9 +301,7 @@ Blunt""")
                         loaded = True
                         return loaded
                     else:
-                        print("Invalid input, input either 'Y' or 'N'")
-    def nameSelf(self):
-        self.name = input("What is your name?\n>")
+                        print("Invalid input, input either 'Y' or 'N'") 
     def startBattle(self,enemyCount,enemyClass,spawnList,preGenEnemies = []):
         enemyInstances = []
         battleInProgress = True
@@ -324,7 +328,12 @@ Blunt""")
                 3. ITEM
                 4. FLEE""",int,1,4) - 1
             if action == 1:
-                pass # factor weapon, stats, rng
+                if len(enemyInstances) != 1:
+                    print("Which enemy would you like to attack?")
+                    for i in range(len(enemyInstances)):
+                        print(f"{i + 1}.{enemyInstances[i].name}")
+                target = enemyInstances[sanInput(">",int,1,len(enemyInstances) + 1) - 1]
+                
             elif action == 2:
                 pass
             elif action == 3:
