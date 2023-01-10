@@ -1,0 +1,10 @@
+{
+    "name":"example",
+    "damageType":["slash"],
+    "rarity":"common",
+    "statReqs":{"strength":1},
+    "value":5,
+    "allowTraits":"True",
+    "isUnique":"False",
+    "damage":[3,5]
+}
