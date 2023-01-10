@@ -142,7 +142,7 @@ def chooseTraitAllow():
     return allowTraits
 def chooseWeaponUnique():
     try:
-        isUnique = int(input("Is the weapon unique (excluded from standardloot)?\n1. Yes\n2. No"))
+        isUnique = int(input("Is the weapon unique (excluded from standard loot)?\n1. Yes\n2. No"))
         isUnique = bool(isUnique)
     except(TypeError):
         print("Invalid Input")
