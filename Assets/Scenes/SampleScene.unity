@@ -382,10 +382,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 5
-  sprintSpeed: 7.5
-  jumpHeight: 1
-  isGrounded: 0
-  playerVelocity: {x: 0, y: 0, z: 0}
+  rotationSpeed: 1
+  camera: {fileID: 716118962}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0

@@ -36,14 +36,9 @@ public class PlayerMovement : MonoBehaviour
         cc.Move(playerVelocity * Time.deltaTime);
         MoveCamera();
     }
-    private void MoveCamera()
+    private void clampCamera()
     {
-        //cameraRotation = new Quaternion.eulerAngles(camera.transform.rotation.x,camera.transform.rotation.y,camera.transform.rotation.z);
-        //rotationSpeed),cameraRotation[1] + (Input.GetAxis("Mouse X") * rotationSpeed), cameraRotation[2]);
-        cameraRotation = camera.transform.localRotation.eulerAngles;
-       // cameraTargetRotation = new Vector3(cameraRotation.x + (Input.GetAxis("Mouse X") * rotationSpeed),cameraRotation.y + (Input.GetAxis("Mouse Y") * rotationSpeed),cameraRotation.z);
-       // camera.transform.Rotate(cameraTargetRotation);
-        Debug.Log($"{cameraRotation}");
+        // inspector
     }
 }
 
