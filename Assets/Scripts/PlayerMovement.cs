@@ -7,15 +7,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float walkSpeed = 5f;
     //[SerializeField] float sprintSpeed = 7.5f;
     //[SerializeField] float jumpHeight = 1f;
-    [SerializeField] float rotationSpeed = 1f;
     private CharacterController cc;
     private bool isGrounded;
     private float gravity = -9.81f;
     private Vector3 playerVelocity;
     private float playerSpeed;
-    private Vector3 cameraRotation;
-    private Vector3 cameraTargetRotation;
-    [SerializeField] GameObject camera;
 
     // Start is called before the first frame update
     void Start()
@@ -34,11 +30,6 @@ public class PlayerMovement : MonoBehaviour
         }
         playerVelocity = new Vector3(Input.GetAxisRaw("Horizontal") * walkSpeed,(playerVelocity.y + (gravity * Time.deltaTime)),Input.GetAxisRaw("Forward") * walkSpeed);
         cc.Move(playerVelocity * Time.deltaTime);
-        MoveCamera();
-    }
-    private void clampCamera()
-    {
-        // inspector
     }
 }
 
