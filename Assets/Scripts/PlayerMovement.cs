@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    Vector3 playerVelocity = Vector3.zero;
+
+    [SerializeField] GameObject playerCam;
     [SerializeField] float walkSpeed = 5f;
-    float sprintSpeed = 7.5f;
+    [SerializeField] float sprintSpeed = 7.5f;
+    [SerializeField] float lookSpeed = 1f;
+    [SerializeField] float maxYLookAngle = 30f;
+    [SerializeField] float minYLookAngle = -30f;
+    private float yAxis = 0f;
+    private float xAxis = 0f;
+    Vector3 playerVelocity = Vector3.zero;
     //[SerializeField] float jumpHeight = 1f;
     private CharacterController cc;
     private float playerSpeed;
-    [SerializeField] GameObject playerCam;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,8 +27,21 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        Rotate();
+        Move();
+    }
+
+    private void Rotate()
+    {
+        yAxis += (Input.GetAxis("Mouse Y") * lookSpeed);
+        xAxis += (Input.GetAxis("Mouse X") * lookSpeed);
+        yAxis = Mathf.Clamp(yAxis, maxYLookAngle * -1, minYLookAngle * -1); // values flipped so that you dont need to provide a - value for max
+        gameObject.transform.eulerAngles = new Vector3(yAxis, xAxis, 0);
+    }
+
+    private void Move()
+    {
         bool isGrounded;
-        bool isSprinting = false;
         float moveSpeed;
 
         if (Input.GetKey(KeyCode.LeftShift))
@@ -44,8 +63,9 @@ public class PlayerMovement : MonoBehaviour
             verticalMove = 0f;
         }
 
-        playerVelocity = new Vector3 (horizontalMove,verticalMove,forwardMove);
+        playerVelocity = new Vector3 (horizontalMove,0,forwardMove);
         cc.Move(transform.TransformDirection(playerVelocity) * Time.deltaTime);
+        cc.Move(new Vector3(0,verticalMove,0));
     }
 }
 
