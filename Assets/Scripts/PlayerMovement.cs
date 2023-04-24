@@ -44,11 +44,25 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
+        RaycastHit hitData;
+        bool isGrounded;
         float horizontalMove = Input.GetAxisRaw("Horizontal");
         float forwardMove = Input.GetAxisRaw("Forward");
         verticalMove += new Vector3 (0,playerVelocity.y + -9.81f * Time.deltaTime,0);
-        Debug.Log(verticalMove);
-        if(cc.isGrounded)
+
+        Ray groundRay = new Ray(transform.position, transform.up * -1.1f);
+        Physics.Raycast(groundRay, out hitData);
+
+        if(hitData.distance <= 1.1f) 
+        {
+            isGrounded = true;
+        }
+        else 
+        {
+            isGrounded = false;
+        }
+
+        if(isGrounded)
         {
             if(Input.GetKeyDown(KeyCode.Space))
             {
