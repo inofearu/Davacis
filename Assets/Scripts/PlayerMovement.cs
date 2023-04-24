@@ -1,3 +1,10 @@
+/*
+FileName : PlayerMovement.cs 
+FileType : C# Source File
+Author : Christopher Huskinson
+Created On : 29th March 2023, 15:03:04
+Description : Script to handle player movement.
+*/
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
