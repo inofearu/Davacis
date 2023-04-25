@@ -66,7 +66,11 @@ public class PlayerMovement : MonoBehaviour
     /* --------------------------------- RayCast -------------------------------- */
         Physics.SphereCast(transform.position, 1f, transform.up * -1.1f, out RaycastHit hitData);
     /* ------------------------------ Ground Check ------------------------------ */
-        if(hitData.distance <= groundedTolerance) 
+        if(hitData.distance == 0f) // contingency incase player is above void
+        {
+            isGrounded = false;
+        }
+        else if(hitData.distance <= groundedTolerance) 
         {
             isGrounded = true;
         }
