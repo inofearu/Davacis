@@ -15,15 +15,16 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] GameObject playerEyes;
     private CharacterController cc;
 /* -------------------------------- Movement -------------------------------- */
-    [SerializeField] float jumpHeight = 1f;
+    [SerializeField] float jumpHeight = 10f;
+    [SerializeField] float groundedTolerance = 0.11f;
     [SerializeField] float walkSpeed = 5f;
-    [SerializeField] float sprintSpeed = 7.5f;
+    [SerializeField] float sprintSpeed = 10f;
     Vector3 playerVelocity = Vector3.zero;
     Vector3 verticalMove = Vector3.zero;
 /* --------------------------------- Camera --------------------------------- */
-    [SerializeField] float lookSpeed = 1f;
-    [SerializeField] float maxYLookAngle = 30f;
-    [SerializeField] float minYLookAngle = -30f;
+    [SerializeField] float lookSpeed = 2f;
+    [SerializeField] float maxYLookAngle = 50f;
+    [SerializeField] float minYLookAngle = -75f;
     private float yAxis = 0f;
     private float xAxis = 0f;
 
@@ -63,10 +64,9 @@ public class PlayerMovement : MonoBehaviour
         float forwardMove = Input.GetAxisRaw("Forward");
         verticalMove += new Vector3 (0,playerVelocity.y + -9.81f * Time.deltaTime,0);
     /* --------------------------------- RayCast -------------------------------- */
-        Ray groundRay = new Ray(transform.position, transform.up * -1.1f);
-        Physics.Raycast(groundRay, out RaycastHit hitData);
+        Physics.SphereCast(transform.position, 1f, transform.up * -1.1f, out RaycastHit hitData);
     /* ------------------------------ Ground Check ------------------------------ */
-        if(hitData.distance <= 1.1f) 
+        if(hitData.distance <= groundedTolerance) 
         {
             isGrounded = true;
         }
@@ -96,6 +96,7 @@ public class PlayerMovement : MonoBehaviour
             playerVelocity = new Vector3 (horizontalMove,0,forwardMove).normalized * walkSpeed;
         }
     /* --------------------------------- Output --------------------------------- */
+        Debug.Log($"{playerVelocity} - {verticalMove} - {hitData.distance}");
         cc.Move(transform.TransformDirection(playerVelocity) * Time.deltaTime); // 
         cc.Move(verticalMove * Time.deltaTime); // Y only
     }
