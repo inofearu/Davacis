@@ -33,13 +33,13 @@ public class PlayerMovement : MonoBehaviour
 /*                             End Of Declarations                            */
 /* -------------------------------------------------------------------------- */
 
-    void Start() // Start is called before the first frame update
+    void Start()
     {
         cc = GetComponent<CharacterController>(); // caches cc ref to improve performance
         Cursor.lockState = CursorLockMode.Locked; 
     }
 
-    private void Update() // Update is called once per frame
+    private void Update()
     {
         Rotate();
         Move();
@@ -50,24 +50,24 @@ public class PlayerMovement : MonoBehaviour
     /* ---------------------------------- Input --------------------------------- */
         yAxis += (Input.GetAxis("Mouse Y") * lookSpeed);
         xAxis += (Input.GetAxis("Mouse X") * lookSpeed);
-        yAxis = Mathf.Clamp(yAxis, maxYLookAngle * -1, minYLookAngle * -1); // values flipped so that you dont need to provide a - value for max
-
-    /* ------------------------------- Application ------------------------------ */
+        yAxis = Mathf.Clamp(yAxis, maxYLookAngle * -1, minYLookAngle * -1); // prevents excessive camera rotation by clamping
+    /* -------------------------------- Rotation -------------------------------- */
         gameObject.transform.eulerAngles = new Vector3(0, xAxis, 0); // playerBody X rotation
         playerEyes.transform.eulerAngles = new Vector3(yAxis,xAxis,0); // playerEyes X+Y rotation
     }
 
     private void Move() // called in update()
     {
-    /* ---------------------------------- Input --------------------------------- */
         bool isGrounded;
+    /* ---------------------------------- Input --------------------------------- */
         float horizontalMove = Input.GetAxisRaw("Horizontal");
         float forwardMove = Input.GetAxisRaw("Forward");
         verticalMove += new Vector3 (0,playerVelocity.y + gravity * Time.deltaTime,0); 
-    /* --------------------------------- RayCast -------------------------------- */
+    /* ------------------------------- SphereCast ------------------------------- */
         Physics.SphereCast(transform.position - new Vector3(0,0.5f,0), sphereCastSize, transform.up * -1f, out RaycastHit hitData); // ground 
+
     /* ------------------------------ Ground Check ------------------------------ */
-        if(hitData.distance == 0f) // contingency incase player is above void
+        if(hitData.distance == 0f) // contingency incase player is above void as sphereCast misses
         {
             isGrounded = false;
         }
