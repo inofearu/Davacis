@@ -25,8 +25,9 @@ public class PlayerWeaponry : MonoBehaviour
     void Fire()
     {
         GameObject instantiatedProjectile = Instantiate(Projectile, transform.position, Quaternion.identity, gameObject.transform);
-        instantiatedProjectile.transform.rotation = instantiatedProjectile.transform.parent.rotation;
+        instantiatedProjectile.transform.rotation = instantiatedProjectile.transform.parent.parent.rotation;
         instantiatedProjectile.transform.parent = null;
+        instantiatedProjectile.transform.Rotate(-90,0,0,Space.Self);
     }
 }
 // Instantiate(Bullet, transform.position, Quaternion.identity, gameObject.transform);

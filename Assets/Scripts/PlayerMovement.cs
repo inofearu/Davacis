@@ -101,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
             playerVelocity = new Vector3 (horizontalMove,0,forwardMove).normalized * walkSpeed;
         }
     /* --------------------------------- Output --------------------------------- */
-        Debug.Log($"{playerVelocity} - {verticalMove} - {hitData.distance} - {isGrounded}");
+       // Debug.Log($"{playerVelocity} - {verticalMove} - {hitData.distance} - {isGrounded}");
         cc.Move(transform.TransformDirection(playerVelocity) * Time.deltaTime); // 
         cc.Move(verticalMove * Time.deltaTime); // Y only
     }
