@@ -143,7 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 252b7133123fc424ea82b79cd2532e89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Projectile: {fileID: 0}
+  Projectile: {fileID: 6211497105396862214, guid: 47143347babf66f40a14ec3c35992823, type: 3}
   damage: 10
   destructionDamage: 0
   speed: 15

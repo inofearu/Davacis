@@ -14,7 +14,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] float softLife;
     [SerializeField] float hardLife;
     [SerializeField] int manaUse;
-    [SerializeField] float cooldown;
+    [SerializeField] int cooldown;
     private float lastFired = 0;
     PlayerStats playerStatFile;
     GameObject player;
@@ -30,22 +30,25 @@ public class Weapon : MonoBehaviour
     {
         int mana = playerStatFile.mana;
         int left = 0;
+        bool test1 = mana > manaUse;
+        bool test2 = Time.time > lastFired + cooldown;
+        Debug.Log($"{test1} - {test2} - {lastFired + cooldown}");
         if(Input.GetMouseButton(left) && Time.time > lastFired + cooldown && mana > manaUse)
         {
             Fire();
             lastFired = Time.time;
             mana -= manaUse;
         }
-
     }
+
     void Fire()
     {
         GameObject instantiatedProjectile = Instantiate(Projectile, transform.position, Quaternion.identity, gameObject.transform);
         instantiatedProjectile.transform.rotation = instantiatedProjectile.transform.parent.parent.rotation;
         instantiatedProjectile.transform.parent = null;
         instantiatedProjectile.transform.Rotate(-90,0,0,Space.Self);
-        //Debug.Log(instantiatedProjectile.GetComponent<Renderer>().bounds.size);
     }
 }
+
 /*       rb.AddForce(transform.up * bulletForce * Time.deltaTime);
         Destroy(gameObject,bulletHardLife); */
