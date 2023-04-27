@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
 /* -------------------------------- Movement -------------------------------- */
     [SerializeField] float jumpHeight = 10f;
     [SerializeField] float groundedTolerance = 0.11f;
+    [SerializeField] float gravity = -9.81f;
     [SerializeField] float sphereCastSize = 0.5f;
     [SerializeField] float walkSpeed = 5f;
     [SerializeField] float sprintSpeed = 10f;
@@ -62,9 +63,9 @@ public class PlayerMovement : MonoBehaviour
         bool isGrounded;
         float horizontalMove = Input.GetAxisRaw("Horizontal");
         float forwardMove = Input.GetAxisRaw("Forward");
-        verticalMove += new Vector3 (0,playerVelocity.y + -9.81f * Time.deltaTime,0);
+        verticalMove += new Vector3 (0,playerVelocity.y + gravity * Time.deltaTime,0); 
     /* --------------------------------- RayCast -------------------------------- */
-        Physics.SphereCast(transform.position - new Vector3(0,0.5f,0), sphereCastSize, transform.up * -1f, out RaycastHit hitData);
+        Physics.SphereCast(transform.position - new Vector3(0,0.5f,0), sphereCastSize, transform.up * -1f, out RaycastHit hitData); // ground 
     /* ------------------------------ Ground Check ------------------------------ */
         if(hitData.distance == 0f) // contingency incase player is above void
         {
