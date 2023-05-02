@@ -32,7 +32,8 @@ public class Weapon : MonoBehaviour
         int left = 0;
         bool test1 = mana > manaUse;
         bool test2 = Time.time > lastFired + cooldown;
-        Debug.Log($"{test1} - {test2} - {lastFired + cooldown}");
+        bool test3 = mana > manaUse;
+        Debug.Log($"{test1} - {test2} - {test3} - {lastFired + cooldown} - {Time.time}");
         if(Input.GetMouseButton(left) && Time.time > lastFired + cooldown && mana > manaUse)
         {
             Fire();
