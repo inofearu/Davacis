@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     Vector3 playerVelocity = Vector3.zero;
     Vector3 verticalMove = Vector3.zero;
 /* --------------------------------- Camera --------------------------------- */
+    [SerializeField] bool showSpherecastDebug = false;
     [SerializeField] float lookSpeed = 2f;
     [SerializeField] float maxYLookAngle = 50f;
     [SerializeField] float minYLookAngle = -75f;
@@ -65,7 +66,6 @@ public class PlayerMovement : MonoBehaviour
         verticalMove += new Vector3 (0,playerVelocity.y + gravity * Time.deltaTime,0); 
     /* ------------------------------- SphereCast ------------------------------- */
         Physics.SphereCast(transform.position - new Vector3(0,0.5f,0), sphereCastSize, transform.up * -1f, out RaycastHit hitData); // ground 
-
     /* ------------------------------ Ground Check ------------------------------ */
         if(hitData.distance == 0f) // contingency incase player is above void as sphereCast misses
         {
@@ -108,7 +108,10 @@ public class PlayerMovement : MonoBehaviour
     private void OnDrawGizmos() 
     {
         /* --------------------------- SphereCastDebugDraw -------------------------- */
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(transform.position, sphereCastSize);
+        if(showSpherecastDebug == true)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawSphere(transform.position, sphereCastSize);
+        }
     }
 }
