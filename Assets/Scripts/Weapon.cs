@@ -26,26 +26,27 @@ public class Weapon : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    private void Update()
     {
-        int mana = playerStatFile.mana; // mana needs to be returned
-        int left = 0;
+        bool manaReq = playerStatFile.accessMana > manaUse;
+        
         string weaponDebugInfo = @$"Weapon:
         Stats:
-        Mana - {mana}
+        Mana - {playerStatFile.accessMana}
         Tests:
-        ManaCheck - {mana>manaUse}
+        ManaCheck - {playerStatFile.accessMana>manaUse}
         CooldownCheck - {Time.time > lastFired + cooldown}";
         Debug.Log(weaponDebugInfo);
-        if(Input.GetMouseButton(left) && Time.time > lastFired + cooldown && mana > manaUse)
+
+        if(Input.GetMouseButton(0) && Time.time > lastFired + cooldown && manaReq)
         {
             Fire();
             lastFired = Time.time;
-            mana -= manaUse;
+            playerStatFile.accessMana -= manaUse;
         }
     }
 
-    void Fire()
+    private void Fire()
     {
         GameObject instantiatedProjectile = Instantiate(Projectile, transform.position, Quaternion.identity, gameObject.transform);
         instantiatedProjectile.transform.rotation = instantiatedProjectile.transform.parent.parent.rotation;
