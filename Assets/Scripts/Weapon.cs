@@ -30,9 +30,13 @@ public class Weapon : MonoBehaviour
     {
         int mana = playerStatFile.mana; // mana needs to be returned
         int left = 0;
-        bool test1 = mana > manaUse;
-        bool test2 = Time.time > lastFired + cooldown;
-        Debug.Log($"\nMana - {test1}\nCooldown-{test2}");
+        string weaponDebugInfo = @$"Weapon:
+        Stats:
+        Mana - {mana}
+        Tests:
+        ManaCheck - {mana>manaUse}
+        CooldownCheck - {Time.time > lastFired + cooldown}";
+        Debug.Log(weaponDebugInfo);
         if(Input.GetMouseButton(left) && Time.time > lastFired + cooldown && mana > manaUse)
         {
             Fire();
