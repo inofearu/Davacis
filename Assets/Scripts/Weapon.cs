@@ -14,7 +14,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] float softLife;
     [SerializeField] float hardLife;
     [SerializeField] int manaUse;
-    [SerializeField] int cooldown;
+    [SerializeField] float cooldown;
     private float lastFired = 0;
     PlayerStats playerStatFile;
     GameObject player;
@@ -28,13 +28,14 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        bool manaReq = playerStatFile.accessMana > manaUse;
+        int mana = playerStatFile.accessMana;
+        bool manaReq = mana >= manaUse;
         
         string weaponDebugInfo = @$"Weapon:
         Stats:
-        Mana - {playerStatFile.accessMana}
+        Mana - {mana}
         Tests:
-        ManaCheck - {playerStatFile.accessMana>=manaUse}
+        ManaCheck - {mana>=manaUse}
         CooldownCheck - {Time.time > lastFired + cooldown}";
         Debug.Log(weaponDebugInfo);
 
@@ -42,7 +43,7 @@ public class Weapon : MonoBehaviour
         {
             Fire();
             lastFired = Time.time;
-            playerStatFile.accessMana -= manaUse;
+            playerStatFile.accessMana = mana - manaUse;
         }
     }
 
@@ -54,6 +55,3 @@ public class Weapon : MonoBehaviour
         instantiatedProjectile.transform.Rotate(-90,0,0,Space.Self);
     }
 }
-
-/*       rb.AddForce(transform.up * bulletForce * Time.deltaTime);
-        Destroy(gameObject,bulletHardLife); */
