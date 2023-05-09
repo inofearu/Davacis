@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 608277369449337150}
   - component: {fileID: 4825823564297579050}
   - component: {fileID: 2455541677028906360}
+  - component: {fileID: 6247992912690468542}
+  - component: {fileID: -8837458772473169807}
   m_Layer: 0
   m_Name: TestProjectile 1
   m_TagString: Untagged
@@ -97,3 +99,31 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &6247992912690468542
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6211497105396862214}
+  serializedVersion: 2
+  m_Mass: 0.0000001
+  m_Drag: 0
+  m_AngularDrag: 0
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 112
+  m_CollisionDetection: 1
+--- !u!114 &-8837458772473169807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6211497105396862214}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ab4e9a2a58ff2b47a76994325b3c361, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
