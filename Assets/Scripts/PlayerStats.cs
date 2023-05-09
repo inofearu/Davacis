@@ -5,9 +5,21 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour
 {
     [SerializeField] int maxHealth;
-    public int health;
+    private int health;
     [SerializeField] int maxMana;
-    public int mana;
+    private int mana;
+    public int accessMana
+    {
+        get{return mana;}
+        set
+        {
+            if(value < 0)
+            {value = 0;}
+            if(value > maxMana)
+            {value = maxMana;}
+            mana = value;
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
