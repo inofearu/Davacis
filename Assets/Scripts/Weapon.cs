@@ -7,7 +7,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] int damage;
     [SerializeField] int destructionDamage;
     [SerializeField] float speed;
-    [SerializeField] float projectileRadius;
+    //[SerializeField] float projectileRadius;
     [SerializeField] float damageRadius;
     [SerializeField] float destructionRadius;
     [SerializeField] bool useGravity;
@@ -15,6 +15,7 @@ public class Weapon : MonoBehaviour
     [SerializeField] float hardLife;
     [SerializeField] int manaUse;
     [SerializeField] float cooldown;
+    [SerializeField] bool printDebug;
     private float lastFired = 0;
     PlayerStats playerStatFile;
     GameObject player;
@@ -32,13 +33,15 @@ public class Weapon : MonoBehaviour
         bool manaReq = mana >= manaUse;
         
         string weaponDebugInfo = @$"Weapon:
-        Stats:
+        ---Stats---
         Mana - {mana}
-        Tests:
+        ---Tests---
         ManaCheck - {mana>=manaUse}
         CooldownCheck - {Time.time > lastFired + cooldown}";
-        Debug.Log(weaponDebugInfo);
-
+        if(printDebug)
+        {
+            Debug.Log(weaponDebugInfo);
+        }
         if(Input.GetMouseButton(0) && Time.time > lastFired + cooldown && manaReq)
         {
             Fire();
