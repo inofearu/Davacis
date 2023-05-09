@@ -34,7 +34,7 @@ public class Weapon : MonoBehaviour
         Stats:
         Mana - {playerStatFile.accessMana}
         Tests:
-        ManaCheck - {playerStatFile.accessMana>manaUse}
+        ManaCheck - {playerStatFile.accessMana>=manaUse}
         CooldownCheck - {Time.time > lastFired + cooldown}";
         Debug.Log(weaponDebugInfo);
 
