@@ -20,6 +20,19 @@ public class PlayerStats : MonoBehaviour
             mana = value;
         }
     }
+
+    public int accessHealth
+    {
+        get{return health;}
+        set
+        {
+            if(value < 0)
+            {value = 0;}
+            if(value > maxHealth)
+            {value = maxHealth;}
+            health = value;
+        }
+    }
     // Start is called before the first frame update
     void Start()
     {
