@@ -14,24 +14,24 @@ public class Projectile : MonoBehaviour
     private bool useGravity;
     private float softLife;
     private float hardLife;
-    private Projectile varSource;
+    private Weapon varSource;
     Rigidbody rb;
     // Start is called before the first frame update
     void Start()
     {
         GameObject equippedWeapon = GameObject.FindWithTag("EquippedWeapon");
-        varSource = equippedWeapon.GetComponent<Projectile>();
+        varSource = equippedWeapon.GetComponent<Weapon>();
         rb = GetComponent<Rigidbody>(); 
 
-        damage = varSource.damage;
+      /*  damage = varSource.damage;
         destructionDamage = varSource.destructionDamage;
         speed = varSource.speed;
-        //projectileRadius = varSource.projectileRadius;
+        projectileRadius = varSource.projectileRadius;
         damageRadius = varSource.damageRadius;
         destructionRadius = varSource.destructionRadius;
         rb.useGravity = varSource.useGravity;
         softLife = varSource.softLife;
-        hardLife = varSource.hardLife;
+        hardLife = varSource.hardLife;*/
 
         rb.AddForce(transform.up * speed);
         Debug.Log($"{transform.up * speed}");
