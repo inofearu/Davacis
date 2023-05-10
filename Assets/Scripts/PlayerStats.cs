@@ -14,9 +14,9 @@ public class PlayerStats : MonoBehaviour
         set
         {
             if(value < 0)
-            {value = 0;}
+                {value = 0;}
             if(value > maxMana)
-            {value = maxMana;}
+                {value = maxMana;}
             mana = value;
         }
     }
@@ -27,9 +27,9 @@ public class PlayerStats : MonoBehaviour
         set
         {
             if(value < 0)
-            {value = 0;}
+                {value = 0;}
             if(value > maxHealth)
-            {value = maxHealth;}
+                {value = maxHealth;}
             health = value;
         }
     }
