@@ -20,18 +20,19 @@ public class InventoryManager : MonoBehaviour
             else if(value > InventoryList.Count() - 1);
                 {value = 0;}
             equippedIndex = value;
+            Debug.Log($"{value}");
         }   
     }
     private void Update() 
     {
         if(Input.GetKeyDown("e"))
         {
-            equippedIndex += 1;
+            modifyEquippedIndex += 1;
             ChangeWeapon();
         }
         if(Input.GetKeyDown("q"))
         {
-            equippedIndex -= 1;
+            modifyEquippedIndex -= 1;
             ChangeWeapon();
         }
     }
