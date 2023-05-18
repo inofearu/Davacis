@@ -812,7 +812,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemList:
-  - {fileID: 11400000, guid: 0daff3ca564f6fa42afd81402bdf803b, type: 2}
+  - {fileID: 11400000, guid: c67bbe6149dffcd4a872cc4bac4bc397, type: 2}
 --- !u!1 &1388762272
 GameObject:
   m_ObjectHideFlags: 0

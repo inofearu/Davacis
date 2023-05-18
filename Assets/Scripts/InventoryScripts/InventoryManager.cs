@@ -25,6 +25,10 @@ public class InventoryManager : MonoBehaviour
             {Debug.Log($"{equippedItem} {equippedIndex} - {InventoryList.Count()}");}
         }   
     }
+    private void Start() 
+    {
+        equippedItem = new GameObject();    
+    }
     private void Update() 
     {
         if(Input.GetKeyDown("e"))
@@ -40,6 +44,20 @@ public class InventoryManager : MonoBehaviour
     }
     private void ChangeWeapon()
     {
-        equippedItem = Instantiate(InventoryList[equippedIndex],playerWeaponSlot.transform);
+        GameObject desiredItem = InventoryList[equippedIndex];
+        Destroy(equippedItem);
+        makeBaseItem();
+    }
+    private void makeBaseItem(GameObject desiredItem)
+    {
+        equippedItem = new GameObject();
+        equippedItem.transform.SetParent(playerWeaponSlot.transform);
+        equippedItem.transform.rotation = Quaternion.identity;
+        equippedItem.transform.position = new Vector3(0,0,0);
+        equippedItem.name = "EquippedItem";
+        if(desiredItem is WeaponItem)
+        {
+            equippedItem.AddComponent<Weapon>();
+        }
     }
 }
