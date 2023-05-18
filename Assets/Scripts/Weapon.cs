@@ -15,7 +15,7 @@ public class Weapon : MonoBehaviour
     private float hardLife;
     private int manaUse;
     private float cooldown;
-    private bool printDebug = false; //move this, has to be changed in script right now
+    private bool debugSwitch = false; //move this, has to be changed in script right now
     private float lastFired = 0;
     PlayerStats playerStatFile;
     private GameObject player;
@@ -38,7 +38,7 @@ public class Weapon : MonoBehaviour
         ---Tests---
         ManaCheck - {mana>=manaUse}
         CooldownCheck - {Time.time > lastFired + cooldown}";
-        if(printDebug)
+        if(debugSwitch == true)
         {
             Debug.Log(weaponDebugInfo);
         }

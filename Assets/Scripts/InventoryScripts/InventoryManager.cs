@@ -5,6 +5,7 @@ using System.Linq;
 
 public class InventoryManager : MonoBehaviour
 {
+    private bool debugSwitch = true;
     [SerializeField] GameObject playerWeaponSlot;
     [SerializeField] GameObject ItemDatabase;
     [SerializeField] List<GenericItem> InventoryList;
@@ -20,7 +21,8 @@ public class InventoryManager : MonoBehaviour
             else if(value > InventoryList.Count() - 1)
                 {value = 0;}
             equippedIndex = value;
-            Debug.Log($"{value} - {equippedIndex} - {InventoryList.Count()}");
+            if(debugSwitch == true)
+            {Debug.Log($"{value} - {equippedIndex} - {InventoryList.Count()}");}
         }   
     }
     private void Update() 
