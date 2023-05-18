@@ -8,7 +8,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] GameObject playerWeaponSlot;
     [SerializeField] GameObject ItemDatabase;
     [SerializeField] List<GenericItem> InventoryList;
-    private GameObject gameObject; 
+    //private GameObject gameObject; 
     private int equippedIndex = 0;
     private int modifyEquippedIndex
     {
@@ -17,10 +17,10 @@ public class InventoryManager : MonoBehaviour
         {
             if(value < 0)
                 {value = InventoryList.Count() - 1;}
-            else if(value > InventoryList.Count() - 1);
+            else if(value > InventoryList.Count() - 1)
                 {value = 0;}
             equippedIndex = value;
-            Debug.Log($"{value}");
+            Debug.Log($"{value} - {equippedIndex} - {InventoryList.Count()}");
         }   
     }
     private void Update() 
