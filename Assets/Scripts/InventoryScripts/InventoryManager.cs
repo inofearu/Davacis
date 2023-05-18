@@ -9,7 +9,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] GameObject playerWeaponSlot;
     [SerializeField] GameObject ItemDatabase;
     [SerializeField] List<GenericItem> InventoryList;
-    //private GameObject gameObject; 
+    private GameObject equippedItem;
     private int equippedIndex = 0;
     private int modifyEquippedIndex
     {
@@ -22,7 +22,7 @@ public class InventoryManager : MonoBehaviour
                 {value = 0;}
             equippedIndex = value;
             if(debugSwitch == true)
-            {Debug.Log($"{value} - {equippedIndex} - {InventoryList.Count()}");}
+            {Debug.Log($"{equippedItem} {equippedIndex} - {InventoryList.Count()}");}
         }   
     }
     private void Update() 
@@ -40,6 +40,6 @@ public class InventoryManager : MonoBehaviour
     }
     private void ChangeWeapon()
     {
-        Instantiate(InventoryList[equippedIndex]);
+        equippedItem = Instantiate(InventoryList[equippedIndex],playerWeaponSlot.transform);
     }
 }
