@@ -10,7 +10,7 @@ public class GenericItem : ScriptableObject
     public string itemDescription;
     public GameObject itemModel;
     public int goldValue;
-    public GameObject gameObject;
+    //public GameObject gameObject;
 }
 
 [CreateAssetMenu(fileName = "Weapon.asset", menuName = "Inventory/Item/Weapon")]
