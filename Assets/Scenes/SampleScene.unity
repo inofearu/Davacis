@@ -736,11 +736,6 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
---- !u!4 &982914700 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 90370724970175932, guid: 9b09693e899ece04892c0e0262d5036b, type: 3}
-  m_PrefabInstance: {fileID: 1625323134}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1044473213
 GameObject:
   m_ObjectHideFlags: 0
@@ -768,8 +763,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 982914700}
+  m_Children: []
   m_Father: {fileID: 1998766245}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -817,8 +811,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7407112f9c15cf94f9ae9c7675642050, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  test: {fileID: 0}
-  test2: {fileID: 0}
+  ItemList:
+  - {fileID: 11400000, guid: 0daff3ca564f6fa42afd81402bdf803b, type: 2}
 --- !u!1 &1388762272
 GameObject:
   m_ObjectHideFlags: 0
@@ -1236,11 +1230,19 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    m_TransformParent: {fileID: 1044473214}
+    m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 90370724970175932, guid: 9b09693e899ece04892c0e0262d5036b, type: 3}
       propertyPath: m_RootOrder
-      value: 0
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 90370724970175932, guid: 9b09693e899ece04892c0e0262d5036b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.099999994
+      objectReference: {fileID: 0}
+    - target: {fileID: 90370724970175932, guid: 9b09693e899ece04892c0e0262d5036b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.099999994
       objectReference: {fileID: 0}
     - target: {fileID: 90370724970175932, guid: 9b09693e899ece04892c0e0262d5036b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1248,15 +1250,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 90370724970175932, guid: 9b09693e899ece04892c0e0262d5036b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.25
+      value: 10.25
       objectReference: {fileID: 0}
     - target: {fileID: 90370724970175932, guid: 9b09693e899ece04892c0e0262d5036b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.6
+      value: 0.39999998
       objectReference: {fileID: 0}
     - target: {fileID: 90370724970175932, guid: 9b09693e899ece04892c0e0262d5036b, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.86445886
+      value: 0.8644589
       objectReference: {fileID: 0}
     - target: {fileID: 90370724970175932, guid: 9b09693e899ece04892c0e0262d5036b, type: 3}
       propertyPath: m_LocalRotation.x
@@ -1264,7 +1266,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 90370724970175932, guid: 9b09693e899ece04892c0e0262d5036b, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.30612093
+      value: -0.30612096
       objectReference: {fileID: 0}
     - target: {fileID: 90370724970175932, guid: 9b09693e899ece04892c0e0262d5036b, type: 3}
       propertyPath: m_LocalRotation.z
@@ -1302,6 +1304,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: EquippedWeapon
       objectReference: {fileID: 0}
+    - target: {fileID: 5523833081463795775, guid: 9b09693e899ece04892c0e0262d5036b, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: b14292a866a3bae429223af66aafc086, type: 2}
     m_RemovedComponents:
     - {fileID: 890669893488701066, guid: 9b09693e899ece04892c0e0262d5036b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 9b09693e899ece04892c0e0262d5036b, type: 3}
@@ -1734,4 +1740,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d3645fde777c7c74dac31551609a651b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  itemDatabase: []
+  playerWeaponSlot: {fileID: 1044473213}
+  ItemDatabase: {fileID: 1312712549}
+  InventoryList:
+  - {fileID: 11400000, guid: c67bbe6149dffcd4a872cc4bac4bc397, type: 2}
+  - {fileID: 11400000, guid: c67bbe6149dffcd4a872cc4bac4bc397, type: 2}
+  - {fileID: 11400000, guid: c67bbe6149dffcd4a872cc4bac4bc397, type: 2}
+  - {fileID: 11400000, guid: c67bbe6149dffcd4a872cc4bac4bc397, type: 2}
+  - {fileID: 11400000, guid: c67bbe6149dffcd4a872cc4bac4bc397, type: 2}
