@@ -44,20 +44,24 @@ public class InventoryManager : MonoBehaviour
     }
     private void ChangeWeapon()
     {
-        GameObject desiredItem = InventoryList[equippedIndex];
+        dynamic desiredItem = InventoryList[equippedIndex];
         Destroy(equippedItem);
-        makeBaseItem();
+        makeBaseItem(desiredItem);
     }
-    private void makeBaseItem(GameObject desiredItem)
+    private void makeBaseItem(dynamic desiredItem)
     {
         equippedItem = new GameObject();
         equippedItem.transform.SetParent(playerWeaponSlot.transform);
         equippedItem.transform.rotation = Quaternion.identity;
         equippedItem.transform.position = new Vector3(0,0,0);
         equippedItem.name = "EquippedItem";
-        if(desiredItem is WeaponItem)
+        if(desiredItem.type == "weapon")
         {
             equippedItem.AddComponent<Weapon>();
+        }
+        else if(desiredItem.type = "generic")
+        {
+            
         }
     }
 }
