@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "GenericItem.asset", menuName = "Inventory/Item/Generic")]
-public class GenericItem : ScriptableObject
+public abstract class GenericItem : ScriptableObject
 {
-    public string type = "Generic";
-    public int itemID;
+    public readonly int itemID;
     public string itemName;
     public string itemDescription;
     public GameObject itemModel;
@@ -17,7 +16,6 @@ public class GenericItem : ScriptableObject
 [CreateAssetMenu(fileName = "Weapon.asset", menuName = "Inventory/Item/Weapon")]
 public class WeaponItem : GenericItem
 {
-    new public string type = "Weapon";
     private GameObject Projectile;
     public int damage;
     public int destructionDamage;

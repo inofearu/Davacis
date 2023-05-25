@@ -1,7 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using System.Linq;
+
 
 public class InventoryManager : MonoBehaviour
 {
@@ -17,12 +18,12 @@ public class InventoryManager : MonoBehaviour
         set
         {
             if(value < 0)
-                {value = InventoryList.Count() - 1;}
-            else if(value > InventoryList.Count() - 1)
+                {value = InventoryList.Count - 1;}
+            else if(value > InventoryList.Count - 1)
                 {value = 0;}
             equippedIndex = value;
             if(debugSwitch == true)
-            {Debug.Log($"{equippedItem} {equippedIndex} - {InventoryList.Count()}");}
+            {Debug.Log($"{equippedItem} {equippedIndex} - {InventoryList.Count}");}
         }   
     }
     private void Start() 
@@ -31,12 +32,12 @@ public class InventoryManager : MonoBehaviour
     }
     private void Update() 
     {
-        if(Input.GetKeyDown("e"))
+        if(Input.GetKeyDown("e")) // make rebindable
         {
             modifyEquippedIndex += 1;
             ChangeWeapon();
         }
-        if(Input.GetKeyDown("q"))
+        if(Input.GetKeyDown("q"))// make rebindable
         {
             modifyEquippedIndex -= 1;
             ChangeWeapon();
@@ -44,24 +45,24 @@ public class InventoryManager : MonoBehaviour
     }
     private void ChangeWeapon()
     {
-        dynamic desiredItem = InventoryList[equippedIndex];
+        GenericItem desiredItem = InventoryList[equippedIndex];
         Destroy(equippedItem);
         makeBaseItem(desiredItem);
     }
-    private void makeBaseItem(dynamic desiredItem)
+    private void makeBaseItem(GenericItem desiredItem)
     {
         equippedItem = new GameObject();
         equippedItem.transform.SetParent(playerWeaponSlot.transform);
         equippedItem.transform.rotation = Quaternion.identity;
         equippedItem.transform.position = new Vector3(0,0,0);
         equippedItem.name = "EquippedItem";
-        if(desiredItem.type == "weapon")
+        if(desiredItem.GetType() == typeof(WeaponItem))
         {
             equippedItem.AddComponent<Weapon>();
         }
-        else if(desiredItem.type = "generic")
+        /*else if(desiredItem.GetType == typeof(Item)) // if weapon isnt weapon assign other script
         {
             
-        }
+        }*/
     }
 }
