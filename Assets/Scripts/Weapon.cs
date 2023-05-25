@@ -3,29 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Weapon : MonoBehaviour
 {
+    private bool debugSwitch = false; // make this togglable elsewhere
     private GameObject Projectile;
-    private int damage;
-    private int destructionDamage;
-    private float speed;
-    //private float projectileRadius;
-    private float damageRadius;
-    private float destructionRadius;
-    private bool useGravity;
-    private float softLife;
-    private float hardLife;
-    private int manaUse;
-    private float cooldown;
-    private bool debugSwitch = false; //move this, has to be changed in script right now
     private float lastFired = 0;
-    PlayerStats playerStatFile;
+    private PlayerStats playerStatFile;
     private GameObject player;
-    // Start is called before the first frame update
+    public Dictionary<string, object> stats;
     void Start()
     {
         player = GameObject.FindWithTag("Player");   
         playerStatFile = player.GetComponent<PlayerStats>();
     }
-
     // Update is called once per frame
     private void Update()
     {

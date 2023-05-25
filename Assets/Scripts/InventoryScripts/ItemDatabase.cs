@@ -5,7 +5,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "GenericItem.asset", menuName = "Inventory/Item/Generic")]
 public abstract class GenericItem : ScriptableObject
 {
-    public readonly int itemID;
     public string itemName;
     public string itemDescription;
     public GameObject itemModel;
@@ -16,21 +15,12 @@ public abstract class GenericItem : ScriptableObject
 [CreateAssetMenu(fileName = "Weapon.asset", menuName = "Inventory/Item/Weapon")]
 public class WeaponItem : GenericItem
 {
-    private GameObject Projectile;
-    public int damage;
-    public int destructionDamage;
-    public float speed;
-    //[SerializeField] float projectileRadius;
-    public float damageRadius;
-    public float destructionRadius;
-    public bool useGravity;
-    public float softLife;
-    public float hardLife;
-    public int manaUse;
-    public float cooldown;
+    [SerializeField] private GameObject Projectile;
+    [SerializeField] private int damage,destructionDamage,manaUse;
+    [SerializeField] private float damageRadius,destructionRadius,projectileRadius,softLife,hardLife,cooldown,speed;
+    [SerializeField] private bool useGravity;
 }
-[System.Serializable]
-public class ItemDatabase : MonoBehaviour
+[SerializeField] public class ItemDatabase : MonoBehaviour
 {
     public List<GenericItem> ItemList;
     void Start()
