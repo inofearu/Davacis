@@ -9,7 +9,7 @@ public class InventoryManager : MonoBehaviour
     private bool debugSwitch = true;
     [SerializeField] private GameObject playerWeaponSlot;
     [SerializeField] private GameObject ItemDatabase;
-    [SerializeField] private List<ItemInterface> InventoryList;
+    [SerializeField] private List<GenericData> InventoryList;
     private GameObject equippedItem;
     private int equippedIndex = 0;
     private int modifyEquippedIndex
@@ -45,19 +45,19 @@ public class InventoryManager : MonoBehaviour
     }
     private void ChangeWeapon()
     {
-        ItemInterface desiredItem = InventoryList[equippedIndex];
+        GenericData desiredItem = InventoryList[equippedIndex];
         Destroy(equippedItem);
         initaliseItem(desiredItem);
     }
-    private void initaliseItem(ItemInterface desiredItem)
+    private void initaliseItem(GenericData desiredItem)
     {
         equippedItem = new GameObject();
         equippedItem.transform.SetParent(playerWeaponSlot.transform);
         equippedItem.transform.rotation = Quaternion.identity;
         equippedItem.transform.position = new Vector3(0,0,0);
         equippedItem.name = "EquippedItem";
-        Debug.Log(desiredItem.GetType() == typeof(WeaponItem));
-        if(desiredItem.GetType() == typeof(WeaponItem))
+        Debug.Log(desiredItem.GetType() == typeof(WeaponData));
+        if(desiredItem.GetType() == typeof(WeaponData))
         {
             //equippedItem.AddComponent<Weapon>();
             //equippedItem.Weapon.stats = desiredItem.stats;

@@ -18,7 +18,7 @@ public class Weapon : MonoBehaviour
     private void Update()
     {
         int mana = playerStatFile.accessMana;
-        bool manaReq = mana >= manaUse;
+      /*  bool manaReq = mana >= manaUse;
         
         string weaponDebugInfo = @$"Weapon:
         ---Stats---
@@ -35,7 +35,7 @@ public class Weapon : MonoBehaviour
             Fire();
             lastFired = Time.time;
             playerStatFile.accessMana = mana - manaUse;
-        }
+        }*/
     }
 
     private void Fire()
