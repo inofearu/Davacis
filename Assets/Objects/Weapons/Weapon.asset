@@ -9,22 +9,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 965703e3021ad32499c3c0a0dc7aba08, type: 3}
-  m_Name: Test001
-  m_EditorClassIdentifier: 
-  itemID: 0
-  itemName: Test1
-  itemDescription: Test11
-  itemModel: {fileID: 4125742210250728147, guid: 9b09693e899ece04892c0e0262d5036b, type: 3}
+  m_Script: {fileID: 0}
+  m_Name: Weapon
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponItem
+  itemName: 
+  itemDescription: 
+  itemModel: {fileID: 0}
   goldValue: 0
-  gameObject: {fileID: 0}
+  Projectile: {fileID: 0}
   damage: 0
   destructionDamage: 0
-  speed: 0
+  manaUse: 0
   damageRadius: 0
   destructionRadius: 0
-  useGravity: 0
+  projectileRadius: 0
   softLife: 0
   hardLife: 0
-  manaUse: 0
   cooldown: 0
+  speed: 0
+  useGravity: 0
