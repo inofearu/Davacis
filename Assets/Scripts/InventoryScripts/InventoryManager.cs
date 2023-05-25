@@ -7,9 +7,9 @@ using UnityEngine;
 public class InventoryManager : MonoBehaviour
 {
     private bool debugSwitch = true;
-    [SerializeField] GameObject playerWeaponSlot;
-    [SerializeField] GameObject ItemDatabase;
-    [SerializeField] List<GenericItem> InventoryList;
+    [SerializeField] private GameObject playerWeaponSlot;
+    [SerializeField] private GameObject ItemDatabase;
+    [SerializeField] private List<ItemInterface> InventoryList;
     private GameObject equippedItem;
     private int equippedIndex = 0;
     private int modifyEquippedIndex
@@ -45,20 +45,22 @@ public class InventoryManager : MonoBehaviour
     }
     private void ChangeWeapon()
     {
-        GenericItem desiredItem = InventoryList[equippedIndex];
+        ItemInterface desiredItem = InventoryList[equippedIndex];
         Destroy(equippedItem);
-        makeBaseItem(desiredItem);
+        initaliseItem(desiredItem);
     }
-    private void makeBaseItem(GenericItem desiredItem)
+    private void initaliseItem(ItemInterface desiredItem)
     {
         equippedItem = new GameObject();
         equippedItem.transform.SetParent(playerWeaponSlot.transform);
         equippedItem.transform.rotation = Quaternion.identity;
         equippedItem.transform.position = new Vector3(0,0,0);
         equippedItem.name = "EquippedItem";
+        Debug.Log(desiredItem.GetType() == typeof(WeaponItem));
         if(desiredItem.GetType() == typeof(WeaponItem))
         {
-            equippedItem.AddComponent<Weapon>();
+            //equippedItem.AddComponent<Weapon>();
+            //equippedItem.Weapon.stats = desiredItem.stats;
         }
         /*else if(desiredItem.GetType == typeof(Item)) // if weapon isnt weapon assign other script
         {
@@ -66,3 +68,4 @@ public class InventoryManager : MonoBehaviour
         }*/
     }
 }
+// TODO: actually load the fucking item sometime
