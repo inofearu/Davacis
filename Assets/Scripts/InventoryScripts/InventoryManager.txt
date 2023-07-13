@@ -8,7 +8,7 @@ using UnityEditor;
 
 public class InventoryManager : MonoBehaviour
 {
-    private bool debugSwitch = true;
+    /*private bool debugSwitch = true;
     [SerializeField] private GameObject playerWeaponSlot;
     [SerializeField] private GameObject itemDatabase;
     [SerializeField] private List<ItemData> inventory;
@@ -33,18 +33,13 @@ public class InventoryManager : MonoBehaviour
     {
         equippedItem = new GameObject();
         inventory = fetchInventory();
-    }
+    }*/
     private List<ItemData> fetchInventory() // TODO: add dynamic path
     {
-       // DirectoryInfo DI = new DirectoryInfo("C:/Users/Inofearu/Unity Projects/Magic RPG/Assets");
-       // FileInfo[] info = DI.GetFiles("*.*");
-       // foreach (FileInfo file in info) 
-       // {
-         //   var item = AssetDatabase.LoadAssetAtPath(file.FullName, typeof(UnityEngine.Object));
-         //   Debug.Log(item);
-          //  inventory.Add(item);
-      //  }
-       // return inventory;
+        List<ItemData> items = AssetDatabase.FindAssets("t:ItemData", new[] {"/assets/objects"});
+        List<WeaponData> weapons = AssetDatabase.FindAssets("t:WeaponData", new[] {"/assets/objects"});
+        items.AddRange(weapons);
+        return items;
     }
     private void Update() 
     {
@@ -85,4 +80,4 @@ public class InventoryManager : MonoBehaviour
         }*/
     }
 }
-// TODO: actually load the fucking item sometime
+// TODO: actually load the fucking item

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Weapon.asset", menuName = "Inventory/Item/Weapon")]
-public class WeaponData : GenericData
+public class WeaponData : ItemData
 {
     [SerializeField] private GameObject Projectile;
     [SerializeField] private int damage,destructionDamage,manaUse;
