@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ObsticleMove : MonoBehaviour
+public class ObstacleMove : MonoBehaviour
 {
     private Rigidbody rigidbody;
     [SerializeField] private float x;
