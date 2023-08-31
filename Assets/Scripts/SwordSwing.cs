@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 
 public class SwordSwing : MonoBehaviour
 {
-    public float swordRange;
     public float hitRadius;
     public float hitCooldown;
     public float hitRange;
@@ -15,9 +14,10 @@ public class SwordSwing : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) && Time.time > timeForNextHit)
         {
+            Debug.Log("1");
             if (Physics.SphereCast(Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 10.0f)), hitRadius, transform.forward, out RaycastHit hitData, hitRange))
             {
-                IHit hitResponder = hitCooldown.collidergameObject.GetComponent<IHit>();
+                IHit hitResponder = hitData.collider.gameObject.GetComponent<IHit>();
                 if (hitResponder != null)
                 {
                     hitResponder.OnHit(hitData);
@@ -26,4 +26,3 @@ public class SwordSwing : MonoBehaviour
         }
     }
 }
-// v3Pos = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 10.0f));
