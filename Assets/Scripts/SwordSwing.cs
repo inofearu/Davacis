@@ -13,10 +13,9 @@ public class SwordSwing : MonoBehaviour
 
     void Update()
     {
-        RaycastHit hitData = OnClick();
         if (Input.GetMouseButtonDown(0) && Time.time > timeForNextHit)
         {
-            if (hitData != null)
+            if (Physics.SphereCast(Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 10.0f)), hitRadius, transform.forward, out RaycastHit hitData, hitRange))
             {
                 IHit hitResponder = hitCooldown.collidergameObject.GetComponent<IHit>();
                 if (hitResponder != null)
@@ -26,11 +25,5 @@ public class SwordSwing : MonoBehaviour
             }
         }
     }
-
-    private RaycastHit OnClick()
-    {
-        Physics.SphereCast(Camera.main.ScreenPointToRay(Input.mousePosition), hitRadius, transform.forward, out RaycastHit hitData, hitRange);
-        timeForNextHit = Time.time + hitCooldown;
-        return hitData;
-    }
 }
+// v3Pos = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 10.0f));
