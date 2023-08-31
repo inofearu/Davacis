@@ -4802,6 +4802,23 @@ Transform:
   m_Father: {fileID: 1388762276}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1692642821 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8808324943573729102, guid: 6aae084abd9b58a41b09817b92691d1d, type: 3}
+  m_PrefabInstance: {fileID: 3010696009529887824}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1692642822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1692642821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb69d63b11295204289bcba45bdb7236, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1758695161
 GameObject:
   m_ObjectHideFlags: 0
@@ -5158,8 +5175,8 @@ GameObject:
   - component: {fileID: 1928983138}
   - component: {fileID: 1928983142}
   - component: {fileID: 1928983141}
-  - component: {fileID: 1928983143}
   - component: {fileID: 1928983145}
+  - component: {fileID: 1928983146}
   m_Layer: 3
   m_Name: PlayerBody
   m_TagString: Player
@@ -5289,20 +5306,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1928983143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1928983136}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f35b778653c2254439d679494268810a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 20
-  maxMana: 20
 --- !u!54 &1928983145
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5319,6 +5322,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &1928983146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928983136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cf76db941582d343859eb75a01b3e97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitRadius: 1
+  hitCooldown: 1
+  hitRange: 1000
 --- !u!1 &1950046388
 GameObject:
   m_ObjectHideFlags: 0
