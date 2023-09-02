@@ -9,51 +9,47 @@ public class SwordSwing : MonoBehaviour
     public float hitCooldown;
     public float hitRange;
     private float timeForNextHit;
-    public bool showSpherecastDebug; // PLACEHOLDER: Implement in-game toggle
-    private LineRenderer lineRenderer;
+    private SphereCastVisualiser SCV;
+
+    private void Start()
+    {
+        SCV = GetComponent<SphereCastVisualiser>();
+    }
    void Update()
     {
+        int hitResult = 0;
         if (Input.GetMouseButtonDown(0) && Time.time > timeForNextHit)
         {
-            if (showSpherecastDebug)
-            {
-                DrawSphereCast(Color.green);
-            }
-
+            hitResult = 1;
             if (Physics.SphereCast(Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, Camera.main.nearClipPlane)), hitRadius, transform.forward, out RaycastHit hitData, hitRange))
             {
-                if (showSpherecastDebug)
-                {
-                    DrawSphereCast(Color.yellow);
-                }
-
+                hitResult = 2;
                 IHit hitResponder = hitData.collider.gameObject.GetComponent<IHit>();
                 if (hitResponder != null)
                 {
-                    if (showSpherecastDebug)
-                    {
-                        DrawSphereCast(Color.red);
-                    }
+                    hitResult = 3;
                     hitResponder.OnHit(hitData);
                 }
             }
         }
-    }
-    private void Awake()
-    {
-        lineRenderer = gameObject.AddComponent<LineRenderer>(); // PLACEHOLDER: Implement in-game toggle
-        lineRenderer.positionCount = 2;
-        lineRenderer.material = new Material(Shader.Find("Legacy Shaders/Particles/Alpha Blended Premultiply"));
-    }
-    private void DrawSphereCast(Color color)
-    {
-        Vector3 startPoint = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, Camera.main.nearClipPlane));
-        Vector3 endPoint = startPoint + Camera.main.transform.forward * hitRange;
-        lineRenderer.widthMultiplier = hitRadius;
-        lineRenderer.SetPosition(0, startPoint);
-        lineRenderer.SetPosition(1, endPoint);
-        lineRenderer.startColor = color;
-        lineRenderer.endColor = color;
-        Debug.Log($"{startPoint} - {endPoint}");
+        if (SCV.enabled && hitResult != 0)
+        {
+            Color color = new Color(0,0,0,0);
+            if (hitResult == 1) 
+            {
+                color = new Color(0,1,0,0.5f); // green | miss
+            }
+
+            else if (hitResult == 2) 
+            {
+                color = new Color(0,0,1,0.5f); // blue | hit non-damagable
+            }
+
+            else if (hitResult == 3) 
+            {
+                color = new Color(1,0,0,0.5f); // red | damaged
+            }
+            SCV.Draw(color, hitRange, hitRadius);
+        }
     }
 }
