@@ -23,7 +23,7 @@ public class SwordSwing : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && Time.time > timeForNextHit)
         {
             hitResult = 1;
-            if (Physics.SphereCast(Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, Camera.main.nearClipPlane)), hitRadius, transform.forward, out hitData, hitRange))
+            if (Physics.SphereCast(Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, Camera.main.nearClipPlane)), hitRadius, Camera.main.transform.forward, out hitData, hitRange))
             {
                 hitResult = 2;
                 IHit hitResponder = hitData.collider.gameObject.GetComponent<IHit>();
