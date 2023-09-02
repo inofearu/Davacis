@@ -10,10 +10,12 @@ public class SwordSwing : MonoBehaviour
     public float hitRange;
     private float timeForNextHit;
     private SphereCastVisualiser SCV;
+    private RaycastHit hitData;
 
     private void Start()
     {
         SCV = GetComponent<SphereCastVisualiser>();
+        //SCV.enabled = false;
     }
    void Update()
     {
@@ -21,7 +23,7 @@ public class SwordSwing : MonoBehaviour
         if (Input.GetMouseButtonDown(0) && Time.time > timeForNextHit)
         {
             hitResult = 1;
-            if (Physics.SphereCast(Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, Camera.main.nearClipPlane)), hitRadius, transform.forward, out RaycastHit hitData, hitRange))
+            if (Physics.SphereCast(Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, Camera.main.nearClipPlane)), hitRadius, transform.forward, out hitData, hitRange))
             {
                 hitResult = 2;
                 IHit hitResponder = hitData.collider.gameObject.GetComponent<IHit>();
@@ -34,6 +36,7 @@ public class SwordSwing : MonoBehaviour
         }
         if (SCV.enabled && hitResult != 0)
         {
+            float castRange = hitRange;
             Color color = new Color(0,0,0,0);
             if (hitResult == 1) 
             {
@@ -43,13 +46,15 @@ public class SwordSwing : MonoBehaviour
             else if (hitResult == 2) 
             {
                 color = new Color(0,0,1,0.5f); // blue | hit non-damagable
+                castRange = hitData.distance;
             }
 
             else if (hitResult == 3) 
             {
                 color = new Color(1,0,0,0.5f); // red | damaged
+                castRange = hitData.distance;
             }
-            SCV.Draw(color, hitRange, hitRadius);
+            SCV.Draw(color, castRange, hitRadius, hitData.collider);
         }
     }
 }

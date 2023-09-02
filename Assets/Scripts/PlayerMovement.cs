@@ -108,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
     private void OnDrawGizmos() 
     {
         /* --------------------------- SphereCastDebugDraw -------------------------- */
-        if(showSpherecastDebug == true) // TODO: Implement in-game toggle, use line-renderer
+        if(showSpherecastDebug == true) // TODO: Implement in-game toggle, use prefab method
         {
             Gizmos.color = Color.yellow;
             Gizmos.DrawSphere(transform.position, sphereCastSize);
