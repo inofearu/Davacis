@@ -2085,20 +2085,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAAAAIewYmmshTwIAAA8FAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGFVE1z2jAQ/SuMzm0HCElDb60hpIckTGgnF1/W1hprkCWPPgIkw3/vSraxQw49WX7v7erth/3OhLI15k6blRH8QXNkP0YsnNmXUU/e4wG2Wm3EG3aaF8FdGUQQNc/ghCZ8EsKsrtAZkf9UWxnEYwK9EoU21ZJvMdHWWYILkBaJMtqFaEXQ+4gd2oBj+3wLz9GJTjkqh+Z/Kq9yCVWNPLjtxdfjTk6nKFRUSasJrnMtpbCtDeaOdSwzgdp6KoIEXACVFQ0EfYliWzp6mQ6Dn4rComtNGTguhKHuNFnZL920rAK7a5y9gvTRwPQ2emqSPnzib2aRLoyu7rt7J7EiV4p89wzHHKwb9HQILz4a92oPcgeZxJcS1aNeGe0VJ9IZH0K9xelikOpcW1Jivut1jdcL0Nef5zPp53OK1R8SKaosIN9mDbCROvZ7HmLQ0GR+k+G4FbbNRGgw8dfiH9gO16cl7oSxjqj2QhXcZdqbIGXL2LNQjHeJNgoj3HquUYF0xzWlcZcjvOAG114wdxA+lPbyluv2/yIkwr1+PL6g1np/HpYt9f4BbfnknRQKe9OBeKQ+JVqpZsOGPenCNt4UkA/Ctl7wj6vF4Bbmk5urmyy/nUAxLr7Osmx+xfH6OwDPrvmcxd0TiuoEuW6Mtu2hqak+uaI96/4fo5WBOm47N7BfibdKD1ouVKE3uUFUT02Gs3E0dAl9lXzJBTVog84JFefN3lMmdb5Dnp4TpbHS5cEZSPssKavFq3YBSVkS/xopC/B5ldcGXwXuw+VdshM7/QNQSwMEFAAACAgAAAAh7K7X0ghtAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTXUVBKL0osyCgGihiCOKWZKSB2tFKiRaKloZmxWVKyhWFimkGarklSkqVxSqqpeWJiSpJpiqVSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAAAAh7BiaayFPAgAADwUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAAAh7K7X0ghtAAAAeAAAAAkAJAAAAAAAAAAAAAAAnAIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABUAwAAAAA=
+    dataString: UEsDBBQAAAgIAAAAIezeLPiyTwIAABEFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGFVE1z2jAQ/SuMzm0HCElDb60hpIckTGgnF1/W1hprkCWPPgIkw3/vSjbYcQ49WX7v7erth/3OhLI15k6blRH8QXNkP0YsnNmXUUfe4wG2Wm3EG541L4K7Moggap7BCU34JIRZXaEzIv+ptjKIxwR6JQptqiXfYqKtswQXIC0SZbQL0Yqg9xE7tAHH9vkWnqMTnXJUDs3/VF7lEqoaeXDbia/HZzmdolBRJa0muM61lMK2Npg71rHMBGrrqQgScAFUVjQQ9CWKbenoZdoPfioKi641ZeC4EIa602Rlv3TTsgrsrnH2CtJHA9Pb6KlJ+vCJv5lFujC6uj/fO4kVuVLku2c45mBdr6d9ePHRuFd7kDvIJL6UqB71ymivOJHO+BDqLU4XvVSX2pIS812na7wOQF9/ns+km88pVn9IpKiygHybNcBG6tjveYhBQ5P5TYbjVtg2E6HBxF+Lf2DbX5+WuBPGOqLaC1Vwl2lvgpQtY89CMd4l2iiMcOu5RgXSHdeUxg1HOOB61w6YOwgfSnt5y533fxAS4U4/Hg+otd5fhmVLvX9AWz55J4XqJwvMIzUq0Uo1K2YHbIjbeFNA3o/besE/LheDW5hPbq5usvx2AsW4+DrLsvkVx+vvADy75nMWt08oqhTkurHaNojmprpWKtq08x9ktDJQx33nBvYr8VbpXtOFKvQmN4jqqclwcY6GLqHvki+5oBZt0Dmh4sTZe8qkznfI00uiNJa6PDgDaZclZbV41S4gKUvifyNlAb4s89rgq8B9uPyc7MRO/wBQSwMEFAAACAgAAAAh7K7X0ghtAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTXUVBKL0osyCgGihiCOKWZKSB2tFKiRaKloZmxWVKyhWFimkGarklSkqVxSqqpeWJiSpJpiqVSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAAAAh7N4s+LJPAgAAEQUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAAAh7K7X0ghtAAAAeAAAAAkAJAAAAAAAAAAAAAAAnAIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABUAwAAAAA=
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
     cacheStartup: 0
   showNavGraphs: 1
-  showUnwalkableNodes: 1
+  showUnwalkableNodes: 0
   debugMode: 0
   debugFloor: 0
   debugRoof: 1
   manualDebugFloorRoof: 0
   showSearchTree: 0
   unwalkableNodeDebugSize: 0.3
-  logPathResults: 1
+  logPathResults: 4
   maxNearestNodeDistance: 100
   scanOnStartup: 1
   fullGetNearestSearch: 0
@@ -2117,7 +2117,7 @@ MonoBehaviour:
   heuristic: 2
   heuristicScale: 1
   threadCount: 1
-  maxFrameTime: 1
+  maxFrameTime: 10
   batchGraphUpdates: 0
   graphUpdateBatchingInterval: 0.2
   euclideanEmbedding:
@@ -4802,6 +4802,23 @@ Transform:
   m_Father: {fileID: 1388762276}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1692642821 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8808324943573729102, guid: 6aae084abd9b58a41b09817b92691d1d, type: 3}
+  m_PrefabInstance: {fileID: 3010696009529887824}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1692642822
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1692642821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb69d63b11295204289bcba45bdb7236, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1758695161
 GameObject:
   m_ObjectHideFlags: 0
@@ -5158,8 +5175,9 @@ GameObject:
   - component: {fileID: 1928983138}
   - component: {fileID: 1928983142}
   - component: {fileID: 1928983141}
-  - component: {fileID: 1928983143}
   - component: {fileID: 1928983145}
+  - component: {fileID: 1928983146}
+  - component: {fileID: 1928983147}
   m_Layer: 3
   m_Name: PlayerBody
   m_TagString: Player
@@ -5289,20 +5307,6 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1928983143
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1928983136}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f35b778653c2254439d679494268810a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxHealth: 20
-  maxMana: 20
 --- !u!54 &1928983145
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5319,6 +5323,34 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
+--- !u!114 &1928983146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928983136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cf76db941582d343859eb75a01b3e97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitRadius: 1
+  hitCooldown: 1
+  hitRange: 1000
+--- !u!114 &1928983147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928983136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 16da4e97f6d7ff749a13d124d7cd9658, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  capsulePrefab: {fileID: 1982866499530368340, guid: 26304bb11bf95d64a8f0e3b2e2e59ece, type: 3}
 --- !u!1 &1950046388
 GameObject:
   m_ObjectHideFlags: 0
