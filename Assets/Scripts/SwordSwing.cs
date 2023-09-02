@@ -9,14 +9,15 @@ public class SwordSwing : MonoBehaviour
     public float hitCooldown;
     public float hitRange;
     private float timeForNextHit;
-    public bool showSpherecastDebug;
-    void Update()
+    public bool showSpherecastDebug; // PLACEHOLDER: Implement in-game toggle
+    private LineRenderer lineRenderer;
+   void Update()
     {
         if (Input.GetMouseButtonDown(0) && Time.time > timeForNextHit)
         {
             if (showSpherecastDebug)
             {
-                DrawSphereCast(Color.white);
+                DrawSphereCast(Color.green);
             }
 
             if (Physics.SphereCast(Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, Camera.main.nearClipPlane)), hitRadius, transform.forward, out RaycastHit hitData, hitRange))
@@ -38,11 +39,21 @@ public class SwordSwing : MonoBehaviour
             }
         }
     }
+    private void Awake()
+    {
+        lineRenderer = gameObject.AddComponent<LineRenderer>(); // PLACEHOLDER: Implement in-game toggle
+        lineRenderer.positionCount = 2;
+        lineRenderer.material = new Material(Shader.Find("Legacy Shaders/Particles/Alpha Blended Premultiply"));
+    }
     private void DrawSphereCast(Color color)
     {
         Vector3 startPoint = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, Camera.main.nearClipPlane));
         Vector3 endPoint = startPoint + Camera.main.transform.forward * hitRange;
-        Debug.DrawLine(startPoint, endPoint, color, 600, false);
+        lineRenderer.widthMultiplier = hitRadius;
+        lineRenderer.SetPosition(0, startPoint);
+        lineRenderer.SetPosition(1, endPoint);
+        lineRenderer.startColor = color;
+        lineRenderer.endColor = color;
         Debug.Log($"{startPoint} - {endPoint}");
     }
 }
