@@ -8,7 +8,7 @@ public class SwordSwing : MonoBehaviour
     public float hitRadius;
     public float hitCooldown;
     public float hitRange;
-    private float timeForNextHit;
+    private float nextHitTime;
     private SphereCastVisualiser SCV;
     private RaycastHit hitData;
 
@@ -19,10 +19,12 @@ public class SwordSwing : MonoBehaviour
     }
    void Update()
     {
+        float hitTime = Time.time;
         int hitResult = 0;
-        if (Input.GetMouseButtonDown(0) && Time.time > timeForNextHit)
+        if (Input.GetMouseButtonDown(0) && Time.time > nextHitTime)
         {
-            timeForNextHit = Time.time + hitCooldown;
+            hitTime = Time.time;
+            nextHitTime = hitTime + hitCooldown;
             hitResult = 1;
             if (Physics.SphereCast(Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, Camera.main.nearClipPlane)), hitRadius, Camera.main.transform.forward, out hitData, hitRange))
             {
@@ -55,7 +57,7 @@ public class SwordSwing : MonoBehaviour
                 color = new Color(1,0,0,0.5f); // red | damaged
                 castRange = hitData.distance;
             }
-            SCV.Draw(color, castRange, hitRadius, hitData.collider, hitData.distance);
+            SCV.Draw(color, castRange, hitRadius, hitData.collider, hitData.distance, hitTime);
         }
     }
 }
