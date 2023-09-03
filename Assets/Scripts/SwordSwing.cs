@@ -54,7 +54,7 @@ public class SwordSwing : MonoBehaviour
                 color = new Color(1,0,0,0.5f); // red | damaged
                 castRange = hitData.distance;
             }
-            SCV.Draw(color, castRange, hitRadius, hitData.collider);
+            SCV.Draw(color, castRange, hitRadius, hitData.collider, hitData.distance);
         }
     }
 }
