@@ -21,12 +21,15 @@ public class SwordSwing : MonoBehaviour
     /* ------------------------------- SphereCast ------------------------------- */
     private SphereCastVisualiser SCV;
     private RaycastHit hitData;
+    private LayerMask rayHitLayers;
 
     [UsedImplicitly]
     private void Start()
     {
         SCV = GetComponent<SphereCastVisualiser>();
         SCV.enabled = true;
+
+        rayHitLayers = Physics.DefaultRaycastLayers & ~(1 << LayerMask.NameToLayer("Player"));
     }
     [UsedImplicitly]
     private void Update()
@@ -40,9 +43,10 @@ public class SwordSwing : MonoBehaviour
             hitTime = Time.time;
             nextHitTime = hitTime + hitCooldown;
             hitResult = 1; // miss 
-            Collider[] closeEntities = Physics.OverlapSphere(origin, hitRadius, Physics.DefaultRaycastLayers);
+            Collider[] closeEntities = Physics.OverlapSphere(origin, hitRadius, rayHitLayers);
             foreach (Collider entity in closeEntities)
             {
+                Debug.Log(entity.gameObject.name);
                 IHit hitResponder = entity.gameObject.GetComponent<IHit>();
                 hitResult = 2;
                 if (hitResponder != null)
@@ -65,7 +69,6 @@ public class SwordSwing : MonoBehaviour
                 }
             }
         }
-        Debug.Log(hitResult);
         if (SCV.enabled && hitResult != 0) // debug drawing of spherecast path
         {
             float castRange = hitRange;
