@@ -2085,7 +2085,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   version: 1
   data:
-    dataString: UEsDBBQAAAgIAAAAIezeLPiyTwIAABEFAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGFVE1z2jAQ/SuMzm0HCElDb60hpIckTGgnF1/W1hprkCWPPgIkw3/vSjbYcQ49WX7v7erth/3OhLI15k6blRH8QXNkP0YsnNmXUUfe4wG2Wm3EG541L4K7Moggap7BCU34JIRZXaEzIv+ptjKIxwR6JQptqiXfYqKtswQXIC0SZbQL0Yqg9xE7tAHH9vkWnqMTnXJUDs3/VF7lEqoaeXDbia/HZzmdolBRJa0muM61lMK2Npg71rHMBGrrqQgScAFUVjQQ9CWKbenoZdoPfioKi641ZeC4EIa602Rlv3TTsgrsrnH2CtJHA9Pb6KlJ+vCJv5lFujC6uj/fO4kVuVLku2c45mBdr6d9ePHRuFd7kDvIJL6UqB71ymivOJHO+BDqLU4XvVSX2pIS812na7wOQF9/ns+km88pVn9IpKiygHybNcBG6tjveYhBQ5P5TYbjVtg2E6HBxF+Lf2DbX5+WuBPGOqLaC1Vwl2lvgpQtY89CMd4l2iiMcOu5RgXSHdeUxg1HOOB61w6YOwgfSnt5y533fxAS4U4/Hg+otd5fhmVLvX9AWz55J4XqJwvMIzUq0Uo1K2YHbIjbeFNA3o/besE/LheDW5hPbq5usvx2AsW4+DrLsvkVx+vvADy75nMWt08oqhTkurHaNojmprpWKtq08x9ktDJQx33nBvYr8VbpXtOFKvQmN4jqqclwcY6GLqHvki+5oBZt0Dmh4sTZe8qkznfI00uiNJa6PDgDaZclZbV41S4gKUvifyNlAb4s89rgq8B9uPyc7MRO/wBQSwMEFAAACAgAAAAh7K7X0ghtAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTXUVBKL0osyCgGihiCOKWZKSB2tFKiRaKloZmxWVKyhWFimkGarklSkqVxSqqpeWJiSpJpiqVSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAAAAh7N4s+LJPAgAAEQUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAAAh7K7X0ghtAAAAeAAAAAkAJAAAAAAAAAAAAAAAnAIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABUAwAAAAA=
+    dataString: UEsDBBQAAAgIAAAAIezBoL6dTwIAAA4FAAALACQAZ3JhcGgwLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGFVE1z2jAQ/SuMzm0HCKSht9YhpIckTGgnF1/W1hprkCWPPgIkw3/vSraxQw49WX7v7erth/3OhLI15k6blRH8QXNkP0YsnNmXUU/e4wG2Wm3EG3aaF8FdGUQQNc/ghCZ8EsKsrtAZkf9UWxnEYwK9EoU21ZJvMdHWWYILkBaJMtqFaEXQ+4gd2oBj+3wLz9GJTjkqh+Z/Kq9yCVWNPLjtxfNxJ6dTFCqqpNUE17mWUtjWBnPHOpaZQG09FUECLoDKigaCvkSxLR29TIfBT0Vh0bWmDBxvhaHuNFnZL920rAK7a5y9gvTRwPQmemqSPnzir2eRLoyu7rt7J7EiV4p89wzHHKwb9HQI33407tUe5A4yiS8lqke9MtorTqQzPoR6i9PbQapzbUmJ+a7XNV4vQF9/ns+kn88pVn9IpKiygHybNcBG6tjvRYhBQ5P5TYbjVtg2E6HBxF+Lf2A7XJ+WuBPGOqLaC1Vwl2lvgpQtY89CMd4l2iiMcOu5RgXSHdeUxl2O8IIbXHvB3EH4UNrLW67b/4uQCPf68fiCWuv9eVi21PsHtOWTd1Io7E0H4pH6lGilmg2zH8kQtfGmgHwQtfWCf9wsBjewmFxfXWf5zQSKcfF1lmWLK47z7wA8m/MFi6snFJUJct34bLtDQ1N9ckVr1v0+RisDdVx2bmC/Em+VHvgTqtCb3CCqpyZD1yGLhi6hj5IvuaD+bNA5oeK42XvKpM53yNNzojRWujw4A2mfJWW1eNUuIClL4k8jZQE+b/La4KvAfbi8S3Zip39QSwMEFAAACAgAAAAh7K7X0ghtAAAAeAAAAAkAJABtZXRhLmpzb24KACAAAAAAAAEAGAAAgD7V3rGdAQCAPtXesZ0BAIA+1d6xnQGrVipLLSrOzM9TslIw0TPSMzTXUVBKL0osyCgGihiCOKWZKSB2tFKiRaKloZmxWVKyhWFimkGarklSkqVxSqqpeWJiSpJpiqVSLFB9SWVBql9ibipET0BiSUZaZl5KZl66nntRZoo7yGil2FoAUEsBAi0AFAAACAgAAAAh7MGgvp1PAgAADgUAAAsAJAAAAAAAAAAAAAAAAAAAAGdyYXBoMC5qc29uCgAgAAAAAAABABgAAIA+1d6xnQEAgD7V3rGdAQCAPtXesZ0BUEsBAi0AFAAACAgAAAAh7K7X0ghtAAAAeAAAAAkAJAAAAAAAAAAAAAAAnAIAAG1ldGEuanNvbgoAIAAAAAAAAQAYAACAPtXesZ0BAIA+1d6xnQEAgD7V3rGdAVBLBQYAAAAAAgACALgAAABUAwAAAAA=
     upgradeData: 
     file_cachedStartup: {fileID: 0}
     data_cachedStartup: 
@@ -2299,7 +2299,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 716118962}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.9, z: 0}
+  m_LocalPosition: {x: 0, y: 2.37, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2927,7 +2927,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.9, z: 0}
+  m_LocalPosition: {x: 0, y: 2.37, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5193,7 +5193,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1928983136}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.4, z: 0}
+  m_LocalPosition: {x: 0, y: 1.87, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5285,10 +5285,10 @@ MonoBehaviour:
   sphereCastSize: 0.5
   walkSpeed: 5
   sprintSpeed: 10
-  showSpherecastDebug: 0
   lookSpeed: 2
   maxYLookAngle: 50
   minYLookAngle: -75
+  showSpherecastDebug: 0
 --- !u!143 &1928983142
 CharacterController:
   m_ObjectHideFlags: 0
@@ -6066,6 +6066,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1928983137}
+    - target: {fileID: 3010696009316774037, guid: 6aae084abd9b58a41b09817b92691d1d, type: 3}
+      propertyPath: maxSpeed
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 7350872359746249301, guid: 6aae084abd9b58a41b09817b92691d1d, type: 3}
       propertyPath: m_RootOrder
       value: 2
