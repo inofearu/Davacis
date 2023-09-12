@@ -25,7 +25,6 @@ public class SwordSwing : MonoBehaviour
     /* ------------------------------ SphereOverlap ----------------------------- */
     private LayerMask rayHitLayers;
     private Collider[] closeEntities;
-    //private Vector3 playerSize;
 
     [UsedImplicitly]
     private void Start()
@@ -42,28 +41,27 @@ public class SwordSwing : MonoBehaviour
         float hitTime = Time.time; // cache of time at frame
         int hitResult = 0;
         bool closeHit = false;
+        Collider closest;
         if (Input.GetMouseButtonDown(0) && Time.time > nextHitTime)
         {
+            IHit hitResponder;
             Vector3 origin = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, Camera.main.nearClipPlane));
             hitTime = Time.time;
             nextHitTime = hitTime + hitCooldown;
-            hitResult = 1; // miss 
-            closeEntities = Physics.OverlapSphere(origin, hitRadius, rayHitLayers);
-
-            Dictionary<int, float> entitiesDistance = new Dictionary<int, float>(); // key = index
-            int index = 0;
+            hitResult = 1; // miss
+            List<Collider> closeEntities = new List<Collider>(Physics.OverlapSphere(origin, hitRadius, rayHitLayers));
+            closest = closeEntities[0];
+            closeEntities.RemoveAt(0);
             foreach (Collider entity in closeEntities)
             {
-                Vector3 directionToEntity = entity.transform.position - origin;
-                Physics.Raycast(origin, directionToEntity.normalized, out hitData);
-                entitiesDistance.Add(index, hitData.distance);
-                index++;
+                if (Vector3.Distance(entity.transform.position, origin) < Vector3.Distance(closest.transform.position, origin))
+                {
+                    closest = entity;
+                }
             }
-            List<KeyValuePair<int, float>> entitiesDistanceSort = new List<KeyValuePair<int, float>>(entitiesDistance);
-            entitiesDistanceSort.Sort((x, y) => x.Value.CompareTo(y.Value));
-            entity = entitiesDistance[entitiesDistanceSort[0]].Key; // this is fucked
-
-            IHit hitResponder = entity.gameObject.GetComponent<IHit>();
+            Vector3 directionToEntity = closest.transform.position - origin;
+            Physics.Raycast(origin, directionToEntity.normalized, out hitData);
+            hitResponder = closest.gameObject.GetComponent<IHit>();
             hitResult = 2;
             if (hitResponder != null)
             {
@@ -75,7 +73,7 @@ public class SwordSwing : MonoBehaviour
             if (Physics.SphereCast(origin, hitRadius, Camera.main.transform.forward, out hitData, hitRange) && !closeHit)
             {
                 hitResult = 2; // hit non-damagable
-                IHit hitResponder = hitData.collider.gameObject.GetComponent<IHit>();
+                hitResponder = hitData.collider.gameObject.GetComponent<IHit>();
                 if (hitResponder != null)
                 {
                     hitResult = 3; // hit damagable
@@ -96,7 +94,7 @@ public class SwordSwing : MonoBehaviour
             }
             else if (hitResult == 3)
             {
-                color = new Color(1, 0, 0, 0.5f); // red | 
+                color = new Color(1, 0, 0, 0.5f); // red | hit damagable
             }
             if (SCV.enabled && !closeHit) // debug drawing of spherecast path
             {
@@ -111,12 +109,13 @@ public class SwordSwing : MonoBehaviour
                 }
                 if (!closeHit)
                 {
-                    SCV.Draw(color, castRange, hitRadius, hitData.collider, hitData.distance, hitTime);
+                    SCV.Draw(color, castRange, hitRadius, hitData.collider, hitTime);
                 }
             }
             if (SOV.enabled && closeHit) // debug drawing of sphereOverlap
             {
-                SOV.Draw(color, hitRadius, closeEntities, hitData.distance, hitTime);
+                
+                SOV.Draw(color, hitData.distance, hitRadius, closest, hitTime);
             }
         }
     }
