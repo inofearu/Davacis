@@ -24,7 +24,6 @@ public class SwordSwing : MonoBehaviour
     private RaycastHit hitData;
     /* ------------------------------ SphereOverlap ----------------------------- */
     private LayerMask rayHitLayers;
-    private Collider[] closeEntities;
 
     [UsedImplicitly]
     private void Start()
@@ -52,7 +51,7 @@ public class SwordSwing : MonoBehaviour
             hitTime = Time.time;
             nextHitTime = hitTime + hitCooldown;
             hitResult = 1; // miss
-            List<Collider> closeEntities = new List<Collider>(Physics.OverlapSphere(origin, hitRadius, rayHitLayers));
+            List<Collider> closeEntities = new(Physics.OverlapSphere(origin, hitRadius, rayHitLayers));
             if (closeEntities.Count > 0)
             {
                 closeHit = true;
@@ -107,7 +106,7 @@ public class SwordSwing : MonoBehaviour
             {
                 color = new Color(0, 1, 0, 0.5f); // green | miss 
             }
-            if (SCV.enabled) // debug drawing of spherecast path
+            if (SCV.enabled && !closeHit) // debug drawing of spherecast path
             {
                 float castRange;
                 if (hitData.collider == null)
