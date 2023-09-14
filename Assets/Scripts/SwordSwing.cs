@@ -20,29 +20,70 @@ public class SwordSwing : MonoBehaviour
     private float nextHitTime;
     /* ------------------------------- SphereCast ------------------------------- */
     private SphereCastVisualiser SCV;
+    private SphereOverlapVisualiser SOV;
     private RaycastHit hitData;
+    /* ------------------------------ SphereOverlap ----------------------------- */
+    private LayerMask rayHitLayers;
 
     [UsedImplicitly]
     private void Start()
     {
         SCV = GetComponent<SphereCastVisualiser>();
-        //SCV.enabled = false;
+        SOV = GetComponent<SphereOverlapVisualiser>();
+        SCV.enabled = true;
+        SOV.enabled = true;
+
+        rayHitLayers = Physics.DefaultRaycastLayers & ~(1 << LayerMask.NameToLayer("Player"));
+        //playerSize = GameObject.Find("Player Body").GetComponent<Renderer>().bounds.size;
     }
     [UsedImplicitly]
     private void Update()
     {
         float hitTime = Time.time; // cache of time at frame
         int hitResult = 0;
+        bool closeHit = false;
+        bool farHit = false;
+        Collider closest = null;
         if (Input.GetMouseButtonDown(0) && Time.time > nextHitTime)
         {
+            IHit hitResponder;
             Vector3 origin = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, Camera.main.nearClipPlane));
             hitTime = Time.time;
             nextHitTime = hitTime + hitCooldown;
             hitResult = 1; // miss
-            if (Physics.SphereCast(origin, hitRadius, Camera.main.transform.forward, out hitData, hitRange))
+            List<Collider> closeEntities = new(Physics.OverlapSphere(origin, hitRadius, rayHitLayers));
+            if (closeEntities.Count > 0)
             {
+                closeHit = true;
+                closest = closeEntities[0];
+                closeEntities.RemoveAt(0);
+            }
+            foreach (Collider entity in closeEntities)
+            {
+                if (Vector3.Distance(entity.transform.position, origin) < Vector3.Distance(closest.transform.position, origin))
+                {
+                    closest = entity;
+                }
+            }
+            if (closest != null)
+            {
+                Vector3 directionToEntity = closest.transform.position - origin;
+                Physics.Raycast(origin, directionToEntity.normalized, out hitData);
+                hitResponder = closest.gameObject.GetComponent<IHit>();
+
+                hitResult = 2;
+                if (hitResponder != null)
+                {
+                    hitResult = 3;
+                    Physics.Raycast(origin, directionToEntity.normalized, out hitData);
+                    hitResponder.OnHit(hitData);
+                }
+            }
+            if (Physics.SphereCast(origin, hitRadius, Camera.main.transform.forward, out hitData, hitRange) && !closeHit)
+            {
+                farHit = true;
                 hitResult = 2; // hit non-damagable
-                IHit hitResponder = hitData.collider.gameObject.GetComponent<IHit>();
+                hitResponder = hitData.collider.gameObject.GetComponent<IHit>();
                 if (hitResponder != null)
                 {
                     hitResult = 3; // hit damagable
@@ -50,25 +91,38 @@ public class SwordSwing : MonoBehaviour
                 }
             }
         }
-        if (SCV.enabled && hitResult != 0) // debug drawing of spherecast path
+        if (hitResult != 0)
         {
-            float castRange = hitRange;
             Color color = new(0, 0, 0, 0);
-            if (hitResult == 1)
-            {
-                color = new Color(0, 1, 0, 0.5f); // green | miss
-            }
-            else if (hitResult == 2)
+            if (hitResult == 2)
             {
                 color = new Color(0, 0, 1, 0.5f); // blue | hit non-damagable
-                castRange = hitData.distance;
             }
             else if (hitResult == 3)
             {
-                color = new Color(1, 0, 0, 0.5f); // red | damaged
-                castRange = hitData.distance;
+                color = new Color(1, 0, 0, 0.5f); // red | hit damagable
             }
-            SCV.Draw(color, castRange, hitRadius, hitData.collider, hitData.distance, hitTime);
+            else
+            {
+                color = new Color(0, 1, 0, 0.5f); // green | miss 
+            }
+            if (SCV.enabled && !closeHit) // debug drawing of spherecast path
+            {
+                float castRange;
+                if (hitData.collider == null)
+                {
+                    castRange = hitRange;
+                }
+                else
+                {
+                    castRange = hitData.distance;
+                }
+                SCV.Draw(color, castRange, hitRadius, hitData.collider, hitTime);
+            }
+            if (SOV.enabled && !farHit) // debug drawing of sphereOverlap
+            {
+                SOV.Draw(color, hitData.distance, hitRadius, closest, hitTime);
+            }
         }
     }
 }

@@ -3,7 +3,7 @@ FileName : SphereCastVisualiser.cs
 FileType : C# Source File
 Author : Christopher Huskinson
 Created On : 02 September 2023, 14:49:18
-Description : Debug script for visualising weapon spherecasts
+Description : Debug script for visualising weapon SphereCasts
 */
 using JetBrains.Annotations;
 using System.Collections;
@@ -15,7 +15,7 @@ public class SphereCastVisualiser : MonoBehaviour
     public int maxCasts; // TODO: implement in-game switch
     public GameObject capsulePrefab;
     private Queue<GameObject> drawnObjects;
-    public void Draw(Color color, float range, float radius, Collider hitObj, float hitDist, float hitTime)
+    public void Draw(Color color, float range, float radius, Collider hitObj, float hitTime)
     {
         /* -------------------------------- Locations ------------------------------- */
         Vector3 startPoint = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, Camera.main.nearClipPlane));
@@ -34,7 +34,7 @@ public class SphereCastVisualiser : MonoBehaviour
         {
             Destroy(drawnObjects.Dequeue());
         }
-        Debug.Log($"[{startPoint} - {endPoint}], [{hitObj}], [{hitDist}], [{hitTime}]");
+        Debug.Log($"[Start: {startPoint} - End: {endPoint}], Hit Object: [{hitObj}], Range: [{range}], Hit Time: [{hitTime}]");
     }
     [UsedImplicitly]
     private void Awake()
