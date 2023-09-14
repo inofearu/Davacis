@@ -38,7 +38,7 @@ public class SwordSwing : MonoBehaviour
         //playerSize = GameObject.Find("Player Body").GetComponent<Renderer>().bounds.size;
     }
     [UsedImplicitly]
-    private void Update() 
+    private void Update()
     {
         float hitTime = Time.time; // cache of time at frame
         int hitResult = 0;
@@ -99,7 +99,7 @@ public class SwordSwing : MonoBehaviour
             {
                 color = new Color(0, 0, 1, 0.5f); // blue | hit non-damagable
             }
-            if (hitResult == 3)
+            else if (hitResult == 3)
             {
                 color = new Color(1, 0, 0, 0.5f); // red | hit damagable
             }
@@ -110,7 +110,7 @@ public class SwordSwing : MonoBehaviour
             if (SCV.enabled) // debug drawing of spherecast path
             {
                 float castRange;
-                if (hitData.distance == Mathf.Infinity)
+                if (hitData.collider == null)
                 {
                     castRange = hitRange;
                 }
@@ -119,10 +119,10 @@ public class SwordSwing : MonoBehaviour
                     castRange = hitData.distance;
                 }
                 SCV.Draw(color, castRange, hitRadius, hitData.collider, hitTime);
-             }
+            }
             if (SOV.enabled && !farHit) // debug drawing of sphereOverlap
             {
-                SOV.Draw(color, hitData.distance, hitRadius, closest, hitTime); 
+                SOV.Draw(color, hitData.distance, hitRadius, closest, hitTime);
             }
         }
     }
