@@ -5178,6 +5178,7 @@ GameObject:
   - component: {fileID: 1928983145}
   - component: {fileID: 1928983146}
   - component: {fileID: 1928983147}
+  - component: {fileID: 1928983148}
   m_Layer: 3
   m_Name: PlayerBody
   m_TagString: Player
@@ -5352,6 +5353,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxCasts: 1
   capsulePrefab: {fileID: 1982866499530368340, guid: 26304bb11bf95d64a8f0e3b2e2e59ece, type: 3}
+--- !u!114 &1928983148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928983136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7ef836ead92b8642ac6bb1465d5faf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxCasts: 1
+  spherePrefab: {fileID: 0}
 --- !u!1 &1950046388
 GameObject:
   m_ObjectHideFlags: 0

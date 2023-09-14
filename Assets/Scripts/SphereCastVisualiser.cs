@@ -3,7 +3,7 @@ FileName : SphereCastVisualiser.cs
 FileType : C# Source File
 Author : Christopher Huskinson
 Created On : 02 September 2023, 14:49:18
-Description : Debug script for visualising weapon spherecasts
+Description : Debug script for visualising weapon SphereCasts
 */
 using JetBrains.Annotations;
 using System.Collections;
@@ -34,7 +34,7 @@ public class SphereCastVisualiser : MonoBehaviour
         {
             Destroy(drawnObjects.Dequeue());
         }
-        Debug.Log($"[{startPoint} - {endPoint}], [{hitObj}], [{range}], [{hitTime}]");
+        Debug.Log($"[Start: {startPoint} - End: {endPoint}], Hit Object: [{hitObj}], Range: [{range}], Hit Time: [{hitTime}]");
     }
     [UsedImplicitly]
     private void Awake()

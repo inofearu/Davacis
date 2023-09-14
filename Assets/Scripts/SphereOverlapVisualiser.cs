@@ -13,28 +13,26 @@ using UnityEngine;
 public class SphereOverlapVisualiser : MonoBehaviour
 {
     public int maxCasts; // TODO: implement in-game switch
-    public GameObject capsulePrefab;
+    public GameObject spherePrefab;
     private Queue<GameObject> drawnObjects;
-    public void Draw(Color color, float range, float radius, Collider hitObj, float hitTime)
+    public void Draw(Color color, float hitDist, float radius, Collider hitObj, float hitTime)
     {
         /* -------------------------------- Locations ------------------------------- */
-        Vector3 startPoint = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, Camera.main.nearClipPlane));
-        Vector3 endPoint = startPoint + (Camera.main.transform.forward.normalized * range);
-        Vector3 centerPoint = (startPoint + endPoint) / 2;
+        Vector3 overlapOrigin = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, Camera.main.nearClipPlane));
 
         /* -------------------------------- Rendering ------------------------------- */
-        GameObject capsule = Instantiate(capsulePrefab, centerPoint, Quaternion.FromToRotation(Vector3.up, Camera.main.transform.forward));
-        Renderer capsuleRenderer = capsule.GetComponent<Renderer>();
-        capsuleRenderer.material.SetColor("_Color", color);
-        capsule.transform.localScale = new Vector3(radius * 2, range / 2, radius * 2);
+        GameObject sphere = Instantiate(spherePrefab, overlapOrigin, Quaternion.identity);
+        Renderer sphereRenderer = sphere.GetComponent<Renderer>();
+        sphereRenderer.material.SetColor("_Color", color);
+        sphere.transform.localScale = new Vector3(radius * 2, radius * 2, radius * 2);
 
         /* -------------------------------- Old Casts ------------------------------- */
-        drawnObjects.Enqueue(capsule);
+        drawnObjects.Enqueue(sphere);
         if (drawnObjects.Count > maxCasts)
         {
             Destroy(drawnObjects.Dequeue());
         }
-        Debug.Log($"[{startPoint} - {endPoint}], [{hitObj}], [{range}], [{hitTime}]");
+        Debug.Log($"Overlap Origin: [{overlapOrigin}], Hit Distance: [{hitDist}], Hit Object: [{hitObj}], Radius: [{radius}], Hit Time: [{hitTime}]");
     }
     [UsedImplicitly]
     private void Awake()
