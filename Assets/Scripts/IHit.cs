@@ -8,8 +8,9 @@ Description : Interface for receiving damage
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using JetBrains.Annotations;
 
 public interface IHit
 {
-    void OnHit(RaycastHit hitData);
+    void OnHit(RaycastHit hitData, int damage);
 }
