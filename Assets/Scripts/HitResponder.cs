@@ -11,18 +11,10 @@ using UnityEngine;
 using JetBrains.Annotations;
 
 public class HitResponder : MonoBehaviour, IHit
-{   
+{
+    private DamageModifier DamageModifier;
     private int health = 0;
-    private enum damageTypes
-    { 
-        Blunt,
-        Slash,
-        Magic
-    }
-    [SerializeField] List<damageTypes> damageTypeKeys = new List<damageTypes>();
-    [SerializeField] List<float> damageTypeValues = new List<float>();
-    private Dictionary<damageTypes, float> modifiers;
-    public int Health   // property
+    public int Health
     {
         get 
         { 
@@ -39,29 +31,20 @@ public class HitResponder : MonoBehaviour, IHit
     [UsedImplicitly]
     private void Awake()
     {
-        if (damageTypeKeys.Count != damageTypeValues.Count)
-        {
-            Debug.LogWarning("damageTypeKeys length differs to damageTypeValues length. Assuming Default values.");
-        }
-        modifiers = new Dictionary<damageTypes, float>();
-        for (int i = 0; i < Mathf.Min(damageTypeKeys.Count, damageTypeValues.Count); i++)
-        {
-            modifiers[damageTypeKeys[i]] = damageTypeValues[i];
-        }
+        DamageModifier = GetComponent<DamageModifier>();
+        List<DamageModifier.DamageModifierPair> modifiers = DamageModifier.modifiers;
     }
-    public void OnHit(RaycastHit hitData, int damage)
+    public void OnHit(int damage, DamageModifier damageType)
     {
-    }
-
-    private void TakeDamage(RaycastHit hitData, int damage)
-    {   
     }
 
     private void Die()
     {
+        Destroy(this.gameObject);
     }
 
     private void CalculateFinalDamage(int incomingDamage)
     {
+        foreach (DamageModifier in DamageModifier.damageModifiers.modifiers)
     }
 }

@@ -11,12 +11,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class SwordSwing : MonoBehaviour
+public class PlayerMeleeAttack: MonoBehaviour
 {
+    private DamageModifier DamageModifier;
     /* --------------------------- Hit Characteristics -------------------------- */
-    public float hitRadius;
-    public float hitCooldown;
-    public float hitRange;
+    [SerializeField] float hitRadius;
+    [SerializeField] float hitCooldown;
+    [SerializeField] float hitRange;
+    [SerializeField] DamageModifier damageType;
     private float nextHitTime;
     /* ------------------------------- SphereCast ------------------------------- */
     private SphereCastVisualiser SCV;
@@ -26,15 +28,14 @@ public class SwordSwing : MonoBehaviour
     private LayerMask rayHitLayers;
 
     [UsedImplicitly]
-    private void Start()
+    private void Awake()
     {
+        DamageModifier = GetComponent<DamageModifier>();
         SCV = GetComponent<SphereCastVisualiser>();
         SOV = GetComponent<SphereOverlapVisualiser>();
         SCV.enabled = true;
         SOV.enabled = true;
-
         rayHitLayers = Physics.DefaultRaycastLayers & ~(1 << LayerMask.NameToLayer("Player"));
-        //playerSize = GameObject.Find("Player Body").GetComponent<Renderer>().bounds.size;
     }
     [UsedImplicitly]
     private void Update()
