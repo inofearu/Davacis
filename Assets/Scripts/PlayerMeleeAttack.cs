@@ -18,7 +18,8 @@ public class PlayerMeleeAttack: MonoBehaviour
     [SerializeField] float hitRadius;
     [SerializeField] float hitCooldown;
     [SerializeField] float hitRange;
-    [SerializeField] DamageModifier damageType;
+    [SerializeField] int hitDamage;
+    [SerializeField] DamageModifier.DamageType hitType;
     private float nextHitTime;
     /* ------------------------------- SphereCast ------------------------------- */
     private SphereCastVisualiser SCV;
@@ -77,7 +78,7 @@ public class PlayerMeleeAttack: MonoBehaviour
                 {
                     hitResult = 3;
                     Physics.Raycast(origin, directionToEntity.normalized, out hitData);
-                    hitResponder.OnHit(hitData);
+                    hitResponder.OnHit(hitDamage, hitType);
                 }
             }
             if (Physics.SphereCast(origin, hitRadius, Camera.main.transform.forward, out hitData, hitRange) && !closeHit)
@@ -88,7 +89,7 @@ public class PlayerMeleeAttack: MonoBehaviour
                 if (hitResponder != null)
                 {
                     hitResult = 3; // hit damagable
-                    hitResponder.OnHit(hitData);
+                    hitResponder.OnHit(hitDamage, hitType);
                 }
             }
         }
