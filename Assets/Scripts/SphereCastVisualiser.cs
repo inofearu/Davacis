@@ -15,11 +15,9 @@ public class SphereCastVisualiser : MonoBehaviour
     public int maxCasts; // TODO: implement in-game switch
     public GameObject capsulePrefab;
     private Queue<GameObject> drawnObjects;
-    public void Draw(Color color, float range, float radius, Collider hitObj, float hitTime)
+    public void Draw(Color color, float range, float radius, Collider hitObj, float hitTime, Vector3 startPoint, Vector3 endPoint)
     {
-        /* -------------------------------- Locations ------------------------------- */
-        Vector3 startPoint = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, Camera.main.nearClipPlane));
-        Vector3 endPoint = startPoint + (Camera.main.transform.forward.normalized * range);
+        /* -------------------------------- Location ------------------------------- */
         Vector3 centerPoint = (startPoint + endPoint) / 2;
 
         /* -------------------------------- Rendering ------------------------------- */

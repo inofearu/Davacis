@@ -11,16 +11,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerMeleeAttack: MonoBehaviour
+public class AIMeleeAttack : MonoBehaviour
 {
     private DamageModifier DamageModifier;
+    private Renderer objRenderer;
     /* --------------------------- Hit Characteristics -------------------------- */
     [SerializeField] float hitRadius;
     [SerializeField] float hitCooldown;
     [SerializeField] float hitRange;
     [SerializeField] int hitDamage;
     [SerializeField] DamageModifier.DamageType hitType;
+    [SerializeField] float hitHightOffset;
     private float nextHitTime;
+    private bool attacking;
     /* ------------------------------- SphereCast ------------------------------- */
     private SphereCastVisualiser SCV;
     private SphereOverlapVisualiser SOV;
@@ -34,9 +37,10 @@ public class PlayerMeleeAttack: MonoBehaviour
         DamageModifier = GetComponent<DamageModifier>();
         SCV = GetComponent<SphereCastVisualiser>();
         SOV = GetComponent<SphereOverlapVisualiser>();
+        objRenderer = GetComponent<Renderer>();
         SCV.enabled = true;
         SOV.enabled = true;
-        rayHitLayers = Physics.DefaultRaycastLayers & ~(1 << LayerMask.NameToLayer("Player"));
+        rayHitLayers = Physics.DefaultRaycastLayers & ~(1 << LayerMask.NameToLayer("Enemy"));
     }
     [UsedImplicitly]
     private void Update()
@@ -46,8 +50,8 @@ public class PlayerMeleeAttack: MonoBehaviour
         bool closeHit = false;
         bool farHit = false;
         Collider closest = null;
-        Vector3 origin = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, Camera.main.nearClipPlane));
-        if (Input.GetMouseButtonDown(0) && Time.time > nextHitTime)
+        Vector3 origin = gameObject.transform.forward + new Vector3(0, objRenderer.bounds.size.y / hitHightOffset, 0);
+        if (Time.time > nextHitTime)
         {
             IHit hitResponder;
             hitTime = Time.time;
@@ -81,7 +85,7 @@ public class PlayerMeleeAttack: MonoBehaviour
                     hitResponder.OnHit(hitDamage, hitType);
                 }
             }
-            if (Physics.SphereCast(origin, hitRadius, Camera.main.transform.forward, out hitData, hitRange) && !closeHit)
+            if (Physics.SphereCast(origin, hitRadius, gameObject.transform.forward, out hitData, hitRange) && !closeHit)
             {
                 farHit = true;
                 hitResult = 2; // hit non-damagable
@@ -119,7 +123,7 @@ public class PlayerMeleeAttack: MonoBehaviour
                 {
                     castRange = hitData.distance;
                 }
-                Vector3 endPoint = origin + (Camera.main.transform.forward.normalized * castRange);
+                Vector3 endPoint = origin + (gameObject.transform.forward.normalized * castRange);
                 SCV.Draw(color, castRange, hitRadius, hitData.collider, hitTime, origin, endPoint);
             }
             if (SOV.enabled && !farHit) // debug drawing of sphereOverlap
