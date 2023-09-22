@@ -32,7 +32,7 @@ public class SphereOverlapVisualiser : MonoBehaviour
         {
             Destroy(drawnObjects.Dequeue());
         }
-        Debug.Log($"Overlap Origin: [{overlapOrigin}], Hit Distance: [{hitDist}], Hit Object: [{hitObj}], Radius: [{radius}], Hit Time: [{hitTime}]");
+        Debug.Log($"Overlap Origin: [{overlapOrigin}], Hit Object: [{hitObj.gameObject.name}], Radius: [{radius}], Hit Time: [{hitTime}]");
     }
     [UsedImplicitly]
     private void Awake()
