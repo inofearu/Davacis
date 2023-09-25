@@ -21,7 +21,7 @@ public class AIMeleeAttack : MonoBehaviour
     [SerializeField] float hitRange;
     [SerializeField] int hitDamage;
     [SerializeField] DamageModifier.DamageType hitType;
-    [SerializeField] float hitHightOffset;
+    [SerializeField] float hitHeightOffset;
     private float nextHitTime;
     private bool attacking;
     /* ------------------------------- SphereCast ------------------------------- */
@@ -38,8 +38,8 @@ public class AIMeleeAttack : MonoBehaviour
         SCV = GetComponent<SphereCastVisualiser>();
         SOV = GetComponent<SphereOverlapVisualiser>();
         objRenderer = GetComponent<Renderer>();
-        SCV.enabled = false;
-        SOV.enabled = false;
+        SCV.enabled = true;
+        SOV.enabled = true;
         rayHitLayers = Physics.DefaultRaycastLayers & ~(1 << LayerMask.NameToLayer("Enemy"));
     }
     [UsedImplicitly]
@@ -50,7 +50,7 @@ public class AIMeleeAttack : MonoBehaviour
         bool closeHit = false;
         bool farHit = false;
         Collider closest = null;
-        Vector3 origin = gameObject.transform.forward + new Vector3(0, objRenderer.bounds.size.y / hitHightOffset, 0);
+        Vector3 origin = gameObject.transform.position + new Vector3(0, objRenderer.bounds.size.y - hitHeightOffset, 0);
         if (Time.time > nextHitTime)
         {
             IHit hitResponder;
