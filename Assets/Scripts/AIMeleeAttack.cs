@@ -38,8 +38,8 @@ public class AIMeleeAttack : MonoBehaviour
         SCV = GetComponent<SphereCastVisualiser>();
         SOV = GetComponent<SphereOverlapVisualiser>();
         objRenderer = GetComponent<Renderer>();
-        SCV.enabled = true;
-        SOV.enabled = true;
+        SCV.enabled = false;
+        SOV.enabled = false;
         rayHitLayers = Physics.DefaultRaycastLayers & ~(1 << LayerMask.NameToLayer("Enemy"));
     }
     [UsedImplicitly]
