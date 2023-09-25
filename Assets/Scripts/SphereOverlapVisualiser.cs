@@ -15,11 +15,9 @@ public class SphereOverlapVisualiser : MonoBehaviour
     public int maxCasts; // TODO: implement in-game switch
     public GameObject spherePrefab;
     private Queue<GameObject> drawnObjects;
-    public void Draw(Color color, float hitDist, float radius, Collider hitObj, float hitTime)
+    public void Draw(Color color, float hitDist, float radius, Collider hitObj, float hitTime, Vector3 overlapOrigin)
     {
-        /* -------------------------------- Locations ------------------------------- */
-        Vector3 overlapOrigin = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, Camera.main.nearClipPlane));
-
+        string hitObjName = "null";
         /* -------------------------------- Rendering ------------------------------- */
         GameObject sphere = Instantiate(spherePrefab, overlapOrigin, Quaternion.identity);
         Renderer sphereRenderer = sphere.GetComponent<Renderer>();
@@ -32,7 +30,11 @@ public class SphereOverlapVisualiser : MonoBehaviour
         {
             Destroy(drawnObjects.Dequeue());
         }
-        Debug.Log($"Overlap Origin: [{overlapOrigin}], Hit Distance: [{hitDist}], Hit Object: [{hitObj}], Radius: [{radius}], Hit Time: [{hitTime}]");
+        if (hitObj is not null)
+        {
+            hitObjName = hitObj.gameObject.name;
+        }
+        Debug.Log($"Overlap Origin: [{overlapOrigin}], Hit Object: [{hitObjName}], Distance: [{hitDist}]Radius: [{radius}], Hit Time: [{hitTime}]");
     }
     [UsedImplicitly]
     private void Awake()
