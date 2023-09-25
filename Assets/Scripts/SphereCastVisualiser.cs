@@ -22,7 +22,7 @@ public class SphereCastVisualiser : MonoBehaviour
         Vector3 centerPoint = (startPoint + endPoint) / 2;
 
         /* -------------------------------- Rendering ------------------------------- */
-        GameObject capsule = Instantiate(capsulePrefab, centerPoint, Quaternion.FromToRotation(Vector3.up, Camera.main.transform.forward));
+        GameObject capsule = Instantiate(capsulePrefab, centerPoint, Quaternion.FromToRotation(Vector3.up, (endPoint - startPoint).normalized));
         Renderer capsuleRenderer = capsule.GetComponent<Renderer>();
         capsuleRenderer.material.SetColor("_Color", color);
         capsule.transform.localScale = new Vector3(radius * 2, range / 2, radius * 2);
