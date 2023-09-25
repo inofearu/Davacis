@@ -17,6 +17,7 @@ public class SphereCastVisualiser : MonoBehaviour
     private Queue<GameObject> drawnObjects;
     public void Draw(Color color, float range, float radius, Collider hitObj, float hitTime, Vector3 startPoint, Vector3 endPoint)
     {
+        string hitObjName = "null";
         /* -------------------------------- Location ------------------------------- */
         Vector3 centerPoint = (startPoint + endPoint) / 2;
 
@@ -32,7 +33,12 @@ public class SphereCastVisualiser : MonoBehaviour
         {
             Destroy(drawnObjects.Dequeue());
         }
-        Debug.Log($"[Start: {startPoint} - End: {endPoint}], Hit Object: [{hitObj.gameObject.name}], Range: [{range}], Hit Time: [{hitTime}]");
+
+        if (hitObj is not null)
+        {
+            hitObjName = hitObj.gameObject.name;
+        }
+        Debug.Log($"[Start: {startPoint} - End: {endPoint}], Hit Object: [{hitObjName}], Range: [{range}], Hit Time: [{hitTime}]");
     }
     [UsedImplicitly]
     private void Awake()

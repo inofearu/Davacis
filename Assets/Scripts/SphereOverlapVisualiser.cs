@@ -17,6 +17,7 @@ public class SphereOverlapVisualiser : MonoBehaviour
     private Queue<GameObject> drawnObjects;
     public void Draw(Color color, float hitDist, float radius, Collider hitObj, float hitTime, Vector3 overlapOrigin)
     {
+        string hitObjName = "null";
         /* -------------------------------- Rendering ------------------------------- */
         GameObject sphere = Instantiate(spherePrefab, overlapOrigin, Quaternion.identity);
         Renderer sphereRenderer = sphere.GetComponent<Renderer>();
@@ -29,7 +30,11 @@ public class SphereOverlapVisualiser : MonoBehaviour
         {
             Destroy(drawnObjects.Dequeue());
         }
-        Debug.Log($"Overlap Origin: [{overlapOrigin}], Hit Object: [{hitObj.gameObject.name}], Radius: [{radius}], Hit Time: [{hitTime}]");
+        if (hitObj is not null)
+        {
+            hitObjName = hitObj.gameObject.name;
+        }
+        Debug.Log($"Overlap Origin: [{overlapOrigin}], Hit Object: [{hitObjName}], Distance: [{hitDist}]Radius: [{radius}], Hit Time: [{hitTime}]");
     }
     [UsedImplicitly]
     private void Awake()
