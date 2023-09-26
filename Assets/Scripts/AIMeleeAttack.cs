@@ -11,13 +11,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class SwordSwing : MonoBehaviour
+public class AIMeleeAttack : MonoBehaviour
 {
+    private DamageModifier DamageModifier;
+    private Renderer objRenderer;
     /* --------------------------- Hit Characteristics -------------------------- */
-    public float hitRadius;
-    public float hitCooldown;
-    public float hitRange;
+    [SerializeField] float hitRadius;
+    [SerializeField] float hitCooldown;
+    [SerializeField] float hitRange;
+    [SerializeField] int hitDamage;
+    [SerializeField] DamageModifier.DamageType hitType;
+    [SerializeField] float hitHeightOffset;
     private float nextHitTime;
+    private bool attacking;
     /* ------------------------------- SphereCast ------------------------------- */
     private SphereCastVisualiser SCV;
     private SphereOverlapVisualiser SOV;
@@ -26,15 +32,15 @@ public class SwordSwing : MonoBehaviour
     private LayerMask rayHitLayers;
 
     [UsedImplicitly]
-    private void Start()
+    private void Awake()
     {
+        DamageModifier = GetComponent<DamageModifier>();
         SCV = GetComponent<SphereCastVisualiser>();
         SOV = GetComponent<SphereOverlapVisualiser>();
+        objRenderer = GetComponent<Renderer>();
         SCV.enabled = true;
         SOV.enabled = true;
-
-        rayHitLayers = Physics.DefaultRaycastLayers & ~(1 << LayerMask.NameToLayer("Player"));
-        //playerSize = GameObject.Find("Player Body").GetComponent<Renderer>().bounds.size;
+        rayHitLayers = Physics.DefaultRaycastLayers & ~(1 << LayerMask.NameToLayer("Enemy"));
     }
     [UsedImplicitly]
     private void Update()
@@ -44,10 +50,10 @@ public class SwordSwing : MonoBehaviour
         bool closeHit = false;
         bool farHit = false;
         Collider closest = null;
-        if (Input.GetMouseButtonDown(0) && Time.time > nextHitTime)
+        Vector3 origin = gameObject.transform.position + new Vector3(0, objRenderer.bounds.size.y - hitHeightOffset, 0);
+        if (Time.time > nextHitTime)
         {
             IHit hitResponder;
-            Vector3 origin = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, Camera.main.nearClipPlane));
             hitTime = Time.time;
             nextHitTime = hitTime + hitCooldown;
             hitResult = 1; // miss
@@ -76,10 +82,10 @@ public class SwordSwing : MonoBehaviour
                 {
                     hitResult = 3;
                     Physics.Raycast(origin, directionToEntity.normalized, out hitData);
-                    hitResponder.OnHit(hitData);
+                    hitResponder.OnHit(hitDamage, hitType);
                 }
             }
-            if (Physics.SphereCast(origin, hitRadius, Camera.main.transform.forward, out hitData, hitRange) && !closeHit)
+            if (Physics.SphereCast(origin, hitRadius, gameObject.transform.forward, out hitData, hitRange) && !closeHit)
             {
                 farHit = true;
                 hitResult = 2; // hit non-damagable
@@ -87,7 +93,7 @@ public class SwordSwing : MonoBehaviour
                 if (hitResponder != null)
                 {
                     hitResult = 3; // hit damagable
-                    hitResponder.OnHit(hitData);
+                    hitResponder.OnHit(hitDamage, hitType);
                 }
             }
         }
@@ -117,11 +123,12 @@ public class SwordSwing : MonoBehaviour
                 {
                     castRange = hitData.distance;
                 }
-                SCV.Draw(color, castRange, hitRadius, hitData.collider, hitTime);
+                Vector3 endPoint = origin + (gameObject.transform.forward.normalized * castRange);
+                SCV.Draw(color, castRange, hitRadius, hitData.collider, hitTime, origin, endPoint);
             }
             if (SOV.enabled && !farHit) // debug drawing of sphereOverlap
             {
-                SOV.Draw(color, hitData.distance, hitRadius, closest, hitTime);
+                SOV.Draw(color, hitData.distance, hitRadius, closest, hitTime, origin);
             }
         }
     }
