@@ -35,6 +35,11 @@ public class HitResponder : MonoBehaviour, IHit
 
     private void Die()
     {
+        if (gameObject.tag == "Player")
+        {
+            GameObject aStar = GameObject.FindGameObjectsWithTag("A*")[0];
+            aStar.SetActive(false);
+        }
         Destroy(this.gameObject);
     }
 
