@@ -80,7 +80,7 @@ public class PlayerMovement : MonoBehaviour
         /* ---------------------------------- Jump ---------------------------------- */
         if (isGrounded)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKey(KeyCode.Space))
             {
                 verticalMove += new Vector3(0, jumpHeight, 0);
             }
