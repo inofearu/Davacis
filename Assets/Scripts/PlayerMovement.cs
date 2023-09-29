@@ -82,7 +82,7 @@ public class PlayerMovement : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Space))
             {
-                verticalMove += new Vector3(0, jumpHeight, 0);
+                verticalMove = new Vector3(0, jumpHeight, 0);
             }
             else
             {
