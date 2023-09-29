@@ -2167,9 +2167,9 @@ GameObject:
   - component: {fileID: 664553201}
   - component: {fileID: 664553203}
   - component: {fileID: 664553202}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: A*
-  m_TagString: Untagged
+  m_TagString: A*
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5509,6 +5509,7 @@ GameObject:
   - component: {fileID: 1928983147}
   - component: {fileID: 1928983148}
   - component: {fileID: 1928983149}
+  - component: {fileID: 1928983150}
   m_Layer: 3
   m_Name: PlayerBody
   m_TagString: Player
@@ -5720,6 +5721,19 @@ MonoBehaviour:
     modifier: 1
   - type: 3
     modifier: 1
+--- !u!114 &1928983150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1928983136}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cb69d63b11295204289bcba45bdb7236, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 2
 --- !u!1 &1950046388
 GameObject:
   m_ObjectHideFlags: 0
@@ -6620,7 +6634,7 @@ MonoBehaviour:
   hitRange: 1
   hitDamage: 5
   hitType: 1
-  hitHeightOffset: 2.5
+  hitHeightOffset: 2
 --- !u!114 &6049830527137723168
 MonoBehaviour:
   m_ObjectHideFlags: 0
