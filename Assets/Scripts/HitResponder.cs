@@ -16,6 +16,7 @@ public class HitResponder : MonoBehaviour, IHit
     private DamageModifier DamageModifier;
     List<DamageModifier.DamageModifierPair> modifiers;
     [SerializeField] int health = 0;
+    [SerializeField] int maxHealth = 0;
     [UsedImplicitly]
     private void Awake()
     {
