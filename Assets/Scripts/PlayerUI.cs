@@ -7,7 +7,7 @@ using TMPro;
 public class PlayerUI : MonoBehaviour
 {
     [SerializeField] GameObject deathScreen;
-    [SerializeField] GameObject levelTextDisplay;
+    [SerializeField] TMP_Text levelText;
     [SerializeField] GameObject healthBar;
     [SerializeField] float xpScale = 1.2f;
     private TMP_Text levelField;
@@ -53,6 +53,6 @@ public class PlayerUI : MonoBehaviour
     }
     private void UpdateXPDisplay()
     {
-        levelField.text = $"Level: {CurrentLevel}   XP: {CurrentXP} / {XPToNextLevel}";
+        levelText.text = $"Level: {CurrentLevel}   XP: {CurrentXP} / {XPToNextLevel}";
     }
 }
