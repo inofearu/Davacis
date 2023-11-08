@@ -15,8 +15,7 @@ public class HitResponder : MonoBehaviour, IHit
 {
     private DamageModifier DamageModifier;
     List<DamageModifier.DamageModifierPair> modifiers;
-    [SerializeField] int health = 0;
-    [SerializeField] int maxHealth = 0;
+    [SerializeField] EntityStats StatFile;
     [UsedImplicitly]
     private void Awake()
     {
@@ -26,12 +25,11 @@ public class HitResponder : MonoBehaviour, IHit
     public void OnHit(int incomingDamage, DamageModifier.DamageType damageType)
     {
         incomingDamage = CalculateFinalDamage(incomingDamage, damageType);
-        health -= incomingDamage;
-        if (health <= 0)
+        StatFile.Health -= incomingDamage;
+        if (StatFile.Health <= 0)
         {
             Die();
         }
-        Debug.Log($"{health}");
     }
 
     private void Die()

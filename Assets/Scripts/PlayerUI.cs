@@ -15,10 +15,10 @@ public class PlayerUI : MonoBehaviour
     private int Damage;
     private int maxHealth;
     private float health;
-    private float HealthBarSeek = 1.0f;
-    private int CurrentXP = 0;
-    private int CurrentLevel = 0;
-    private int XPToNextLevel = 5;
+    private float healthBarSeek = 1.0f;
+    private int currentXP = 0;
+    private int currentLevel = 0;
+    private int xpToNextLevel = 5;
 
     // Start is called before the first frame update
     [UsedImplicitly]
@@ -36,23 +36,23 @@ public class PlayerUI : MonoBehaviour
     [UsedImplicitly]
     private void OnHit(Collision other)
     {
-        HealthBarSeek = health / maxHealth;
-        slider.value = HealthBarSeek;
+        healthBarSeek = health / maxHealth;
+        slider.value = healthBarSeek;
     }
     public void AddXP(int AddedXP)
     {
-        CurrentXP += AddedXP;
+        currentXP += AddedXP;
         UpdateXPDisplay();
-        while(CurrentXP > XPToNextLevel)
+        while(currentXP > xpToNextLevel)
         {
-            CurrentXP -= XPToNextLevel;
-            XPToNextLevel = Mathf.RoundToInt(XPToNextLevel * xpScale);
-            CurrentLevel ++;
+            currentXP -= xpToNextLevel;
+            xpToNextLevel = Mathf.RoundToInt(xpToNextLevel * xpScale);
+            currentLevel ++;
             UpdateXPDisplay();
         }
     }
     private void UpdateXPDisplay()
     {
-        levelText.text = $"Level: {CurrentLevel}   XP: {CurrentXP} / {XPToNextLevel}";
+        levelText.text = $"Level: {currentLevel}   XP: {currentXP} / {xpToNextLevel}";
     }
 }
