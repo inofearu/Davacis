@@ -4,11 +4,9 @@ using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerStats : MonoBehaviour
+public class PlayerStats : BaseStats
 {
-    public static PlayerStats instance {get; private set;} 
-    private float health;
-    public float maxHealth;
+    public static PlayerStats instance {get; private set;} // instance can be gotten outside, but not set
     public UnityEvent onPlayerDeath;
     [UsedImplicitly]
     private void Awake()
@@ -27,22 +25,10 @@ public class PlayerStats : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
     }
-    public float Health
-    {
-        get => health;
-        set
-        {
-            if (health + value > maxHealth) // max cap
-            {
-                health = maxHealth;
-            }
-            health = value;
-        }
-    }
     [UsedImplicitly]
     private void OnDeath()
     {
-        if (health < 0)
+        if (Health < 0)
         {
             (gameObject.GetComponent("FirstPersonController") as MonoBehaviour).enabled = false;
             this.enabled = false;
@@ -51,4 +37,3 @@ public class PlayerStats : MonoBehaviour
     }
 }
 // https://awesometuts.com/blog/singletons-unity/ singletons
-// health in HitResponder and PlayerStats arent the same

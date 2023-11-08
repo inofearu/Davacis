@@ -3,20 +3,7 @@ using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 
-public class EntityStats : MonoBehaviour
+public class EntityStats : BaseStats
 {
-    private float health;
-    public float maxHealth;
-    public float Health
-    {
-        get => health;
-        set
-        {
-            if (health + value > maxHealth)
-            {
-                health = maxHealth;
-            }
-            health = value;
-        }
-    }
+
 }

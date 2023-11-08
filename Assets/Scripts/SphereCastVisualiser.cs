@@ -38,7 +38,7 @@ public class SphereCastVisualiser : MonoBehaviour
         {
             hitObjName = hitObj.gameObject.name;
         }
-        Debug.Log($"[Start: {startPoint} - End: {endPoint}], Hit Object: [{hitObjName}], Range: [{range}], Hit Time: [{hitTime}]");
+        //Debug.Log($"[Start: {startPoint} - End: {endPoint}], Hit Object: [{hitObjName}], Range: [{range}], Hit Time: [{hitTime}]");
     }
     [UsedImplicitly]
     private void Awake()
