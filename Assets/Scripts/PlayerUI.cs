@@ -34,7 +34,7 @@ public class PlayerUI : MonoBehaviour
     }
     // Update is called once per frame
     [UsedImplicitly]
-    private void OnHit(Collision other)
+    private void OnHit()
     {
         healthBarSeek = health / maxHealth;
         slider.value = healthBarSeek;
