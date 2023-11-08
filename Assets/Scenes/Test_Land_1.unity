@@ -6369,6 +6369,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb69d63b11295204289bcba45bdb7236, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StatFile: {fileID: 1928983151}
 --- !u!114 &1928983151
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6381,6 +6382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a3b3949071e07b54cb3a1d23295fbfb6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 10
   onPlayerDeath:
     m_PersistentCalls:
       m_Calls: []
@@ -7519,6 +7521,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1928983137}
+    - target: {fileID: 5294540441814575544, guid: 022eae67d16a2ba4a911619421b07a3b, type: 3}
+      propertyPath: StatFile
+      value: 
+      objectReference: {fileID: 6049830527137723183}
     - target: {fileID: 5454396985110408300, guid: 022eae67d16a2ba4a911619421b07a3b, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -7576,3 +7582,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxCasts: 1
   capsulePrefab: {fileID: 1982866499530368340, guid: 26304bb11bf95d64a8f0e3b2e2e59ece, type: 3}
+--- !u!114 &6049830527137723183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6049830527137723166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4d574a236fdcb243bc1dc21a2d604f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 10
