@@ -19,6 +19,9 @@ public class DamageModifier : MonoBehaviour
         Magic,
     }
 
+    public System.Array damageTypes = System.Enum.GetValues(typeof(DamageType));
+  
+
     [System.Serializable]
     public class DamageModifierPair
     {
@@ -41,7 +44,7 @@ public class DamageModifier : MonoBehaviour
     private void Reset()
     {
         modifiers.Clear();
-        foreach (DamageType type in System.Enum.GetValues(typeof(DamageType)))
+        foreach (DamageType type in damageTypes)
         {
             modifiers.Add(new DamageModifierPair {type = type, modifier = 1.0f}); // default value
         }
