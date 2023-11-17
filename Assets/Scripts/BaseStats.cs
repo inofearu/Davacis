@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using JetBrains.Annotations;
 
 public class BaseStats : MonoBehaviour
 {
@@ -20,5 +21,10 @@ public class BaseStats : MonoBehaviour
                 health = value;
             }
         }
+    }
+    [UsedImplicitly]
+    protected void Awake() //! This will be an issue on save/loading for the player
+    {
+        health = maxHealth;
     }
 }
