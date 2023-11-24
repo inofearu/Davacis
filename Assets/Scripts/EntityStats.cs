@@ -5,5 +5,5 @@ using UnityEngine;
 
 public class EntityStats : BaseStats
 {
-
+    private void OnDeath()
 }

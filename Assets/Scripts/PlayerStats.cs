@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
-using UnityEngine.Events;
+
 
 public class PlayerStats : BaseStats
 {
     public static PlayerStats instance {get; private set;} // instance can be gotten outside, but not set
-    public UnityEvent onPlayerDeath;
+    private int currentXP = 0;
     [UsedImplicitly]
     private void Awake()
     {
@@ -32,7 +32,7 @@ public class PlayerStats : BaseStats
         {
             (gameObject.GetComponent("FirstPersonController") as MonoBehaviour).enabled = false;
             this.enabled = false;
-            onPlayerDeath.Invoke();
+        }
         }
     }
 }
