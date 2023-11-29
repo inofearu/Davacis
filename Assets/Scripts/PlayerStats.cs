@@ -20,12 +20,19 @@ public class PlayerStats : BaseStats
         playerUI.UpdateXPDisplay(currentLevel, currentXP, xpToNextLevel);
         playerUI.UpdateHPDisplay(Health, MaxHealth);
     }
-    new public float Health
+    public override float Health
     {
         get => health;
         set
         {
-            base.Health = value;
+            if (value > maxHealth) // max cap
+            {
+                health = maxHealth;
+            }
+            else
+            {
+                health = value;
+            }
             playerUI.UpdateHPDisplay(Health, MaxHealth);
         }
     }

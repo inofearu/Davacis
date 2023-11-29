@@ -28,6 +28,5 @@ public class PlayerUI : MonoBehaviour
     public void UpdateHPDisplay(float health, float maxHealth)
     {
         slider.value = health / maxHealth;
-        Debug.Log("among us");
     }
 }

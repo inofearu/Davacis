@@ -7,7 +7,7 @@ public class BaseStats : MonoBehaviour
 {
     protected float health;
     public float maxHealth;
-    public float Health
+    public virtual float Health
     {
         get => health;
         set
