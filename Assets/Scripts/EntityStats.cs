@@ -11,7 +11,6 @@ public class EntityStats : BaseStats
     protected override void Die()
     {
         Debug.Log("Entity Death Event - Entity Stats");
-        (gameObject.GetComponent("FirstPersonController") as MonoBehaviour).enabled = false;
         OnEntityDeath?.Invoke(this);
         Destroy(this.gameObject);
     }
