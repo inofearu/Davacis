@@ -12,6 +12,7 @@ public class EntityStats : BaseStats
     {
         if (Health < 0)
         {
+            Debug.Log("Entity Death Event - Entity Stats");
             (gameObject.GetComponent("FirstPersonController") as MonoBehaviour).enabled = false;
             this.enabled = false;
             OnEntityDeath?.Invoke(this);

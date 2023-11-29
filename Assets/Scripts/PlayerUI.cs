@@ -23,6 +23,7 @@ public class PlayerUI : MonoBehaviour
     }
     public void UpdateXPDisplay(int currentLevel, int currentXP, int xpToNextLevel)
     {
+        Debug.Log("XP Display Updated - Player UI");
         levelText.text = $"Level: {currentLevel}   XP: {currentXP} / {xpToNextLevel}";
     }
     public void UpdateHPDisplay(float health, float maxHealth)

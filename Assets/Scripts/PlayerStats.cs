@@ -94,6 +94,7 @@ public class PlayerStats : BaseStats
     }
     private void EnemyKilled(EntityStats entity)
     {
+        Debug.Log("Enemy killed - Player Stats");
         CurrentXP += entity.xpValue;
     }
 }
