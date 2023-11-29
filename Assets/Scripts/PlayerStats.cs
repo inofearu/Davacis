@@ -67,7 +67,7 @@ public class PlayerStats : BaseStats
     }
     public int CurrentXP
     {
-        get => CurrentXP;
+        get => currentXP;
         set
         {
             currentXP += value;
