@@ -27,20 +27,6 @@ public class HitResponder : MonoBehaviour, IHit
         incomingDamage = CalculateFinalDamage(incomingDamage, damageType);
         Debug.Log($"{incomingDamage}-{StatFile.Health}-{this}");
         StatFile.Health -= incomingDamage;
-        if (StatFile.Health <= 0)
-        {
-            Die();
-        }
-    }
-
-    private void Die()
-    {
-        if (gameObject.tag == "Player")
-        {
-            GameObject aStar = GameObject.FindGameObjectsWithTag("A*")[0];
-            aStar.SetActive(false);
-        }
-        Destroy(this.gameObject);
     }
 
     private int CalculateFinalDamage(float incomingDamage, DamageModifier.DamageType damageType)
