@@ -7522,7 +7522,7 @@ PrefabInstance:
       objectReference: {fileID: 1928983137}
     - target: {fileID: 5294540440066571131, guid: 022eae67d16a2ba4a911619421b07a3b, type: 3}
       propertyPath: maxSpeed
-      value: 10
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5294540441814575544, guid: 022eae67d16a2ba4a911619421b07a3b, type: 3}
       propertyPath: StatFile
@@ -7598,4 +7598,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 10
-  xpValue: 5
+  xpValue: 500
