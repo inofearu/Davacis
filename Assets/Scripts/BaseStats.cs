@@ -5,7 +5,7 @@ using JetBrains.Annotations;
 
 public class BaseStats : MonoBehaviour
 {
-    private float health;
+    protected float health;
     public float maxHealth;
     public float Health
     {

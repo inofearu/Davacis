@@ -6,12 +6,36 @@ using UnityEngine;
 
 public class PlayerStats : BaseStats
 {
-    public static PlayerStats instance {get; private set;} // instance can be gotten outside, but not set
+    [SerializeField] private PlayerUI playerUI;
+    public static PlayerStats instance {get; private set;} // instance can be gotten from outside, but not set
     private int currentXP = 0;
+    private int currentLevel = 0;
+    private int xpToNextLevel = 10;
+    [SerializeField] private float xpScale = 1.2f;
     [UsedImplicitly]
-    private void Awake()
+    new private void Awake()
     {
+        base.Awake();
         CreateInstance();
+        playerUI.UpdateXPDisplay(currentLevel, currentXP, xpToNextLevel);
+        playerUI.UpdateHPDisplay(Health, MaxHealth);
+    }
+    new public float Health
+    {
+        get => health;
+        set
+        {
+            base.Health = value;
+            playerUI.UpdateHPDisplay(Health, MaxHealth);
+        }
+    }
+    private void OnEnable()
+    {
+        EntityStats.OnEntityDeath += EnemyKilled;
+    }
+    private void OnDisable()
+    {
+        EntityStats.OnEntityDeath -= EnemyKilled;
     }
     private void CreateInstance()
     {
@@ -26,14 +50,43 @@ public class PlayerStats : BaseStats
         DontDestroyOnLoad(gameObject);
     }
     [UsedImplicitly]
-    private void OnDeath()
+    private void OnDeath() //? Do we need a HitResponder file still?
     {
         if (Health < 0)
         {
             (gameObject.GetComponent("FirstPersonController") as MonoBehaviour).enabled = false;
             this.enabled = false;
         }
+    }
+    public int CurrentXP
+    {
+        get => CurrentXP;
+        set
+        {
+            currentXP += value;
+            currentLevel += xpToNextLevel / currentXP;
+            xpToNextLevel = Mathf.RoundToInt(xpToNextLevel * xpScale);
+            playerUI.UpdateXPDisplay(currentLevel, currentXP, xpToNextLevel);
         }
     }
+    public int CurrentLevel
+    {
+        get => CurrentLevel;
+        set
+        {
+            currentLevel += value;
+        }
+    }
+    public float MaxHealth
+    {
+        get => maxHealth;
+        set
+        {
+            maxHealth = value;
+        }
+    }
+    private void EnemyKilled(EntityStats entity)
+    {
+        CurrentXP += entity.xpValue;
+    }
 }
-// https://awesometuts.com/blog/singletons-unity/ singletons

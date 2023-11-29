@@ -6383,9 +6383,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  onPlayerDeath:
-    m_PersistentCalls:
-      m_Calls: []
+  playerUI: {fileID: 1928983152}
+  xpScale: 1.2
 --- !u!114 &1928983152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6401,7 +6400,7 @@ MonoBehaviour:
   deathScreen: {fileID: 786341238}
   levelText: {fileID: 490363018}
   healthBar: {fileID: 1238274379}
-  xpScale: 1.2
+  slider: {fileID: 1238274381}
 --- !u!1 &1950046388
 GameObject:
   m_ObjectHideFlags: 0
@@ -7521,6 +7520,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 1928983137}
+    - target: {fileID: 5294540440066571131, guid: 022eae67d16a2ba4a911619421b07a3b, type: 3}
+      propertyPath: maxSpeed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5294540441814575544, guid: 022eae67d16a2ba4a911619421b07a3b, type: 3}
       propertyPath: StatFile
       value: 
@@ -7595,3 +7598,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 10
+  xpValue: 5
