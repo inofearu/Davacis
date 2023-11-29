@@ -19,8 +19,17 @@ public class BaseStats : MonoBehaviour
             else
             {
                 health = value;
+
+                if (health < 0)
+                {
+                    Die();
+                }
             }
         }
+    }
+    protected virtual void Die()
+    {
+        Destroy(this.gameObject);
     }
     [UsedImplicitly]
     protected void Awake() //! This will be an issue on save/loading for the player

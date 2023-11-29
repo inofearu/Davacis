@@ -22,24 +22,25 @@ public class PlayerStats : BaseStats
     }
     public override float Health
     {
-        get => health;
+        get => base.health;
         set
         {
-            if (value > maxHealth) // max cap
-            {
-                health = maxHealth;
-            }
-            else
-            {
-                health = value;
-            }
+            base.health = value;
             playerUI.UpdateHPDisplay(Health, MaxHealth);
         }
     }
+    protected override void Die()
+    {
+        GameObject aStar = GameObject.FindGameObjectsWithTag("A*")[0];
+        aStar.SetActive(false);
+        Destroy(gameObject);
+    }
+    [UsedImplicitly]
     private void OnEnable()
     {
         EntityStats.OnEntityDeath += EnemyKilled;
     }
+    [UsedImplicitly]
     private void OnDisable()
     {
         EntityStats.OnEntityDeath -= EnemyKilled;
@@ -56,7 +57,6 @@ public class PlayerStats : BaseStats
         }
         DontDestroyOnLoad(gameObject);
     }
-    [UsedImplicitly]
     private void OnDeath() //? Do we need a HitResponder file still?
     {
         if (Health < 0)
@@ -67,7 +67,7 @@ public class PlayerStats : BaseStats
     }
     public int CurrentXP
     {
-        get => CurrentXP;
+        get => currentXP;
         set
         {
             currentXP += value;
@@ -94,6 +94,7 @@ public class PlayerStats : BaseStats
     }
     private void EnemyKilled(EntityStats entity)
     {
+        Debug.Log("Enemy killed - Player Stats");
         CurrentXP += entity.xpValue;
     }
 }
