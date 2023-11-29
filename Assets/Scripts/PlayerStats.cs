@@ -73,8 +73,9 @@ public class PlayerStats : BaseStats
             currentXP += value;
             while(xpToNextLevel < currentXP)
             {
+                currentXP -= xpToNextLevel;
                 currentLevel++;
-                xpToNextLevel = Mathf.RoundToInt(xpToNextLevel * xpScale);
+                xpToNextLevel = (int)(xpToNextLevel * xpScale);
             }
             playerUI.UpdateXPDisplay(currentLevel, currentXP, xpToNextLevel);
         }
