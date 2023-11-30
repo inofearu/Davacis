@@ -17,8 +17,9 @@ public class PlayerUI : MonoBehaviour
     {
         slider = healthBar.GetComponent<Slider>();
     }
-    public void HandlePlayerDeath()
+    public void DisplayDeathScreen()
     {
+        Debug.Log("Fronus");
         deathScreen.GetComponent<Image>().enabled = true;
     }
     public void UpdateXPDisplay(int currentLevel, int currentXP, int xpToNextLevel)
