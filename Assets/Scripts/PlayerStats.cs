@@ -22,10 +22,10 @@ public class PlayerStats : BaseStats
     }
     public override float Health
     {
-        get => base.health;
+        get => base.Health;
         set
         {
-            base.health = value;
+            base.Health = value;
             playerUI.UpdateHPDisplay(Health, MaxHealth);
         }
     }
@@ -33,7 +33,8 @@ public class PlayerStats : BaseStats
     {
         GameObject aStar = GameObject.FindGameObjectsWithTag("A*")[0];
         aStar.SetActive(false);
-        Destroy(gameObject);
+        playerUI.DisplayDeathScreen();
+        Destroy(this.gameObject);
     }
     [UsedImplicitly]
     private void OnEnable()
@@ -57,22 +58,18 @@ public class PlayerStats : BaseStats
         }
         DontDestroyOnLoad(gameObject);
     }
-    private void OnDeath() //? Do we need a HitResponder file still?
-    {
-        if (Health < 0)
-        {
-            (gameObject.GetComponent("FirstPersonController") as MonoBehaviour).enabled = false;
-            this.enabled = false;
-        }
-    }
     public int CurrentXP
     {
         get => currentXP;
         set
         {
             currentXP += value;
-            currentLevel += xpToNextLevel / currentXP;
-            xpToNextLevel = Mathf.RoundToInt(xpToNextLevel * xpScale);
+            while(xpToNextLevel < currentXP)
+            {
+                currentXP -= xpToNextLevel;
+                currentLevel++;
+                xpToNextLevel = (int)(xpToNextLevel * xpScale);
+            }
             playerUI.UpdateXPDisplay(currentLevel, currentXP, xpToNextLevel);
         }
     }
