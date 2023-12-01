@@ -20,7 +20,6 @@ public class DamageModifier : MonoBehaviour
     }
 
     public System.Array damageTypes = System.Enum.GetValues(typeof(DamageType));
-  
 
     [System.Serializable]
     public class DamageModifierPair
@@ -28,9 +27,9 @@ public class DamageModifier : MonoBehaviour
         public DamageType type;
         public float modifier;
     }
-    public List<DamageModifierPair> modifiers = new List<DamageModifierPair>();
+    public List<DamageModifierPair> modifiers = new();
 
-    private Dictionary<DamageType, float> _modifiers = new Dictionary<DamageType, float>();
+    private Dictionary<DamageType, float> _modifiers = new();
 
     [UsedImplicitly]
     private void Awake()

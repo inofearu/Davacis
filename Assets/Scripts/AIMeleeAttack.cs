@@ -13,17 +13,19 @@ using UnityEngine.InputSystem;
 
 public class AIMeleeAttack : MonoBehaviour
 {
-    private DamageModifier DamageModifier;
-    private Renderer objRenderer;
+     private DamageModifier DamageModifier;
+     private Renderer objRenderer;
     /* --------------------------- Hit Characteristics -------------------------- */
-    [SerializeField] float hitRadius;
-    [SerializeField] float hitCooldown;
-    [SerializeField] float hitRange;
-    [SerializeField] int hitDamage;
-    [SerializeField] DamageModifier.DamageType hitType;
-    [SerializeField] float hitHeightOffset;
+    #pragma warning disable RCS1169
+    [SerializeField] private float hitRadius;
+    [SerializeField] private float hitCooldown;
+    [SerializeField] private float hitRange;
+    [SerializeField] private int hitDamage;
+    [SerializeField] private DamageModifier.DamageType hitType;
+    [SerializeField] private float hitHeightOffset;
     private float nextHitTime;
-    private bool attacking;
+    // private bool attacking
+    #pragma warning restore RCS1169
     /* ------------------------------- SphereCast ------------------------------- */
     private SphereCastVisualiser SCV;
     private SphereOverlapVisualiser SOV;
@@ -99,7 +101,7 @@ public class AIMeleeAttack : MonoBehaviour
         }
         if (hitResult != 0)
         {
-            Color color = new(0, 0, 0, 0);
+            Color color;
             if (hitResult == 2)
             {
                 color = new Color(0, 0, 1, 0.5f); // blue | hit non-damagable
