@@ -14,7 +14,7 @@ public class DebugUI : MonoBehaviour
     {
         SCV = GetComponent<SphereCastVisualiser>();
         SOV = GetComponent<SphereOverlapVisualiser>();
-        PMV = GetComponent<PlayerMovementVisualiser>();
+        //PMV = GetComponent<PlayerMovementVisualiser>();
     }
     [UsedImplicitly]
     private void Update()
@@ -34,7 +34,7 @@ public class DebugUI : MonoBehaviour
             GUILayout.Label("Debug Menu");
             GUILayout.Toggle(SOV.enabled, "Toggle SOV");
             GUILayout.Toggle(SCV.enabled, "Toggle SCV");
-            GUILayout.Toggle(PMV.enabled, "Toggle PMV");
+            //GUILayout.Toggle(PMV.enabled, "Toggle PMV");
         }
     }
 }
