@@ -41,8 +41,8 @@ public class DebugUI : MonoBehaviour
         {
             GUILayout.BeginArea(new Rect(Screen.width / 2, Screen.height / 2, 300, 300));
             GUILayout.BeginVertical("Debug Menu", GUI.skin.box);
-            GUILayout.Toggle(SOV.enabled, "Toggle SOV drawing");
-            GUILayout.Toggle(SCV.enabled, "Toggle SCV drawing");
+            SOV.enabled = GUILayout.Toggle(SOV.enabled, "Toggle SOV drawing");
+            SCV.enabled = GUILayout.Toggle(SCV.enabled, "Toggle SCV drawing");
             GUILayout.EndVertical();
             GUILayout.EndArea();
             //GUILayout.Toggle(PMV.enabled, "Toggle PMV");
