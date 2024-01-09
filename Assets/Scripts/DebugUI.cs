@@ -30,8 +30,7 @@ public class DebugUI : MonoBehaviour
     {
         if (menuOpen)
         {
-            GUILayout.BeginArea(new Rect(10, 10, 200, 150));
-            GUILayout.Label("Debug Menu");
+            GUI.Box(new Rect(10, 10, 100, 90), "Debug Menu");
             GUILayout.Toggle(SOV.enabled, "Toggle SOV");
             GUILayout.Toggle(SCV.enabled, "Toggle SCV");
             //GUILayout.Toggle(PMV.enabled, "Toggle PMV");
