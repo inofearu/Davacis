@@ -18,6 +18,10 @@ public class PlayerDebugDrawingManager : MonoBehaviour
         PMA = GetComponent<PlayerMeleeAttack>();
         SOV = GetComponent<SphereOverlapVisualiser>();
         SCV = GetComponent<SphereCastVisualiser>();
+        if (PMA == null)
+        {
+            Debug.LogError("PMA is null");
+        }
     }
     [UsedImplicitly]
     private void LateUpdate()
