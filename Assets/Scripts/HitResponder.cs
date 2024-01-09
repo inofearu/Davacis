@@ -22,7 +22,7 @@ public class HitResponder : MonoBehaviour, IHit
         DamageModifier = GetComponent<DamageModifier>();
         modifiers = DamageModifier.modifiers;
     }
-    public void OnHit(int incomingDamage, DamageModifier.DamageType damageType)
+    public void OnHit(float incomingDamage, DamageModifier.DamageType damageType)
     {
         incomingDamage = CalculateFinalDamage(incomingDamage, damageType);
         Debug.Log($"{incomingDamage}-{StatFile.Health}-{this}");

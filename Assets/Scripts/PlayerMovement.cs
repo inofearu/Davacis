@@ -30,8 +30,7 @@ public class PlayerMovement : MonoBehaviour
     private float yAxis = 0f; // affected by player mouse
     private float xAxis = 0f; // affected by player mouse
     /* ---------------------------------- Debug --------------------------------- */
-    [SerializeField] private bool showSpherecastDebug = false;
-
+    public bool debugShowEnabled;
     [UsedImplicitly]
     private void Start()
     {
@@ -102,15 +101,5 @@ public class PlayerMovement : MonoBehaviour
         // Debug.Log($"{playerVelocity} - {verticalMove} - {hitData.distance} - {isGrounded}");
         cc.Move(transform.TransformDirection(playerVelocity) * Time.deltaTime); // X move
         cc.Move(verticalMove * Time.deltaTime); // Y move
-    }
-    [UsedImplicitly]
-    private void OnDrawGizmos()
-    {
-        /* --------------------------- SphereCastDebugDraw -------------------------- */
-        if (showSpherecastDebug) // TODO: Implement in-game toggle, use prefab method
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawSphere(transform.position, sphereCastSize);
-        }
     }
 }

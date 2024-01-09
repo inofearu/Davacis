@@ -12,5 +12,5 @@ using JetBrains.Annotations;
 
 public interface IHit
 {
-    void OnHit(int incomingDamage, DamageModifier.DamageType damageType);
+    void OnHit(float incomingDamage, DamageModifier.DamageType damageType);
 }

@@ -17,9 +17,9 @@ public class AIMeleeAttack : MonoBehaviour
      private Renderer objRenderer;
     /* --------------------------- Hit Characteristics -------------------------- */
     #pragma warning disable RCS1169
-    [SerializeField] private float hitRadius;
+    [SerializeField] private float radius;
     [SerializeField] private float hitCooldown;
-    [SerializeField] private float hitRange;
+    [SerializeField] private float maxDistance;
     [SerializeField] private int hitDamage;
     [SerializeField] private DamageModifier.DamageType hitType;
     [SerializeField] private float hitHeightOffset;
@@ -29,7 +29,7 @@ public class AIMeleeAttack : MonoBehaviour
     /* ------------------------------- SphereCast ------------------------------- */
     private SphereCastVisualiser SCV;
     private SphereOverlapVisualiser SOV;
-    private RaycastHit hitData;
+    private RaycastHit raycastHit;
     /* ------------------------------ SphereOverlap ----------------------------- */
     private LayerMask rayHitLayers;
 
@@ -48,7 +48,7 @@ public class AIMeleeAttack : MonoBehaviour
     private void Update()
     {
         float hitTime = Time.time; // cache of time at frame
-        int hitResult = 0;
+        int result = 0;
         bool closeHit = false;
         bool farHit = false;
         Collider closest = null;
@@ -58,8 +58,8 @@ public class AIMeleeAttack : MonoBehaviour
             IHit hitResponder;
             hitTime = Time.time;
             nextHitTime = hitTime + hitCooldown;
-            hitResult = 1; // miss
-            List<Collider> closeEntities = new(Physics.OverlapSphere(origin, hitRadius, rayHitLayers));
+            result = 1; // miss
+            List<Collider> closeEntities = new(Physics.OverlapSphere(origin, radius, rayHitLayers));
             if (closeEntities.Count > 0)
             {
                 closeHit = true;
@@ -76,37 +76,37 @@ public class AIMeleeAttack : MonoBehaviour
             if (closest != null)
             {
                 Vector3 directionToEntity = closest.transform.position - origin;
-                Physics.Raycast(origin, directionToEntity.normalized, out hitData);
+                Physics.Raycast(origin, directionToEntity.normalized, out raycastHit);
                 hitResponder = closest.gameObject.GetComponent<IHit>();
 
-                hitResult = 2;
+                result = 2;
                 if (hitResponder != null)
                 {
-                    hitResult = 3;
-                    Physics.Raycast(origin, directionToEntity.normalized, out hitData);
+                    result = 3;
+                    Physics.Raycast(origin, directionToEntity.normalized, out raycastHit);
                     hitResponder.OnHit(hitDamage, hitType);
                 }
             }
-            if (Physics.SphereCast(origin, hitRadius, gameObject.transform.forward, out hitData, hitRange) && !closeHit)
+            if (Physics.SphereCast(origin, radius, gameObject.transform.forward, out raycastHit, maxDistance) && !closeHit)
             {
                 farHit = true;
-                hitResult = 2; // hit non-damagable
-                hitResponder = hitData.collider.gameObject.GetComponent<IHit>();
+                result = 2; // hit non-damagable
+                hitResponder = raycastHit.collider.gameObject.GetComponent<IHit>();
                 if (hitResponder != null)
                 {
-                    hitResult = 3; // hit damagable
+                    result = 3; // hit damagable
                     hitResponder.OnHit(hitDamage, hitType);
                 }
             }
         }
-        if (hitResult != 0)
+        if (result != 0)
         {
             Color color;
-            if (hitResult == 2)
+            if (result == 2)
             {
                 color = new Color(0, 0, 1, 0.5f); // blue | hit non-damagable
             }
-            else if (hitResult == 3)
+            else if (result == 3)
             {
                 color = new Color(1, 0, 0, 0.5f); // red | hit damagable
             }
@@ -117,20 +117,22 @@ public class AIMeleeAttack : MonoBehaviour
             if (SCV.enabled && !closeHit) // debug drawing of spherecast path
             {
                 float castRange;
-                if (hitData.collider == null)
+                if (raycastHit.collider == null)
                 {
-                    castRange = hitRange;
+                    castRange = maxDistance;
                 }
                 else
                 {
-                    castRange = hitData.distance;
+                    castRange = raycastHit.distance;
                 }
                 Vector3 endPoint = origin + (gameObject.transform.forward.normalized * castRange);
-                SCV.Draw(color, castRange, hitRadius, hitData.collider, hitTime, origin, endPoint);
+             //   SCV.Draw(color, castRange, radius, raycastHit.collider, hitTime, origin, endPoint); // TODO: GET INTO A MANAGER
+             //TODO: UNCOMMENT
             }
             if (SOV.enabled && !farHit) // debug drawing of sphereOverlap
             {
-                SOV.Draw(color, hitData.distance, hitRadius, closest, hitTime, origin);
+            //    SOV.Draw(color, raycastHit.distance, radius, closest, hitTime, origin); // TODO: GET INTO A MANAGER
+            //TODO: UNCOMMENT
             }
         }
     }
