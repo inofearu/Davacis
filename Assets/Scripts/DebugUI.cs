@@ -21,7 +21,16 @@ public class DebugUI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            menuOpen = true;
+            if (menuOpen)
+            {
+                menuOpen = false;
+                Cursor.lockState = CursorLockMode.Locked;
+            }
+            else
+            {
+                menuOpen = true;
+                Cursor.lockState = CursorLockMode.None;
+            }
         }
         
     }
@@ -32,8 +41,8 @@ public class DebugUI : MonoBehaviour
         {
             GUILayout.BeginArea(new Rect(Screen.width / 2, Screen.height / 2, 300, 300));
             GUILayout.BeginVertical("Debug Menu", GUI.skin.box);
-            GUILayout.Toggle(SOV.enabled, "Toggle SOV");
-            GUILayout.Toggle(SCV.enabled, "Toggle SCV");
+            GUILayout.Toggle(SOV.enabled, "Toggle SOV drawing");
+            GUILayout.Toggle(SCV.enabled, "Toggle SCV drawing");
             GUILayout.EndVertical();
             GUILayout.EndArea();
             //GUILayout.Toggle(PMV.enabled, "Toggle PMV");
