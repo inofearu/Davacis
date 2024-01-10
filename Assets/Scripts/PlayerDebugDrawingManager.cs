@@ -56,7 +56,7 @@ public class PlayerDebugDrawingManager : MonoBehaviour
             }
             if (raycastPrintEnabled)
             {
-                string logMessage = $@"
+                /*string logMessage = $@"
 -----Raycasts-----
     --Space--
     Origin: {debugInfo.origin}
@@ -68,7 +68,13 @@ public class PlayerDebugDrawingManager : MonoBehaviour
     --Time--
     Time: {debugInfo.time}
 ";
-                Debug.Log(logMessage);
+                Debug.Log(logMessage);*/
+                Debug.Log(debugInfo.origin);
+                Debug.Log(endPoint);
+                Debug.Log(drawnDistance);
+                Debug.Log(debugInfo.radius);
+                Debug.Log(debugInfo.raycastHit.collider.gameObject.name);
+                Debug.Log(debugInfo.time);
             }
         }
     }
