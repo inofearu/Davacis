@@ -57,11 +57,11 @@ public class PlayerDebugDrawingManager : MonoBehaviour
             if (raycastPrintEnabled)
             {
                 string hitObject = "null";
-                if (debugInfo.raycastHit.collider.gameObject.name is not null)
+                if (debugInfo.raycastHit.collider is not null)
                 {
                     hitObject = debugInfo.raycastHit.collider.gameObject.name;
                 }
-                /*string logMessage = $@"
+                string logMessage = $@"
 -----Raycasts-----
     --Space--
     Origin: {debugInfo.origin}
@@ -69,17 +69,11 @@ public class PlayerDebugDrawingManager : MonoBehaviour
     Distance: {drawnDistance}
     Radius: {debugInfo.radius}
     --GameObject--
-    Name: {debugInfo.raycastHit.collider.gameObject.name}
+    Name: {hitObject}
     --Time--
     Time: {debugInfo.time}
 ";
-                Debug.Log(logMessage);*/
-                Debug.Log(debugInfo.origin);
-                Debug.Log(endPoint);
-                Debug.Log(drawnDistance);
-                Debug.Log(debugInfo.radius);
-                Debug.Log(hitObject);
-                Debug.Log(debugInfo.time);
+                Debug.Log(logMessage);
             }
         }
     }
