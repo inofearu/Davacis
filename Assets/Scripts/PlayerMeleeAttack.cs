@@ -13,13 +13,13 @@ using UnityEngine;
 public class PlayerMeleeAttack: MonoBehaviour
 {
     public DebugDrawParameters debugInfo;
-    private DamageModifier DamageModifier;
+    private DamageModifier DamageModifier; // TODO: Implement this
     /* --------------------------- Hit Characteristics -------------------------- */
-    [SerializeField] float hitRadius; // placeholders until items
-    [SerializeField] float hitCooldown;
-    [SerializeField] float hitRange;
-    [SerializeField] float hitDamage;
-    [SerializeField] DamageModifier.DamageType hitType;
+    [SerializeField] private float hitRadius; // placeholder values until items implemented
+    [SerializeField] private float hitCooldown;
+    [SerializeField] private float hitRange;
+    [SerializeField] private float hitDamage;
+    [SerializeField] private DamageModifier.DamageType hitType;
     private float nextHitTime;
     /* ------------------------------- SphereCast ------------------------------- */
     private RaycastHit hitData;
@@ -38,7 +38,6 @@ public class PlayerMeleeAttack: MonoBehaviour
         float hitTime = Time.time; // cache of time at frame
         int hitResult = 0;
         bool closeHit = false;
-        bool farHit = false;
         Collider closest = null;
         Vector3 origin = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, Camera.main.nearClipPlane));
         if (Input.GetMouseButtonDown(0) && Time.time > nextHitTime)
@@ -77,7 +76,6 @@ public class PlayerMeleeAttack: MonoBehaviour
             }
             if (Physics.SphereCast(origin, hitRadius, Camera.main.transform.forward, out hitData, hitRange) && !closeHit)
             {
-                farHit = true;
                 hitResult = 2; // hit non-damagable
                 hitResponder = hitData.collider.gameObject.GetComponent<IHit>();
                 if (hitResponder != null)
@@ -97,7 +95,6 @@ public class PlayerMeleeAttack: MonoBehaviour
             raycastHit = hitData,
             closest = closest,
             closeHit = closeHit,
-            farHit = farHit
         };
     }
 }

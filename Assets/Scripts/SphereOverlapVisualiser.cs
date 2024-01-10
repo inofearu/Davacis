@@ -12,8 +12,8 @@ using UnityEngine;
 
 public class SphereOverlapVisualiser : MonoBehaviour
 {
-    public int maxCasts;
-    public GameObject spherePrefab;
+    [SerializeField] private int maxCasts;
+    [SerializeField] private GameObject spherePrefab;
     private Queue<GameObject> drawnObjects;
     public void Draw(Color color, float radius, Vector3 origin)
     {
@@ -22,7 +22,6 @@ public class SphereOverlapVisualiser : MonoBehaviour
         Renderer sphereRenderer = sphere.GetComponent<Renderer>();
         sphereRenderer.material.SetColor("_Color", color);
         sphere.transform.localScale = new Vector3(radius * 2, radius * 2, radius * 2);
-
         /* -------------------------------- Old Casts ------------------------------- */
         drawnObjects.Enqueue(sphere);
         if (drawnObjects.Count > maxCasts)

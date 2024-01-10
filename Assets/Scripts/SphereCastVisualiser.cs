@@ -12,12 +12,11 @@ using UnityEngine;
 
 public class SphereCastVisualiser : MonoBehaviour
 {
-    public int maxCasts;
-    public GameObject capsulePrefab;
+    [SerializeField] private int maxCasts;
+    [SerializeField] private GameObject capsulePrefab;
     private Queue<GameObject> drawnObjects;
-    public void Draw(Color color, float range, float radius, Collider hitObj, Vector3 origin, Vector3 endPoint)
+    public void Draw(Color color, float range, float radius, Vector3 origin, Vector3 endPoint)
     {
-        string hitObjName = "null"; //TODO: MOVE TO MANAGER
         /* -------------------------------- Location ------------------------------- */
         Vector3 centerPoint = (origin + endPoint) / 2;
 
@@ -33,12 +32,6 @@ public class SphereCastVisualiser : MonoBehaviour
         {
             Destroy(drawnObjects.Dequeue());
         }
-
-        if (hitObj is not null)
-        {
-            hitObjName = hitObj.gameObject.name;
-        }
-        
     }
     [UsedImplicitly]
     private void Awake()

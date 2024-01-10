@@ -9,14 +9,12 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class AIMeleeAttack : MonoBehaviour
 {
-     private DamageModifier DamageModifier;
+     private DamageModifier DamageModifier; // TODO: implement this
      private Renderer objRenderer;
     /* --------------------------- Hit Characteristics -------------------------- */
-    #pragma warning disable RCS1169
     [SerializeField] private float radius;
     [SerializeField] private float hitCooldown;
     [SerializeField] private float maxDistance;
@@ -24,8 +22,6 @@ public class AIMeleeAttack : MonoBehaviour
     [SerializeField] private DamageModifier.DamageType hitType;
     [SerializeField] private float hitHeightOffset;
     private float nextHitTime;
-    // private bool attacking
-    #pragma warning restore RCS1169
     /* ------------------------------- SphereCast ------------------------------- */
     private SphereCastVisualiser SCV;
     private SphereOverlapVisualiser SOV;
@@ -40,14 +36,12 @@ public class AIMeleeAttack : MonoBehaviour
         SCV = GetComponent<SphereCastVisualiser>();
         SOV = GetComponent<SphereOverlapVisualiser>();
         objRenderer = GetComponent<Renderer>();
-        SCV.enabled = true;
-        SOV.enabled = true;
         rayHitLayers = Physics.DefaultRaycastLayers & ~(1 << LayerMask.NameToLayer("Enemy"));
     }
     [UsedImplicitly]
     private void Update()
     {
-        float hitTime = Time.time; // cache of time at frame
+        float hitTime;
         int result = 0;
         bool closeHit = false;
         bool farHit = false;

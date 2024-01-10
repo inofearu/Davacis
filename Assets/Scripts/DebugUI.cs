@@ -5,16 +5,12 @@ using JetBrains.Annotations;
 
 public class DebugUI : MonoBehaviour
 {
-    private SphereCastVisualiser SCV;
-    private SphereOverlapVisualiser SOV;
-    private PlayerMovementVisualiser PMV;
+    private PlayerDebugDrawingManager PDDM;
     private bool menuOpen;
     [UsedImplicitly]
     private void Awake()
     {
-        SCV = GetComponent<SphereCastVisualiser>();
-        SOV = GetComponent<SphereOverlapVisualiser>();
-        //PMV = GetComponent<PlayerMovementVisualiser>();
+        PDDM = GetComponent<PlayerDebugDrawingManager>();
     }
     [UsedImplicitly]
     private void Update()
@@ -32,17 +28,17 @@ public class DebugUI : MonoBehaviour
                 Cursor.lockState = CursorLockMode.None;
             }
         }
-        
     }
     [UsedImplicitly]
-    void OnGUI()
+    private void OnGUI()
     {
         if (menuOpen)
         {
-            GUILayout.BeginArea(new Rect(Screen.width / 2, Screen.height / 2, 300, 300));
+            GUILayout.BeginArea(new Rect(0, 0, 300, 300));
             GUILayout.BeginVertical("Debug Menu", GUI.skin.box);
-            SOV.enabled = GUILayout.Toggle(SOV.enabled, "Toggle SOV drawing");
-            SCV.enabled = GUILayout.Toggle(SCV.enabled, "Toggle SCV drawing");
+            GUILayout.Space(10);
+            PDDM.raycastDrawEnabled = GUILayout.Toggle(PDDM.raycastDrawEnabled, "Toggle raycast drawing");
+            PDDM.raycastPrintEnabled = GUILayout.Toggle(PDDM.raycastPrintEnabled, "Toggle raycast printing");
             GUILayout.EndVertical();
             GUILayout.EndArea();
             //GUILayout.Toggle(PMV.enabled, "Toggle PMV");
