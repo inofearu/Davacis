@@ -74,7 +74,7 @@ public class PlayerMeleeAttack: MonoBehaviour
                     hitResponder.OnHit(hitDamage, hitType);
                 }
             }
-            if (Physics.SphereCast(origin, hitRadius, Camera.main.transform.forward, out hitData, hitRange) && !closeHit)
+            if (!closeHit && Physics.SphereCast(origin, hitRadius, Camera.main.transform.forward, out hitData, hitRange))
             {
                 hitResult = 2; // hit non-damagable
                 hitResponder = hitData.collider.gameObject.GetComponent<IHit>();
