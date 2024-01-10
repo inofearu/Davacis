@@ -14,6 +14,7 @@ public class DebugDrawParameters
     public RaycastHit raycastHit {get; set;}
     public Collider closest {get; set;}
     public bool closeHit {get; set;}
+    public bool farHit {get; set;}
     public float radius {get; set;}
 #pragma warning restore IDE1006 // Naming Styles
 }

@@ -48,10 +48,13 @@ public class PlayerDebugDrawingManager : MonoBehaviour
             Vector3 endPoint = debugInfo.origin + (Camera.main.transform.forward.normalized * drawnDistance);
             if (raycastDrawEnabled)
             {
-                SCV.Draw(color, drawnDistance, debugInfo.radius, debugInfo.origin, endPoint);
-                if (debugInfo.closeHit) // debug drawing of sphereOverlap
+                if (!debugInfo.farHit)
                 {
                     SOV.Draw(color, debugInfo.radius, debugInfo.origin);
+                }
+                if (!debugInfo.closeHit) // debug drawing of sphereOverlap
+                {
+                    SCV.Draw(color, drawnDistance, debugInfo.radius, debugInfo.origin, endPoint);
                 }
             }
             if (raycastPrintEnabled)
@@ -63,6 +66,8 @@ public class PlayerDebugDrawingManager : MonoBehaviour
                 }
                 string logMessage = $@"
 -----Raycasts-----
+    farHit: {debugInfo.closeHit}
+    closeHit: {debugInfo.closeHit}
     --Space--
     Origin: {debugInfo.origin}
     endPoint: {endPoint}

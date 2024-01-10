@@ -38,6 +38,7 @@ public class PlayerMeleeAttack: MonoBehaviour
         float hitTime = Time.time; // cache of time at frame
         int hitResult = 0;
         bool closeHit = false;
+        bool farHit = false;
         Collider closest = null;
         Vector3 origin = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, Camera.main.nearClipPlane));
         if (Input.GetMouseButtonDown(0) && Time.time > nextHitTime)
@@ -76,6 +77,7 @@ public class PlayerMeleeAttack: MonoBehaviour
             }
             if (!closeHit && Physics.SphereCast(origin, hitRadius, Camera.main.transform.forward, out hitData, hitRange))
             {
+                farHit = true;
                 hitResult = 2; // hit non-damagable
                 hitResponder = hitData.collider.gameObject.GetComponent<IHit>();
                 if (hitResponder != null)
@@ -95,6 +97,7 @@ public class PlayerMeleeAttack: MonoBehaviour
             raycastHit = hitData,
             closest = closest,
             closeHit = closeHit,
+            farHit = farHit
         };
     }
 }
