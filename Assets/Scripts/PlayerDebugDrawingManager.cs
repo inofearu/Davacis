@@ -4,15 +4,19 @@ using UnityEngine;
 public class PlayerDebugDrawingManager : MonoBehaviour
 {
     private PlayerMeleeAttack PMA;
+    private PlayerMovement PM;
     private SphereOverlapVisualiser SOV;
     private SphereCastVisualiser SCV;
-    private DebugDrawParameters debugInfo;
+    private AttackDebugParameters attackDebugInfo;
+    private MovementDebugParameters movementDebugInfo;
     public bool raycastPrintEnabled;
     public bool raycastDrawEnabled;
+    public bool movementPrintEnabled;
     [UsedImplicitly]
     private void Awake()
     {
         PMA = GetComponent<PlayerMeleeAttack>();
+        PM = GetComponent<PlayerMovement>();
         SOV = GetComponent<SphereOverlapVisualiser>();
         SCV = GetComponent<SphereCastVisualiser>();
     }
@@ -20,16 +24,17 @@ public class PlayerDebugDrawingManager : MonoBehaviour
     [UsedImplicitly]
     private void LateUpdate()
     {
-        debugInfo = PMA.debugInfo;
+        attackDebugInfo = PMA.debugInfo;
+        movementDebugInfo = PM.debugInfo;
         float drawnDistance;
-        if (debugInfo.result != 0 && (raycastDrawEnabled || raycastPrintEnabled))
+        if (attackDebugInfo.result != 0 && (raycastDrawEnabled || raycastPrintEnabled))
         {
             Color color;
-            if (debugInfo.result == 2)
+            if (attackDebugInfo.result == 2)
             {
                 color = new Color(0, 0, 1, 0.5f); // blue | hit non-damagable
             }
-            else if (debugInfo.result == 3)
+            else if (attackDebugInfo.result == 3)
             {
                 color = new Color(1, 0, 0, 0.5f); // red | hit damagable
             }
@@ -37,49 +42,61 @@ public class PlayerDebugDrawingManager : MonoBehaviour
             {
                 color = new Color(0, 1, 0, 0.5f); // green | miss 
             }
-            if (debugInfo.raycastHit.collider == null)
+            if (attackDebugInfo.raycastHit.collider == null)
             {
-                drawnDistance = debugInfo.maxDistance; // if we didnt hit anything, use the attack's maximum distance
+                drawnDistance = attackDebugInfo.maxDistance; // if we didnt hit anything, use the attack's maximum distance
             }
             else
             {
-                drawnDistance = debugInfo.raycastHit.distance; // else we use the distance of the object 
+                drawnDistance = attackDebugInfo.raycastHit.distance; // else we use the distance of the object 
             }
-            Vector3 endPoint = debugInfo.origin + (Camera.main.transform.forward.normalized * drawnDistance);
+            Vector3 endPoint = attackDebugInfo.origin + (Camera.main.transform.forward.normalized * drawnDistance);
             if (raycastDrawEnabled)
             {
-                if (!debugInfo.farHit)
+                if (!attackDebugInfo.farHit)
                 {
-                    SOV.Draw(color, debugInfo.radius, debugInfo.origin);
+                    SOV.Draw(color, attackDebugInfo.radius, attackDebugInfo.origin, Quaternion.identity);
                 }
-                if (!debugInfo.closeHit) // debug drawing of sphereOverlap
+                if (!attackDebugInfo.closeHit) // debug drawing of sphereOverlap
                 {
-                    SCV.Draw(color, drawnDistance, debugInfo.radius, debugInfo.origin, endPoint);
+                    SCV.Draw(color, drawnDistance, attackDebugInfo.radius, attackDebugInfo.origin, endPoint, Quaternion.FromToRotation(Vector3.up, (endPoint - attackDebugInfo.origin).normalized));
                 }
             }
             if (raycastPrintEnabled)
             {
                 string hitObject = "null";
-                if (debugInfo.raycastHit.collider is not null)
+                if (attackDebugInfo.raycastHit.collider is not null)
                 {
-                    hitObject = debugInfo.raycastHit.collider.gameObject.name;
+                    hitObject = attackDebugInfo.raycastHit.collider.gameObject.name;
                 }
                 string logMessage = $@"
 -----Raycasts-----
-    farHit: {debugInfo.closeHit}
-    closeHit: {debugInfo.closeHit}
+    farHit: {attackDebugInfo.closeHit}
+    closeHit: {attackDebugInfo.closeHit}
     --Space--
-    Origin: {debugInfo.origin}
+    Origin: {attackDebugInfo.origin}
     endPoint: {endPoint}
     Distance: {drawnDistance}
-    Radius: {debugInfo.radius}
+    Radius: {attackDebugInfo.radius}
     --GameObject--
     Name: {hitObject}
     --Time--
-    Time: {debugInfo.time}
+    Time: {attackDebugInfo.time}
 ";
                 Debug.Log(logMessage);
             }
+        }
+        if (movementPrintEnabled)
+        {
+            string logMessage = $@"
+-----Movement-----
+playerVelocity: {movementDebugInfo.playerVelocity}
+verticalMove: {movementDebugInfo.verticalMove}
+playerPosition: {movementDebugInfo.raycastHit.point}
+sphereCastSize: {movementDebugInfo.sphereCastSize}
+isGrounded: {movementDebugInfo.isGrounded}
+";
+            Debug.Log(logMessage);
         }
     }
 }

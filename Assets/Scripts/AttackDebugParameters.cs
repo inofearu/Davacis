@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DebugDrawParameters
+public class AttackDebugParameters
 {
 #pragma warning disable IDE1006 // Naming Styles
     public int result {get; set;}

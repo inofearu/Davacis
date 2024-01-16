@@ -2745,6 +2745,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BasicEnemy
       objectReference: {fileID: 0}
+    - target: {fileID: 2979604277677470252, guid: 39ff7e8fe2fede44589014dee0564ee6, type: 3}
+      propertyPath: maxHealth
+      value: 999
+      objectReference: {fileID: 0}
     - target: {fileID: 3848134451644477190, guid: 39ff7e8fe2fede44589014dee0564ee6, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -6129,20 +6133,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3981505317285275051, guid: 702720e38bb1325469b2c47fe495479b, type: 3}
   m_PrefabInstance: {fileID: 3981505317600483274}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1928983151
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 417337371}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10829baabafd3514d945d92854f518ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sovPrint: 0
-  scvPrint: 0
 --- !u!114 &1928983152
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6155,6 +6145,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3034c760af85d4f4488611f0429731af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1928983166
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417337371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172d693c30179aa48ad1a07bb31d9267, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  raycastPrintEnabled: 0
+  raycastDrawEnabled: 0
+  movementDrawEnabled: 0
+  movementPrintEnabled: 0
 --- !u!1 &1950046388
 GameObject:
   m_ObjectHideFlags: 0

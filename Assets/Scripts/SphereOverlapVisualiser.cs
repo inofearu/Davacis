@@ -15,10 +15,10 @@ public class SphereOverlapVisualiser : MonoBehaviour
     [SerializeField] private int maxCasts;
     [SerializeField] private GameObject spherePrefab;
     private Queue<GameObject> drawnObjects;
-    public void Draw(Color color, float radius, Vector3 origin)
+    public void Draw(Color color, float radius, Vector3 origin, Quaternion direction)
     {
         /* -------------------------------- Rendering ------------------------------- */
-        GameObject sphere = Instantiate(spherePrefab, origin, Quaternion.identity);
+        GameObject sphere = Instantiate(spherePrefab, origin, direction);
         Renderer sphereRenderer = sphere.GetComponent<Renderer>();
         sphereRenderer.material.SetColor("_Color", color);
         sphere.transform.localScale = new Vector3(radius * 2, radius * 2, radius * 2);

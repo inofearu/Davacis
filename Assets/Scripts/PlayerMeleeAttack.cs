@@ -12,7 +12,7 @@ using UnityEngine;
 
 public class PlayerMeleeAttack: MonoBehaviour
 {
-    public DebugDrawParameters debugInfo;
+    public AttackDebugParameters debugInfo;
     private DamageModifier DamageModifier; // TODO: Implement this
     /* --------------------------- Hit Characteristics -------------------------- */
     [SerializeField] private float hitRadius; // placeholder values until items implemented
@@ -87,7 +87,7 @@ public class PlayerMeleeAttack: MonoBehaviour
                 }
             }
         }
-        debugInfo = new DebugDrawParameters
+        debugInfo = new AttackDebugParameters
         {
             result = hitResult,
             maxDistance = hitRange,

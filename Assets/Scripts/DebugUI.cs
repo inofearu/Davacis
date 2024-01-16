@@ -37,11 +37,13 @@ public class DebugUI : MonoBehaviour
             GUILayout.BeginArea(new Rect(0, 0, 300, 300));
             GUILayout.BeginVertical("Debug Menu", GUI.skin.box);
             GUILayout.Space(10);
+            GUILayout.Label("Player Attack:");
             PDDM.raycastDrawEnabled = GUILayout.Toggle(PDDM.raycastDrawEnabled, "Toggle raycast drawing");
             PDDM.raycastPrintEnabled = GUILayout.Toggle(PDDM.raycastPrintEnabled, "Toggle raycast printing");
+            GUILayout.Label("Player Movement:");
+            PDDM.movementPrintEnabled = GUILayout.Toggle(PDDM.movementPrintEnabled, "Toggle movement printing");
             GUILayout.EndVertical();
             GUILayout.EndArea();
-            //GUILayout.Toggle(PMV.enabled, "Toggle PMV");
         }
     }
 }

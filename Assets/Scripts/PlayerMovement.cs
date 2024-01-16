@@ -11,6 +11,8 @@ using System.Collections.Generic;
 using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
+    public MovementDebugParameters debugInfo;
+    private RaycastHit raycastHit;
     /* --------------------------------- Objects -------------------------------- */
     [SerializeField] private GameObject playerEyes;
     private CharacterController cc;
@@ -21,16 +23,17 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float sphereCastSize = 0.5f;
     [SerializeField] private float walkSpeed = 5f;
     [SerializeField] private float sprintSpeed = 10f;
+    private bool isGrounded;
+    private Vector3 origin;
     private Vector3 playerVelocity = Vector3.zero;
     private Vector3 verticalMove = Vector3.zero;
     /* --------------------------------- Camera --------------------------------- */
     [SerializeField] private float lookSpeed = 2f;
     [SerializeField] private float maxYLookAngle = 50f;
     [SerializeField] private float minYLookAngle = -75f;
-    private float yAxis = 0f; // affected by player mouse
-    private float xAxis = 0f; // affected by player mouse
-    /* ---------------------------------- Debug --------------------------------- */
-    public bool debugShowEnabled;
+    private float yAxis; // affected by player mouse
+    private float xAxis; // affected by player mouse
+
     [UsedImplicitly]
     private void Start()
     {
@@ -42,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Rotate();
         Move();
+        CreateDebugInfo();
     }
     private void Rotate()
     {
@@ -56,19 +60,19 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        bool isGrounded;
         /* ---------------------------------- Input --------------------------------- */
         float horizontalMove = Input.GetAxisRaw("Horizontal");
         float forwardMove = Input.GetAxisRaw("Forward");
         verticalMove += new Vector3(0, playerVelocity.y + (gravity * Time.deltaTime), 0);
         /* ------------------------------- SphereCast ------------------------------- */
-        Physics.SphereCast(transform.position - new Vector3(0, 0.5f, 0), sphereCastSize, transform.up * -1f, out RaycastHit hitData); // ground 
+        origin = transform.position - new Vector3(0, 0.5f, 0);
+        Physics.SphereCast(origin, sphereCastSize, transform.up * -1f, out raycastHit); // ground 
         /* ------------------------------ Ground Check ------------------------------ */
-        if (hitData.distance == 0f) // contingency incase player is above void as sphereCast misses
+        if (raycastHit.distance == 0f) // contingency incase player is above void as sphereCast misses
         {
             isGrounded = false;
         }
-        else if (hitData.distance <= groundedTolerance)
+        else if (raycastHit.distance <= groundedTolerance)
         {
             isGrounded = true;
         }
@@ -98,8 +102,20 @@ public class PlayerMovement : MonoBehaviour
             playerVelocity = new Vector3(horizontalMove, 0, forwardMove).normalized * walkSpeed; // walk
         }
         /* --------------------------------- Output --------------------------------- */
-        // Debug.Log($"{playerVelocity} - {verticalMove} - {hitData.distance} - {isGrounded}");
-        cc.Move(transform.TransformDirection(playerVelocity) * Time.deltaTime); // X move
-        cc.Move(verticalMove * Time.deltaTime); // Y move
+        cc.Move(transform.TransformDirection(playerVelocity) * Time.deltaTime); // move x
+        cc.Move(verticalMove * Time.deltaTime); // move y
+    }
+    private void CreateDebugInfo()
+    {
+        debugInfo = new MovementDebugParameters
+        {
+            sphereCastSize = sphereCastSize,
+            playerVelocity = playerVelocity,
+            verticalMove = verticalMove,
+            raycastHit = raycastHit,
+            isGrounded = isGrounded,
+            groundedTolerance = groundedTolerance,
+            origin = origin
+        };
     }
 }
