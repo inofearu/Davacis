@@ -9,21 +9,19 @@ using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class PlayerMeleeAttack: MonoBehaviour
 {
-    private DamageModifier DamageModifier;
+    public AttackDebugParameters debugInfo;
+    private DamageModifier DamageModifier; // TODO: Implement this
     /* --------------------------- Hit Characteristics -------------------------- */
-    [SerializeField] float hitRadius;
-    [SerializeField] float hitCooldown;
-    [SerializeField] float hitRange;
-    [SerializeField] int hitDamage;
-    [SerializeField] DamageModifier.DamageType hitType;
+    [SerializeField] private float hitRadius; // placeholder values until items implemented
+    [SerializeField] private float hitCooldown;
+    [SerializeField] private float hitRange;
+    [SerializeField] private float hitDamage;
+    [SerializeField] private DamageModifier.DamageType hitType;
     private float nextHitTime;
     /* ------------------------------- SphereCast ------------------------------- */
-    private SphereCastVisualiser SCV;
-    private SphereOverlapVisualiser SOV;
     private RaycastHit hitData;
     /* ------------------------------ SphereOverlap ----------------------------- */
     private LayerMask rayHitLayers;
@@ -32,10 +30,6 @@ public class PlayerMeleeAttack: MonoBehaviour
     private void Awake()
     {
         DamageModifier = GetComponent<DamageModifier>();
-        SCV = GetComponent<SphereCastVisualiser>();
-        SOV = GetComponent<SphereOverlapVisualiser>();
-        SCV.enabled = true;
-        SOV.enabled = true;
         rayHitLayers = Physics.DefaultRaycastLayers & ~(1 << LayerMask.NameToLayer("Player"));
     }
     [UsedImplicitly]
@@ -81,7 +75,7 @@ public class PlayerMeleeAttack: MonoBehaviour
                     hitResponder.OnHit(hitDamage, hitType);
                 }
             }
-            if (Physics.SphereCast(origin, hitRadius, Camera.main.transform.forward, out hitData, hitRange) && !closeHit)
+            if (!closeHit && Physics.SphereCast(origin, hitRadius, Camera.main.transform.forward, out hitData, hitRange))
             {
                 farHit = true;
                 hitResult = 2; // hit non-damagable
@@ -93,39 +87,17 @@ public class PlayerMeleeAttack: MonoBehaviour
                 }
             }
         }
-        if (hitResult != 0)
+        debugInfo = new AttackDebugParameters
         {
-            Color color = new(0, 0, 0, 0);
-            if (hitResult == 2)
-            {
-                color = new Color(0, 0, 1, 0.5f); // blue | hit non-damagable
-            }
-            else if (hitResult == 3)
-            {
-                color = new Color(1, 0, 0, 0.5f); // red | hit damagable
-            }
-            else
-            {
-                color = new Color(0, 1, 0, 0.5f); // green | miss 
-            }
-            if (SCV.enabled && !closeHit) // debug drawing of spherecast path
-            {
-                float castRange;
-                if (hitData.collider == null)
-                {
-                    castRange = hitRange;
-                }
-                else
-                {
-                    castRange = hitData.distance;
-                }
-                Vector3 endPoint = origin + (Camera.main.transform.forward.normalized * castRange);
-                SCV.Draw(color, castRange, hitRadius, hitData.collider, hitTime, origin, endPoint);
-            }
-            if (SOV.enabled && !farHit) // debug drawing of sphereOverlap
-            {
-                SOV.Draw(color, hitData.distance, hitRadius, closest, hitTime, origin);
-            }
-        }
+            result = hitResult,
+            maxDistance = hitRange,
+            time = hitTime,
+            radius = hitRadius,
+            origin = origin,
+            raycastHit = hitData,
+            closest = closest,
+            closeHit = closeHit,
+            farHit = farHit
+        };
     }
 }
