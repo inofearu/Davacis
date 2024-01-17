@@ -6159,7 +6159,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   raycastPrintEnabled: 0
   raycastDrawEnabled: 0
-  movementDrawEnabled: 0
   movementPrintEnabled: 0
 --- !u!1 &1950046388
 GameObject:
