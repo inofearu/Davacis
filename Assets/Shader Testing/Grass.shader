@@ -56,13 +56,13 @@ Shader "Roystan/Grass"
 			float3 pos = IN[0]; // offset for blades
 			geometryOutput o;
 
-			o.pos = UnityObjectToClipPos(pos + float3(0.5, 0, 0, 1)); // need ClipToPos else renders in screen space
+			o.pos = UnityObjectToClipPos(pos + float3(0.5, 0, 0)); // need ClipToPos else renders in screen space
 			triStream.Append(o);
 
-			o.pos = UnityObjectToClipPos(pos + float3(-0.5, 0, 0, 1));
+			o.pos = UnityObjectToClipPos(pos + float3(-0.5, 0, 0));
 			triStream.Append(o);
 
-			o.pos = UnityObjectToClipPos(pos + float3(0, 1, 0, 1));
+			o.pos = UnityObjectToClipPos(pos + float3(0, 1, 0));
 			triStream.Append(o);
 		}
 	ENDCG
