@@ -71,14 +71,10 @@ public class PlayerMovement : MonoBehaviour
         /* ------------------------------ Ground Check ------------------------------ */
         if (raycastHit.distance == 0f) // contingency incase player is above void as sphereCast misses
         {
-            Debug.Log($"Void to false {debugCounter}");
-            debugCounter++;
             isGrounded = false;
         }
         else if (raycastHit.distance <= groundedTolerance)
         {
-            Debug.Log($"True {debugCounter}");
-            debugCounter++;
             isGrounded = true;
         }
         else
