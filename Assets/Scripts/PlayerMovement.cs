@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public MovementDebugParameters debugInfo;
     private RaycastHit raycastHit;
+    private int debugCounter;
     /* --------------------------------- Objects -------------------------------- */
     [SerializeField] private GameObject playerEyes;
     private CharacterController cc;
@@ -23,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float sphereCastSize = 0.5f;
     [SerializeField] private float walkSpeed = 5f;
     [SerializeField] private float sprintSpeed = 10f;
-    private bool isGrounded;
+    [SerializeField] private bool isGrounded;
     private Vector3 origin;
     private Vector3 playerVelocity = Vector3.zero;
     private Vector3 verticalMove = Vector3.zero;
@@ -70,14 +71,20 @@ public class PlayerMovement : MonoBehaviour
         /* ------------------------------ Ground Check ------------------------------ */
         if (raycastHit.distance == 0f) // contingency incase player is above void as sphereCast misses
         {
+            Debug.Log($"Void to false {debugCounter}");
+            debugCounter++;
             isGrounded = false;
         }
         else if (raycastHit.distance <= groundedTolerance)
         {
+            Debug.Log($"True {debugCounter}");
+            debugCounter++;
             isGrounded = true;
         }
         else
         {
+            Debug.Log($"False {debugCounter}");
+            debugCounter++;
             isGrounded = false;
         }
         /* ---------------------------------- Jump ---------------------------------- */
