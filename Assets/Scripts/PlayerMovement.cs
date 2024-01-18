@@ -17,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
     /* --------------------------------- Objects -------------------------------- */
     [SerializeField] private GameObject playerEyes;
     private CharacterController cc;
+    private Collider ownCollider;
     /* -------------------------------- Movement -------------------------------- */
     [SerializeField] private float jumpHeight = 10f;
     [SerializeField] private float groundedTolerance = 0.11f; // dist that spherecast extends below player
@@ -28,6 +29,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 origin;
     private Vector3 playerVelocity = Vector3.zero;
     private Vector3 verticalMove = Vector3.zero;
+    private List<Collider> collisions;
+    private Collider closest;
     /* --------------------------------- Camera --------------------------------- */
     [SerializeField] private float lookSpeed = 2f;
     [SerializeField] private float maxYLookAngle = 50f;
@@ -40,6 +43,7 @@ public class PlayerMovement : MonoBehaviour
     {
         cc = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked; // captures cursor
+        ownCollider = GetComponent<Collider>();
     }
     [UsedImplicitly]
     private void Update()
@@ -67,21 +71,33 @@ public class PlayerMovement : MonoBehaviour
         verticalMove += new Vector3(0, playerVelocity.y + (gravity * Time.deltaTime), 0);
         /* ------------------------------- SphereCast ------------------------------- */
         origin = transform.position - new Vector3(0, 0.5f, 0);
-        Physics.SphereCast(origin, sphereCastSize, transform.up * -1f, out raycastHit); // ground 
-        /* ------------------------------ Ground Check ------------------------------ */
-        if (raycastHit.distance == 0f) // contingency incase player is above void as sphereCast misses
+        isGrounded = false;
+        collisions = new(Physics.OverlapSphere(origin, sphereCastSize));
+        while (collisions.Count > 0)
         {
-            isGrounded = false;
-        }
-        else if (raycastHit.distance <= groundedTolerance)
-        {
-            isGrounded = true;
-        }
-        else
-        {
-            Debug.Log($"False {debugCounter}");
-            debugCounter++;
-            isGrounded = false;
+            if (collisions[0] == ownCollider)
+            {
+                collisions.RemoveAt(0);
+                continue;
+            }
+            closest = collisions[0];
+            collisions.RemoveAt(0);
+            foreach (Collider entity in collisions)
+            {
+                if (Vector3.Distance(entity.transform.position, origin) < Vector3.Distance(closest.transform.position, origin))
+                {
+                    closest = entity;
+                }
+            }
+            float groundDist = Vector3.Distance(origin, closest.transform.position);
+            Debug.Log(groundDist);
+            /* ------------------------------ Ground Check ------------------------------ */
+            if (groundDist <= groundedTolerance)
+            {
+                isGrounded = true;
+                break;
+            }
+            break;
         }
         /* ---------------------------------- Jump ---------------------------------- */
         if (isGrounded)
@@ -115,7 +131,6 @@ public class PlayerMovement : MonoBehaviour
             sphereCastSize = sphereCastSize,
             playerVelocity = playerVelocity,
             verticalMove = verticalMove,
-            raycastHit = raycastHit,
             isGrounded = isGrounded,
             groundedTolerance = groundedTolerance,
             origin = origin
