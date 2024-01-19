@@ -12,6 +12,7 @@ public class PlayerDebugDrawingManager : MonoBehaviour
     public bool raycastPrintEnabled;
     public bool raycastDrawEnabled;
     public bool movementPrintEnabled;
+    public bool movementDrawEnabled;
     [UsedImplicitly]
     private void Awake()
     {
@@ -93,10 +94,14 @@ public class PlayerDebugDrawingManager : MonoBehaviour
 playerVelocity: {movementDebugInfo.playerVelocity}
 verticalMove: {movementDebugInfo.verticalMove}
 playerPosition: {movementDebugInfo.raycastHit.point}
-sphereCastSize: {movementDebugInfo.sphereCastSize}
+sphereCastSize: {movementDebugInfo.overlapSphereRadius}
 isGrounded: {movementDebugInfo.isGrounded}
 ";
             Debug.Log(logMessage);
+        }
+        if (movementDrawEnabled)
+        {
+            SOV.Draw(new Color(255, 255, 0), movementDebugInfo.overlapSphereRadius, movementDebugInfo.origin, Quaternion.identity);
         }
     }
 }

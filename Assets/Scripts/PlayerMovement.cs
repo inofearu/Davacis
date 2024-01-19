@@ -22,7 +22,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float jumpHeight = 10f;
     [SerializeField] private float groundedTolerance = 0.11f; // dist that spherecast extends below player
     [SerializeField] private float gravity = -9.81f;
-    [SerializeField] private float sphereCastSize = 0.5f;
+    [SerializeField] private float overlapSphereRadius = 0.5f;
     [SerializeField] private float walkSpeed = 5f;
     [SerializeField] private float sprintSpeed = 10f;
     [SerializeField] private bool isGrounded;
@@ -70,9 +70,9 @@ public class PlayerMovement : MonoBehaviour
         float forwardMove = Input.GetAxisRaw("Forward");
         verticalMove += new Vector3(0, playerVelocity.y + (gravity * Time.deltaTime), 0);
         /* ------------------------------- SphereCast ------------------------------- */
-        origin = transform.position - new Vector3(0, 0.5f, 0);
+        origin = transform.position - new Vector3(0, -0.5f, 0);
         isGrounded = false;
-        collisions = new(Physics.OverlapSphere(origin, sphereCastSize));
+        collisions = new(Physics.OverlapSphere(origin, overlapSphereRadius));
         while (collisions.Count > 0)
         {
             if (collisions[0] == ownCollider)
@@ -128,7 +128,7 @@ public class PlayerMovement : MonoBehaviour
     {
         debugInfo = new MovementDebugParameters
         {
-            sphereCastSize = sphereCastSize,
+            overlapSphereRadius = overlapSphereRadius,
             playerVelocity = playerVelocity,
             verticalMove = verticalMove,
             isGrounded = isGrounded,
