@@ -70,33 +70,39 @@ public class PlayerMovement : MonoBehaviour
         float forwardMove = Input.GetAxisRaw("Forward");
         verticalMove += new Vector3(0, playerVelocity.y + (gravity * Time.deltaTime), 0);
         /* ------------------------------- SphereCast ------------------------------- */
-        origin = transform.position - new Vector3(0, -0.5f, 0);
+        origin = transform.position - new Vector3(0,1,0);
         isGrounded = false;
-        collisions = new(Physics.OverlapSphere(origin, overlapSphereRadius));
+        int layerMask = Physics.AllLayers & ~(1 << LayerMask.NameToLayer("Player"));
+        collisions = new(Physics.OverlapSphere(origin, overlapSphereRadius, layerMask));
+        Debug.Log($"New OverlapSphere at {origin}");
         while (collisions.Count > 0)
         {
-            if (collisions[0] == ownCollider)
+            string logMessage = "Loop start with ";
+            foreach (var entity in collisions)
             {
-                collisions.RemoveAt(0);
-                continue;
+                logMessage += ($"({entity.gameObject.name}, {entity.gameObject.tag}, {entity.gameObject.layer}), ");
             }
+            Debug.Log(logMessage);
             closest = collisions[0];
             collisions.RemoveAt(0);
             foreach (Collider entity in collisions)
             {
                 if (Vector3.Distance(entity.transform.position, origin) < Vector3.Distance(closest.transform.position, origin))
                 {
+                    Debug.Log($"New closest is {entity.gameObject.name} at {entity.transform.position}");
                     closest = entity;
                 }
             }
             float groundDist = Vector3.Distance(origin, closest.transform.position);
-            Debug.Log(groundDist);
             /* ------------------------------ Ground Check ------------------------------ */
             if (groundDist <= groundedTolerance)
             {
+                Debug.Log($"Grounded at {groundDist}");
                 isGrounded = true;
                 break;
             }
+            Debug.Log($"Not grounded at {groundDist}");
+            Debug.Log("Loop End");
             break;
         }
         /* ---------------------------------- Jump ---------------------------------- */
