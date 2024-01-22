@@ -12,25 +12,18 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public MovementDebugParameters debugInfo;
-    private RaycastHit raycastHit;
-    private int debugCounter;
     /* --------------------------------- Objects -------------------------------- */
     [SerializeField] private GameObject playerEyes;
+    [SerializeField] private PlayerMovementGroundChecker GroundChecker;
     private CharacterController cc;
-    private Collider ownCollider;
     /* -------------------------------- Movement -------------------------------- */
     [SerializeField] private float jumpHeight = 10f;
-    [SerializeField] private float groundedTolerance = 0.11f; // dist that spherecast extends below player
     [SerializeField] private float gravity = -9.81f;
-    [SerializeField] private float overlapSphereRadius = 0.5f;
     [SerializeField] private float walkSpeed = 5f;
     [SerializeField] private float sprintSpeed = 10f;
     [SerializeField] private bool isGrounded;
-    private Vector3 origin;
     private Vector3 playerVelocity = Vector3.zero;
     private Vector3 verticalMove = Vector3.zero;
-    private List<Collider> collisions;
-    private Collider closest;
     /* --------------------------------- Camera --------------------------------- */
     [SerializeField] private float lookSpeed = 2f;
     [SerializeField] private float maxYLookAngle = 50f;
@@ -43,11 +36,11 @@ public class PlayerMovement : MonoBehaviour
     {
         cc = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked; // captures cursor
-        ownCollider = GetComponent<Collider>();
     }
     [UsedImplicitly]
     private void Update()
     {
+        isGrounded = GroundChecker.checkGrounded();
         Rotate();
         Move();
         CreateDebugInfo();
@@ -70,41 +63,7 @@ public class PlayerMovement : MonoBehaviour
         float forwardMove = Input.GetAxisRaw("Forward");
         verticalMove += new Vector3(0, playerVelocity.y + (gravity * Time.deltaTime), 0);
         /* ------------------------------- SphereCast ------------------------------- */
-        origin = transform.position - new Vector3(0,1,0);
-        isGrounded = false;
-        int layerMask = Physics.AllLayers & ~(1 << LayerMask.NameToLayer("Player"));
-        collisions = new(Physics.OverlapSphere(origin, overlapSphereRadius, layerMask));
-        Debug.Log($"New OverlapSphere at {origin}");
-        while (collisions.Count > 0)
-        {
-            string logMessage = "Loop start with ";
-            foreach (var entity in collisions)
-            {
-                logMessage += ($"({entity.gameObject.name}, {entity.gameObject.tag}, {entity.gameObject.layer}), ");
-            }
-            Debug.Log(logMessage);
-            closest = collisions[0];
-            collisions.RemoveAt(0);
-            foreach (Collider entity in collisions)
-            {
-                if (Vector3.Distance(entity.transform.position, origin) < Vector3.Distance(closest.transform.position, origin))
-                {
-                    Debug.Log($"New closest is {entity.gameObject.name} at {entity.transform.position}");
-                    closest = entity;
-                }
-            }
-            float groundDist = Vector3.Distance(origin, closest.transform.position);
-            /* ------------------------------ Ground Check ------------------------------ */
-            if (groundDist <= groundedTolerance)
-            {
-                Debug.Log($"Grounded at {groundDist}");
-                isGrounded = true;
-                break;
-            }
-            Debug.Log($"Not grounded at {groundDist}");
-            Debug.Log("Loop End");
-            break;
-        }
+       
         /* ---------------------------------- Jump ---------------------------------- */
         if (isGrounded)
         {
@@ -134,12 +93,9 @@ public class PlayerMovement : MonoBehaviour
     {
         debugInfo = new MovementDebugParameters
         {
-            overlapSphereRadius = overlapSphereRadius,
             playerVelocity = playerVelocity,
             verticalMove = verticalMove,
             isGrounded = isGrounded,
-            groundedTolerance = groundedTolerance,
-            origin = origin
         };
     }
 }
