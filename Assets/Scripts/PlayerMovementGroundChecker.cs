@@ -13,14 +13,14 @@ public class PlayerMovementGroundChecker : MonoBehaviour
         int colliderLayer = 1 << other.gameObject.layer;
         if ((colliderLayer & layerMask) != 0)
         {
-            logMessage.Add($"{other} entered trigger");
+            if (logActive) { logMessage.Add($"{other} entered trigger"); }
             InCollision.Add(other);
         }
     }
     [UsedImplicitly]
     private void OnTriggerExit(Collider other)
     {
-        logMessage.Add($"{other} left trigger");
+        if (logActive) { logMessage.Add($"{other} left trigger"); }
         InCollision.Remove(other);
     }
     public bool checkGrounded()
@@ -28,10 +28,10 @@ public class PlayerMovementGroundChecker : MonoBehaviour
         
         if (InCollision.Count > 0)
         {
-            logMessage.Add("Grounded");
+            if (logActive) { logMessage.Add("Grounded"); }
             return true;
         }
-        logMessage.Add("Ungrounded");
+        if (logActive) { logMessage.Add("Ungrounded"); }
         return false;
     }
     [UsedImplicitly]

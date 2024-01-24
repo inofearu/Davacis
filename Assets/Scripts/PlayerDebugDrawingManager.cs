@@ -1,4 +1,4 @@
-﻿using JetBrains.Annotations;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class PlayerDebugDrawingManager : MonoBehaviour
@@ -99,6 +99,7 @@ public class PlayerDebugDrawingManager : MonoBehaviour
         }
         if (movementPrintEnabled)
         {
+            playerMovementGroundChecker.logActive = true;
             Debug.Log($@"
 -----Movement-----
 playerVelocity: {movementDebugInfo.playerVelocity}
@@ -111,6 +112,10 @@ isGrounded: {movementDebugInfo.isGrounded}
                 Debug.Log(message);
             }
             playerMovementGroundChecker.logMessage.Clear();
+        }
+        else
+        {
+            playerMovementGroundChecker.logActive = true;
         }
         if (movementDrawEnabled)
         {
