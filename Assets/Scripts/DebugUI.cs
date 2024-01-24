@@ -47,6 +47,7 @@ public class DebugUI : MonoBehaviour
         PDDM.raycastDrawEnabled = GUILayout.Toggle(PDDM.raycastDrawEnabled, "Toggle raycast drawing");
         PDDM.raycastPrintEnabled = GUILayout.Toggle(PDDM.raycastPrintEnabled, "Toggle raycast printing");
         GUILayout.Label("Player Movement:");
+        PDDM.movementDrawEnabled = GUILayout.Toggle(PDDM.movementDrawEnabled, "Toggle movement drawing");
         PDDM.movementPrintEnabled = GUILayout.Toggle(PDDM.movementPrintEnabled, "Toggle movement printing");
         GUI.DragWindow();
     }

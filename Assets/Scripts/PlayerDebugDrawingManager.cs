@@ -3,29 +3,41 @@ using UnityEngine;
 
 public class PlayerDebugDrawingManager : MonoBehaviour
 {
-    private PlayerMeleeAttack PMA;
-    private PlayerMovement PM;
-    private SphereOverlapVisualiser SOV;
-    private SphereCastVisualiser SCV;
+    private PlayerMeleeAttack playerMeleeAttack;
+    private PlayerMovement playerMovement;
+    private PlayerMovementGroundChecker playerMovementGroundChecker;
+
+    private SphereOverlapVisualiser sphereOverlapVisualiser;
+    private SphereCastVisualiser sphereCastVisualiser;
+
     private AttackDebugParameters attackDebugInfo;
     private MovementDebugParameters movementDebugInfo;
+
+    [SerializeField] private GameObject playerMovementGroundCheckObject;
+    private MeshRenderer playerMovementGroundCheckAreaMeshRenderer;
+
     public bool raycastPrintEnabled;
     public bool raycastDrawEnabled;
     public bool movementPrintEnabled;
+    public bool movementDrawEnabled;
     [UsedImplicitly]
     private void Awake()
     {
-        PMA = GetComponent<PlayerMeleeAttack>();
-        PM = GetComponent<PlayerMovement>();
-        SOV = GetComponent<SphereOverlapVisualiser>();
-        SCV = GetComponent<SphereCastVisualiser>();
+        playerMeleeAttack = GetComponent<PlayerMeleeAttack>();
+        playerMovement = GetComponent<PlayerMovement>();
+        playerMovementGroundChecker = playerMovementGroundCheckObject.GetComponent<PlayerMovementGroundChecker>();
+
+        sphereOverlapVisualiser = GetComponent<SphereOverlapVisualiser>();
+        sphereCastVisualiser = GetComponent<SphereCastVisualiser>();
+
+        playerMovementGroundCheckAreaMeshRenderer = playerMovementGroundCheckObject.GetComponent<MeshRenderer>(); 
     }
 
     [UsedImplicitly]
     private void LateUpdate()
     {
-        attackDebugInfo = PMA.debugInfo;
-        movementDebugInfo = PM.debugInfo;
+        attackDebugInfo = playerMeleeAttack.debugInfo;
+        movementDebugInfo = playerMovement.debugInfo;
         float drawnDistance;
         if (attackDebugInfo.result != 0 && (raycastDrawEnabled || raycastPrintEnabled))
         {
@@ -55,11 +67,11 @@ public class PlayerDebugDrawingManager : MonoBehaviour
             {
                 if (!attackDebugInfo.farHit)
                 {
-                    SOV.Draw(color, attackDebugInfo.radius, attackDebugInfo.origin, Quaternion.identity);
+                    sphereOverlapVisualiser.Draw(color, attackDebugInfo.radius, attackDebugInfo.origin, Quaternion.identity);
                 }
-                if (!attackDebugInfo.closeHit) // debug drawing of sphereOverlap
+                if (!attackDebugInfo.closeHit) // debug drawing of overlapSphere
                 {
-                    SCV.Draw(color, drawnDistance, attackDebugInfo.radius, attackDebugInfo.origin, endPoint, Quaternion.FromToRotation(Vector3.up, (endPoint - attackDebugInfo.origin).normalized));
+                    sphereCastVisualiser.Draw(color, drawnDistance, attackDebugInfo.radius, attackDebugInfo.origin, endPoint, Quaternion.FromToRotation(Vector3.up, (endPoint - attackDebugInfo.origin).normalized));
                 }
             }
             if (raycastPrintEnabled)
@@ -69,7 +81,7 @@ public class PlayerDebugDrawingManager : MonoBehaviour
                 {
                     hitObject = attackDebugInfo.raycastHit.collider.gameObject.name;
                 }
-                string logMessage = $@"
+                Debug.Log($@"
 -----Raycasts-----
     farHit: {attackDebugInfo.closeHit}
     closeHit: {attackDebugInfo.closeHit}
@@ -82,22 +94,38 @@ public class PlayerDebugDrawingManager : MonoBehaviour
     Name: {hitObject}
     --Time--
     Time: {attackDebugInfo.time}
-";
-                Debug.Log(logMessage);
+");
             }
         }
         if (movementPrintEnabled)
         {
-            string logMessage = $@"
+            Debug.Log($@"
 -----Movement-----
 playerVelocity: {movementDebugInfo.playerVelocity}
 verticalMove: {movementDebugInfo.verticalMove}
 playerPosition: {movementDebugInfo.raycastHit.point}
-sphereCastSize: {movementDebugInfo.sphereCastSize}
 isGrounded: {movementDebugInfo.isGrounded}
-";
-            Debug.Log(logMessage);
+");
+            foreach (string message in playerMovementGroundChecker.logMessage)
+            {
+                Debug.Log(message);
+            }
+            playerMovementGroundChecker.logMessage.Clear();
         }
+        if (movementDrawEnabled)
+        {
+            Color color;
+            if (movementDebugInfo.isGrounded)
+            {
+                color = new Color(0, 1, 0, 0.5f);
+            }
+            else
+            {
+                color = new Color(1, 0, 0, 0.5f);
+            }
+            playerMovementGroundCheckAreaMeshRenderer.material.color = color;
+        }
+        playerMovementGroundCheckAreaMeshRenderer.enabled = movementDrawEnabled; // set 
+
     }
 }
-// Structuring issues with not wanting the main attack file to pass to the debug file so that they are not coupled, want the debug file to pull instead. Choosing parameter approach obj.

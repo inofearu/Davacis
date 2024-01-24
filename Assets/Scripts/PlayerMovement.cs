@@ -12,19 +12,16 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     public MovementDebugParameters debugInfo;
-    private RaycastHit raycastHit;
     /* --------------------------------- Objects -------------------------------- */
     [SerializeField] private GameObject playerEyes;
+    [SerializeField] private PlayerMovementGroundChecker GroundChecker;
     private CharacterController cc;
     /* -------------------------------- Movement -------------------------------- */
     [SerializeField] private float jumpHeight = 10f;
-    [SerializeField] private float groundedTolerance = 0.11f; // dist that spherecast extends below player
     [SerializeField] private float gravity = -9.81f;
-    [SerializeField] private float sphereCastSize = 0.5f;
     [SerializeField] private float walkSpeed = 5f;
     [SerializeField] private float sprintSpeed = 10f;
-    private bool isGrounded;
-    private Vector3 origin;
+    [SerializeField] private bool isGrounded;
     private Vector3 playerVelocity = Vector3.zero;
     private Vector3 verticalMove = Vector3.zero;
     /* --------------------------------- Camera --------------------------------- */
@@ -43,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
     [UsedImplicitly]
     private void Update()
     {
+        isGrounded = GroundChecker.checkGrounded();
         Rotate();
         Move();
         CreateDebugInfo();
@@ -65,21 +63,7 @@ public class PlayerMovement : MonoBehaviour
         float forwardMove = Input.GetAxisRaw("Forward");
         verticalMove += new Vector3(0, playerVelocity.y + (gravity * Time.deltaTime), 0);
         /* ------------------------------- SphereCast ------------------------------- */
-        origin = transform.position - new Vector3(0, 0.5f, 0);
-        Physics.SphereCast(origin, sphereCastSize, transform.up * -1f, out raycastHit); // ground 
-        /* ------------------------------ Ground Check ------------------------------ */
-        if (raycastHit.distance == 0f) // contingency incase player is above void as sphereCast misses
-        {
-            isGrounded = false;
-        }
-        else if (raycastHit.distance <= groundedTolerance)
-        {
-            isGrounded = true;
-        }
-        else
-        {
-            isGrounded = false;
-        }
+       
         /* ---------------------------------- Jump ---------------------------------- */
         if (isGrounded)
         {
@@ -109,13 +93,9 @@ public class PlayerMovement : MonoBehaviour
     {
         debugInfo = new MovementDebugParameters
         {
-            sphereCastSize = sphereCastSize,
             playerVelocity = playerVelocity,
             verticalMove = verticalMove,
-            raycastHit = raycastHit,
             isGrounded = isGrounded,
-            groundedTolerance = groundedTolerance,
-            origin = origin
         };
     }
 }
