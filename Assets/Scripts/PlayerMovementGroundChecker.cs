@@ -4,8 +4,9 @@ using System.Collections.Generic;
 
 public class PlayerMovementGroundChecker : MonoBehaviour
 {
-    List<Collider> InCollision;
-    int layerMask;
+    private List<Collider> InCollision;
+    private int layerMask;
+    public bool logActive;
     public List<string> logMessage;
     [UsedImplicitly]
     private void OnTriggerEnter(Collider other)
@@ -23,9 +24,8 @@ public class PlayerMovementGroundChecker : MonoBehaviour
         if (logActive) { logMessage.Add($"{other} left trigger"); }
         InCollision.Remove(other);
     }
-    public bool checkGrounded()
+    public bool CheckGrounded()
     {
-        
         if (InCollision.Count > 0)
         {
             if (logActive) { logMessage.Add("Grounded"); }

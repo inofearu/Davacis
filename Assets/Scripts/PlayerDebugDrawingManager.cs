@@ -1,4 +1,4 @@
-using JetBrains.Annotations;
+﻿using JetBrains.Annotations;
 using UnityEngine;
 
 public class PlayerDebugDrawingManager : MonoBehaviour
@@ -30,7 +30,7 @@ public class PlayerDebugDrawingManager : MonoBehaviour
         sphereOverlapVisualiser = GetComponent<SphereOverlapVisualiser>();
         sphereCastVisualiser = GetComponent<SphereCastVisualiser>();
 
-        playerMovementGroundCheckAreaMeshRenderer = playerMovementGroundCheckObject.GetComponent<MeshRenderer>(); 
+        playerMovementGroundCheckAreaMeshRenderer = playerMovementGroundCheckObject.GetComponent<MeshRenderer>();
     }
 
     [UsedImplicitly]
@@ -104,7 +104,6 @@ public class PlayerDebugDrawingManager : MonoBehaviour
 -----Movement-----
 playerVelocity: {movementDebugInfo.playerVelocity}
 verticalMove: {movementDebugInfo.verticalMove}
-playerPosition: {movementDebugInfo.raycastHit.point}
 isGrounded: {movementDebugInfo.isGrounded}
 ");
             foreach (string message in playerMovementGroundChecker.logMessage)
@@ -131,6 +130,5 @@ isGrounded: {movementDebugInfo.isGrounded}
             playerMovementGroundCheckAreaMeshRenderer.material.color = color;
         }
         playerMovementGroundCheckAreaMeshRenderer.enabled = movementDrawEnabled; // set 
-
     }
 }

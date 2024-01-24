@@ -6237,9 +6237,10 @@ GameObject:
   - component: {fileID: 1890899816}
   - component: {fileID: 1890899815}
   - component: {fileID: 1890899814}
-  m_Layer: 0
-  m_Name: Sphere
-  m_TagString: Untagged
+  - component: {fileID: 1890899817}
+  m_Layer: 3
+  m_Name: PlayerGroundedZone
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6253,11 +6254,11 @@ Transform:
   m_GameObject: {fileID: 1890899812}
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: -0.80599976, z: 0}
-  m_LocalScale: {x: 1.0999998, y: 0.4, z: 1.0999998}
+  m_LocalScale: {x: 1, y: 0.4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1928983137}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!135 &1890899814
 SphereCollider:
@@ -6279,7 +6280,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1890899812}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -6322,6 +6323,19 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1890899812}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &1890899817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890899812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6e61405e44ec5b42a7e3c0cd0af1d39, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  logMessage: []
 --- !u!4 &1928983137 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3981505317285275051, guid: 702720e38bb1325469b2c47fe495479b, type: 3}
@@ -6351,6 +6365,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172d693c30179aa48ad1a07bb31d9267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerMovementGroundCheckObject: {fileID: 1890899812}
   raycastPrintEnabled: 0
   raycastDrawEnabled: 0
   movementPrintEnabled: 0
@@ -7451,6 +7466,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3981505317285275055, guid: 702720e38bb1325469b2c47fe495479b, type: 3}
+      propertyPath: GroundChecker
+      value: 
+      objectReference: {fileID: 1890899817}
     - target: {fileID: 3981505317285275066, guid: 702720e38bb1325469b2c47fe495479b, type: 3}
       propertyPath: slider
       value: 

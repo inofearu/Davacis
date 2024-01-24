@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
     [UsedImplicitly]
     private void Update()
     {
-        isGrounded = GroundChecker.checkGrounded();
+        isGrounded = GroundChecker.CheckGrounded();
         Rotate();
         Move();
         CreateDebugInfo();
@@ -62,8 +62,6 @@ public class PlayerMovement : MonoBehaviour
         float horizontalMove = Input.GetAxisRaw("Horizontal");
         float forwardMove = Input.GetAxisRaw("Forward");
         verticalMove += new Vector3(0, playerVelocity.y + (gravity * Time.deltaTime), 0);
-        /* ------------------------------- SphereCast ------------------------------- */
-       
         /* ---------------------------------- Jump ---------------------------------- */
         if (isGrounded)
         {

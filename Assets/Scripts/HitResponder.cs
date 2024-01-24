@@ -14,8 +14,8 @@ using JetBrains.Annotations;
 public class HitResponder : MonoBehaviour, IHit
 {
     private DamageModifier DamageModifier;
-    List<DamageModifier.DamageModifierPair> modifiers;
-    [SerializeField] BaseStats StatFile;
+    private List<DamageModifier.DamageModifierPair> modifiers;
+    [SerializeField] private BaseStats StatFile;
     [UsedImplicitly]
     private void Awake()
     {
