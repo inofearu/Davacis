@@ -86,6 +86,7 @@ namespace Player
             set
             {
                 level = value;
+                playerUI.UpdateXPDisplay(level, xp, xpToNextLevel);
             }
         }
         public float MaxHealth
