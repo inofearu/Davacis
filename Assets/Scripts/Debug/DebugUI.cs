@@ -1,26 +1,26 @@
 /*
 FileName : UI.cs 
+Namespace : gDebug
 FileType : C# Source File
 Author : Christopher Huskinson
-Created On : 9th January 2023, 13:23:00
+Created On : 1st January 2024, 13:23
 Description : Creates the debug UI.
 */
 using UnityEngine;
 using JetBrains.Annotations;
-using gDebug.Player;
     
 namespace gDebug
 {
     public class DebugUI : MonoBehaviour
     {
-        private Manager playerManager;
+        private PlayerManager playerManager;
         private bool menuOpen;
         private int windowId = 0000;
         private Rect windowRect = new Rect(20, 20, 600, 600);
         [UsedImplicitly]
         private void Awake()
         {
-            playerManager = GetComponent<Manager>();
+            playerManager = GetComponent<PlayerManager>();
         }
         [UsedImplicitly]
         private void Update()

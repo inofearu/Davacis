@@ -1,8 +1,9 @@
 ﻿/*
 FileName : MovementInfo.cs 
+Namespace: gDebug.Parameters
 FileType : C# Source File
 Author : Christopher Huskinson
-Created On : 16th January 2023, 13:05:00
+Created On : 16th January 2023, 13:05
 Description: Contains variables for attacks passed out of main files to debug ones.
 */
 using UnityEngine;

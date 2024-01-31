@@ -1,3 +1,11 @@
+/*
+FileName : GroundChecker.cs 
+Namespace: Player.Movement
+FileType : C# Source File
+Author : Christopher Huskinson
+Created On : 24th January 2024, 11:15
+Description : Script to check if player is on the ground via a trigger.
+*/
 using JetBrains.Annotations;
 using UnityEngine;
 using System.Collections.Generic;

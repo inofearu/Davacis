@@ -1,8 +1,9 @@
 ﻿/*
 FileName : AttackInfo.cs 
+Namespace: gDebug.Parameters
 FileType : C# Source File
 Author : Christopher Huskinson
-Created On : 16th January 2023, 13:05:00
+Created On : 9th January 2024, 13:23
 Description : Contains variables for attacks passed out of main files to debug ones.
 */
 using UnityEngine;

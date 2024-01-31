@@ -1,14 +1,17 @@
 /*
 FileName : MeleeAttack.cs 
+Namespace: Player.Attack
 FileType : C# Source File
 Author : Christopher Huskinson
-Created On : 31 August 2023, 16:47:15
+Created On : 31 August 2023, 16:47
 Description : Script to handle player sword.
 */
 using JetBrains.Annotations;
 using System.Collections.Generic;
 using UnityEngine;
 using gDebug.Parameters;
+using Item;
+using Game.Damage;
 
 namespace Player.Attack
 {
