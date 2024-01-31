@@ -85,7 +85,7 @@ namespace Player
             get => level;
             set
             {
-                level += value;
+                level = value;
             }
         }
         public float MaxHealth
