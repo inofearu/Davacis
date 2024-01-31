@@ -10,6 +10,7 @@ using JetBrains.Annotations;
 using UnityEngine;
 using Player.Attack;
 using Player.Movement;
+using Player;
 using gDebug.Parameters;
 
 namespace gDebug
@@ -19,6 +20,7 @@ namespace gDebug
         private MeleeAttack playerMeleeAttack;
         private Mover playerMovement;
         private GroundChecker playerMovementGroundChecker;
+        private Stats playerStats;
 
         private OverlapSphereVisualiser overlapSphereVisualiser;
         private SphereCastVisualiser sphereCastVisualiser;
@@ -33,12 +35,15 @@ namespace gDebug
         public bool raycastDrawEnabled;
         public bool movementPrintEnabled;
         public bool movementDrawEnabled;
+        public bool levelUp;
+        public bool levelDown;
         [UsedImplicitly]
         private void Awake()
         {
             playerMeleeAttack = GetComponent<MeleeAttack>();
             playerMovement = GetComponent<Mover>();
             playerMovementGroundChecker = playerMovementGroundCheckObject.GetComponent<GroundChecker>();
+            playerStats = GetComponent<Stats>();
 
             overlapSphereVisualiser = GetComponent<OverlapSphereVisualiser>();
             sphereCastVisualiser = GetComponent<SphereCastVisualiser>();
@@ -143,6 +148,16 @@ namespace gDebug
                 playerMovementGroundCheckAreaMeshRenderer.material.color = color;
             }
             playerMovementGroundCheckAreaMeshRenderer.enabled = movementDrawEnabled; // set 
+            if (levelUp)
+            {
+                playerStats.Level ++;
+                levelUp = false;
+            }
+            else if (levelDown)
+            {
+                playerStats.Level --;
+                levelDown = false;
+            }
         }
     }
 }
