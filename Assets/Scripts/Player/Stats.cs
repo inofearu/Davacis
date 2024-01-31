@@ -16,7 +16,7 @@ namespace Player
         [SerializeField] private UI playerUI;
         public static Stats instance { get; private set; } // instance can be gotten from outside, but not set
         private int xp;
-        public int level;
+        private int level;
         private int xpToNextLevel = 10;
         [SerializeField] private float xpScale = 1.2f;
         [UsedImplicitly]
