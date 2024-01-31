@@ -57,7 +57,24 @@ namespace gDebug
             GUILayout.Label("Player Movement:");
             playerManager.movementDrawEnabled = GUILayout.Toggle(playerManager.movementDrawEnabled, "Toggle movement drawing");
             playerManager.movementPrintEnabled = GUILayout.Toggle(playerManager.movementPrintEnabled, "Toggle movement printing");
-            GUI.DragWindow();
+            GUILayout.Label("Level:");
+            if (GUILayout.Button("Level up"))
+            {
+                playerManager.levelUp = true;
+            }
+            else
+            {
+                playerManager.levelUp = false;
+            }
+            if (GUILayout.Button("Level down"))
+            {
+                playerManager.levelDown = true;
+            }
+            else
+            {
+                playerManager.levelDown = false;
+            }
+                GUI.DragWindow();
         }
     }
 }

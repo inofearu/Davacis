@@ -15,8 +15,8 @@ namespace Player
     {
         [SerializeField] private UI playerUI;
         public static Stats instance { get; private set; } // instance can be gotten from outside, but not set
-        private int currentXP;
-        private int currentLevel;
+        private int xp;
+        public int level;
         private int xpToNextLevel = 10;
         [SerializeField] private float xpScale = 1.2f;
         [UsedImplicitly]
@@ -24,7 +24,7 @@ namespace Player
         {
             base.Awake();
             CreateInstance();
-            playerUI.UpdateXPDisplay(currentLevel, currentXP, xpToNextLevel);
+            playerUI.UpdateXPDisplay(level, xp, xpToNextLevel);
             playerUI.UpdateHPDisplay(Health, MaxHealth);
         }
         public override float Health
@@ -65,27 +65,27 @@ namespace Player
             }
             DontDestroyOnLoad(gameObject);
         }
-        public int CurrentXP
+        public int XP
         {
-            get => currentXP;
+            get => xp;
             set
             {
-                currentXP += value;
-                while (xpToNextLevel < currentXP)
+                xp += value;
+                while (xpToNextLevel < xp)
                 {
-                    currentXP -= xpToNextLevel;
-                    currentLevel++;
+                    xp -= xpToNextLevel;
+                    level++;
                     xpToNextLevel = (int)(xpToNextLevel * xpScale);
                 }
-                playerUI.UpdateXPDisplay(currentLevel, currentXP, xpToNextLevel);
+                playerUI.UpdateXPDisplay(level, xp, xpToNextLevel);
             }
         }
-        public int CurrentLevel
+        public int Level
         {
-            get => CurrentLevel;
+            get => level;
             set
             {
-                currentLevel += value;
+                level = value;
             }
         }
         public float MaxHealth
@@ -99,7 +99,7 @@ namespace Player
         private void EnemyKilled(Enemy.Stats enemy)
         {
             Debug.Log("Enemy killed - Player Stats");
-            CurrentXP += enemy.xpValue;
+            xp += enemy.xpValue;
         }
     }
 }
