@@ -8,6 +8,7 @@ Description : Script to handle player stats, is a singleton.
 */
 using JetBrains.Annotations;
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace Player
 {
@@ -18,7 +19,10 @@ namespace Player
         private int xp;
         private int level;
         private int xpToNextLevel = 10;
+        private float multiplier = 0.8f;
         [SerializeField] private float xpScale = 1.2f;
+
+        private List<int> davacis;
         [UsedImplicitly]
         new private void Awake()
         {
@@ -26,6 +30,9 @@ namespace Player
             CreateInstance();
             playerUI.UpdateXPDisplay(level, xp, xpToNextLevel);
             playerUI.UpdateHPDisplay(Health, MaxHealth);
+
+            davacis = new List<int>() { 0, 0, 0, 0, 0, 0, 0 }; // TODO: this will need to change to load in the future
+            // Dexterity, Arcana, Vitality, Awareness, Charisma, Intelligence and Strength
         }
         public override float Health
         {
@@ -101,6 +108,33 @@ namespace Player
         {
             Debug.Log("Enemy killed - Player Stats");
             xp += enemy.xpValue;
+        }
+
+        private void StatUp(List<int> old, int balance)
+        {
+            int chosenStat = 2; //! PLACEHOLDER
+            List<int> costs = new List<int> { };
+            List<bool> affordability = new List<bool> { };
+            foreach (int stat in old)
+            {
+                int cost = Mathf.RoundToInt(stat * multiplier);
+                if (cost == 0)
+                {
+                    cost = 1;
+                }
+                costs.Add(cost);
+                bool affordable = true;
+                if (cost > balance)
+                {
+                    affordable = false;
+                }
+                affordability.Add(affordable);
+            }
+        }
+
+        private void LevelUp()
+        {
+               
         }
     }
 }
